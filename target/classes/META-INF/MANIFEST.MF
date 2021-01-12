@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: org.astdea.io.inputoutput.TerminalExecutor
+Class-Path: lib/commons-io-2.2.jar lib/jcommander-1.60.jar lib/commons-c
+ sv-1.4.jar lib/commons-collections4-4.4.jar lib/commons-text-1.8.jar li
+ b/commons-lang-2.6.jar lib/commons-math3-3.6.1.jar lib/psjava-0.1.19.ja
+ r arcan-1.2.1-modded.jar
+
