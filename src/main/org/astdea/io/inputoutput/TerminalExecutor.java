@@ -5,6 +5,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.StringConverter;
 import org.apache.commons.text.WordUtils;
 import org.astdea.data.Project;
+import org.astdea.io.output.LogUtil;
 import org.astdea.io.output.printer.MainPrinter;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class TerminalExecutor
         "Only output results of the modded features (td, supercycle CDs, etc.)")
     private static boolean _suppressNonAsTdEvolution = true;
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, InterruptedException
     {
         TerminalExecutor tt = new TerminalExecutor();
         JCommander commander = new JCommander(tt);
@@ -41,7 +42,7 @@ public class TerminalExecutor
         else {tt.run();}
     }
 
-    private void run() throws IOException
+    private void run() throws IOException, InterruptedException
     {
         System.out.println("Get help with -help");
         File directory = new File(_inDir);
@@ -53,13 +54,15 @@ public class TerminalExecutor
                 if (file.isDirectory())
                 {
                     String projectName = file.getName();
-                    String projectIn = IOUtils.makeFilePath(_inDir,projectName);
-                    String projectOut = IOUtils.makeFilePath(_outDir,projectName);
+                    LogUtil.log("Began analysis of project " + projectName + ".");
+                    String projectIn = IOUtils.makeFilePath(_inDir, projectName);
+                    String projectOut = IOUtils.makeFilePath(_outDir, projectName);
                     ArcanRunner arcanRunner = new ArcanRunner
-                        (projectOut, projectIn, suppressNonAsTdEvolutionArg);
-                    int versionCount = arcanRunner.analyseAllVersions();
-                    Project project = new Project(projectIn, projectOut, versionCount).build();
-                    new MainPrinter(projectOut, project).printAll();
+                        (projectName, projectOut, projectIn, suppressNonAsTdEvolutionArg);
+                    String[] versionNames = arcanRunner.analyseAllVersions();
+                    Project project = new Project(projectIn, projectOut, versionNames.length).build();
+                    new MainPrinter(projectOut, project, versionNames).printAll();
+                    LogUtil.log("Finished analysis of project " + projectName + ".");
                 }
             }
         }
@@ -86,8 +89,8 @@ public class TerminalExecutor
             "For example: If a project named \"MyProject\" shall be analysed " +
             "and the input folder is the default \"in\", " +
             "insert the jars in the folder \"in/MyProject\". " +
-            "The jars have to look like \"[anyText][version number].jar\", " +
-            "with the version number for example being \"1\", \"3.5\" or \"10.7.11\". " +
+            "The jars have to look like \"[anyText]-[version number].jar\", " +
+            "with the version number for example being \"1\", \"3.5\", \"10.7.11\", \"1.2a\", \"1.a\"." +
             "In addition, for each project, you have to provide two files with additional metadata for the analysis. " +
             "These are \"date.csv\" and \"loc.csv\" and must be put in the same folder as the jars. " +
             "Examples for their structure are given below. " +

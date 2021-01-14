@@ -14,6 +14,7 @@ public final class IOFN
     public static final String FILE_UDS_COMPS = AsTdEvolutionPrinter.FILE_UDS_COMPS;
     public static final String FILE_UDS_PROPS = AsTdEvolutionPrinter.FILE_UDS_PROPS;
     public static final String FILE_PROJECT = AsTdEvolutionPrinter.FILE_PROJECT;
+    public static final String FILE_VERSION_NAMES = "VersionNames.csv";
 
     private IOFN() {}
 }

@@ -19,9 +19,9 @@ public final class IOUtils
         new File(fullName).mkdirs();
     }
 
-    public static Set<String> parseStringToSet(String input, String regrex)
+    public static Set<String> parseStringToSet(String input, String delimiter)
     {
-        return new HashSet<>(Arrays.asList(input.split(regrex)));
+        return new HashSet<>(Arrays.asList(input.split(delimiter)));
     }
 
     public static String makeFilePath(String... elements)

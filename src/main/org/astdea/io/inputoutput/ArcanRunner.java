@@ -16,34 +16,46 @@ public class ArcanRunner
 {
     private final static PrintStream nullOutputStream = new PrintStream(OutputStream.nullOutputStream());
 
+    private String projectName;
     private String outDir;
     private String inDir;
     private String suppressNonAsTdEvolutionArg;
 
-    public ArcanRunner(String generalOutDir, String inDir, String suppressNonAsTdEvolutionArg)
+    public ArcanRunner(String projectName, String generalOutDir, String inDir, String suppressNonAsTdEvolutionArg)
     {
+        this.projectName = projectName;
         this.outDir = IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION);
         this.inDir = inDir;
         this.suppressNonAsTdEvolutionArg = suppressNonAsTdEvolutionArg;
     }
 
-    public int analyseAllVersions() throws IOException
+    public String[] analyseAllVersions() throws IOException, InterruptedException
     {
         IOUtils.makeDir(outDir);
-        List<String> jars = retrieveVersions();
-        if (jars != null)
+        String[] versionNames = retrieveVersions();
+        ArcanVersionRunner.resetTotalVersionsAnalysed();
+        if (versionNames != null)
         {
-            Integer[] locs = LocReader.retrieveLocs(inDir, jars.size());
-            for (int i = 0; i < jars.size(); i++)
+            int versionCount = versionNames.length;
+            Thread[] threads = new Thread[versionCount];
+            Integer[] locs = LocReader.retrieveLocs(inDir, versionCount);
+            // Disable any console output from Arcan and its usage of other libs (still shows errors)
+            System.setOut(nullOutputStream);
+            for (int versionId = 0; versionId < versionCount; versionId++)
             {
-                analyseVersion(jars.get(i), i, locs[i]);
+                threads[versionId] = analyseVersion(
+                    versionNames[versionId], projectName, versionId, versionCount, locs[versionId]);
             }
-            return jars.size();
+            for (Thread thread : threads)
+            {
+                thread.join();
+            }
+            System.setOut(System.out);
         }
-        return 0;
+        return versionNames;
     }
 
-    private List<String> retrieveVersions()
+    private String[] retrieveVersions()
     {
         File inFolder = new File(inDir);
         File[] files = inFolder.listFiles();
@@ -58,12 +70,12 @@ public class ArcanRunner
             String fileName = file.getName();
             if (FilenameUtils.getExtension(fileName).equals("jar"))
             {
-                jars.add(fileName);
+                jars.add(FilenameUtils.getName(fileName));
             }
         }
         FilenameComparator comparator = new FilenameComparator();
         jars.sort(comparator);
-        return jars;
+        return jars.toArray(new String[0]);
     }
 
     public static String getArcanOutFolder(String generalOutDir, int version)
@@ -71,20 +83,11 @@ public class ArcanRunner
         return IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION, String.valueOf(version));
     }
 
-    private void analyseVersion(String filename, int version, int loc)
+    private Thread analyseVersion(String filename, String projectName, int versionId, int versionCount, int loc)
     {
-        String localOutDir = IOUtils.makeFilePath(outDir, String.valueOf(version));
-        IOUtils.makeDir(localOutDir);
-        String[] arcanArgs =
-            {
-                "-p", IOUtils.makeFilePath(inDir, filename), "-jr",
-                "-out", localOutDir, "-all",
-                "-loc", String.valueOf(loc), "-asTdEvolution",
-                suppressNonAsTdEvolutionArg, "-mute"
-            };
-        // Disable any console output from Arcan and its usage of other libs (still shows errors)
-        System.setOut(nullOutputStream);
-        it.unimib.disco.essere.main.TerminalExecutor.main(arcanArgs);
-        System.setOut(System.out);
+        ArcanVersionRunner versionRunner = new ArcanVersionRunner
+            (inDir, outDir, suppressNonAsTdEvolutionArg, filename, projectName, versionId, versionCount, loc);
+        versionRunner.start();
+        return versionRunner;
     }
 }

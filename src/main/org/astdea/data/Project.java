@@ -172,18 +172,18 @@ public class Project
     {
         return switch (fieldName)
             {
-                case OPN.PROPERTY_ANALYSED_VERSIONS -> analysedVersions;
-                case OPN.PROPERTY_ANALYSED_TIME_SPAN -> analysedTimeSpanInDays;
-                case OPN.PROPERTY_NUM_OF_INTRA_VERSION_SMELLS -> numOfIntraVersionSmells;
-                case OPN.PROPERTY_NUM_OF_INTRA_VERSION_CLASS_CDS -> numOfIntraVersionClassCDs;
-                case OPN.PROPERTY_NUM_OF_INTRA_VERSION_PACK_CDS -> numOfIntraVersionPackCDs;
-                case OPN.PROPERTY_NUM_OF_INTRA_VERSION_HDS -> numOfIntraVersionHDs;
-                case OPN.PROPERTY_NUM_OF_INTRA_VERSION_UDS -> numOfIntraVersionUDs;
-                case OPN.PROPERTY_NUM_OF_INTER_VERSION_SMELLS -> numOfInterVersionSmells;
-                case OPN.PROPERTY_NUM_OF_INTER_VERSION_CLASS_CDS -> numOfInterVersionClassCDs;
-                case OPN.PROPERTY_NUM_OF_INTER_VERSION_PACK_CDS -> numOfInterVersionPackCDs;
-                case OPN.PROPERTY_NUM_OF_INTER_VERSION_HDS -> numOfInterVersionHDs;
-                case OPN.PROPERTY_NUM_OF_INTER_VERSION_UDS -> numOfInterVersionUDs;
+                case OPN.ANALYSED_VERSIONS -> analysedVersions;
+                case OPN.ANALYSED_TIME_SPAN -> analysedTimeSpanInDays;
+                case OPN.NUM_OF_INTRA_VERSION_SMELLS -> numOfIntraVersionSmells;
+                case OPN.NUM_OF_INTRA_VERSION_CLASS_CDS -> numOfIntraVersionClassCDs;
+                case OPN.NUM_OF_INTRA_VERSION_PACK_CDS -> numOfIntraVersionPackCDs;
+                case OPN.NUM_OF_INTRA_VERSION_HDS -> numOfIntraVersionHDs;
+                case OPN.NUM_OF_INTRA_VERSION_UDS -> numOfIntraVersionUDs;
+                case OPN.NUM_OF_INTER_VERSION_SMELLS -> numOfInterVersionSmells;
+                case OPN.NUM_OF_INTER_VERSION_CLASS_CDS -> numOfInterVersionClassCDs;
+                case OPN.NUM_OF_INTER_VERSION_PACK_CDS -> numOfInterVersionPackCDs;
+                case OPN.NUM_OF_INTER_VERSION_HDS -> numOfInterVersionHDs;
+                case OPN.NUM_OF_INTER_VERSION_UDS -> numOfInterVersionUDs;
                 default -> null;
             };
     }

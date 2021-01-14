@@ -37,6 +37,8 @@ public class CdDeltaCalculator
                 updateIntrosForIntrasAfterSplit(versionId, graph);
                 transferWeights(graph);
             }
+            // Not necessary for calculations, but for correct printing results in interVersion/xCdComponents.csv
+            initWeightsInVersion(intrasOfInter, intrasOfInter.size() - 1);
         }
         calcRemovs();
         return deltas;

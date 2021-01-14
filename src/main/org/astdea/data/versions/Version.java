@@ -7,6 +7,7 @@ import org.astdea.data.smells.Level;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionHd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
+import org.astdea.data.versions.initialising.VersionSmellsInitialiser;
 import org.astdea.io.input.CsvReadingUtils;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.ArcanRunner;
@@ -75,7 +76,7 @@ public class Version
 
     private void initVersionProps() throws IOException
     {
-        String[] headers = AsTdEvolutionPrinter.getProjectMetricsHeaders();
+        String[] headers = AsTdEvolutionPrinter.projectMetricsHeaders;
         String projectFile = IOUtils.makeFilePath(outDir, IOFN.FILE_PROJECT);
         CSVParser records = CsvReadingUtils.initCsvParser(projectFile, headers);
         CSVRecord record = records.getRecords().get(0);

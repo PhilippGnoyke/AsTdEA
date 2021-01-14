@@ -21,7 +21,7 @@ public class IntraVersionCd extends IntraVersionSmell
 
     public int getRemovalWeight() {return removalWeight;}
 
-    public void addRemovalWeight(int weight) {removalWeight += removalWeight;}
+    public void addRemovalWeight(int weight) {removalWeight += weight;}
 }
 
 

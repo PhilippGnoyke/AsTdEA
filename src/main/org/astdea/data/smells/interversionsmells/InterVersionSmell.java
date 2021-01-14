@@ -54,17 +54,17 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
     {
         return switch (fieldName)
             {
-                case OPN.PROPERTY_ID -> smellId;
-                case OPN.PROPERTY_VERSION_OF_INTRODUCTION -> versionOfIntroduction;
-                case OPN.PROPERTY_TIME_OF_INTRODUCTION -> timeOfIntroduction;
-                case OPN.PROPERTY_VERSION_OF_REMOVAL -> versionOfRemoval;
-                case OPN.PROPERTY_TIME_OF_REMOVAL -> timeOfRemoval;
-                case OPN.PROPERTY_LIFE_SPAN_IN_VERSIONS -> lifeSpanInVersions;
-                case OPN.PROPERTY_LIFE_SPAN_IN_DAYS -> lifeSpanInDays;
-                case OPN.PROPERTY_VERSION_ORIENTED_RELATIVE_LIFESPAN -> versionOrientedRelativeLifespan;
-                case OPN.PROPERTY_TIME_ORIENTED_RELATIVE_LIFESPAN -> timeOrientedRelativeLifespan;
-                case OPN.PROPERTY_PRESENT_IN_FIRST_VERSION -> presentInFirstVersion;
-                case OPN.PROPERTY_PRESENT_IN_LAST_VERSION -> presentInLastVersion;
+                case OPN.ID -> smellId;
+                case OPN.VERSION_OF_INTRODUCTION -> versionOfIntroduction;
+                case OPN.TIME_OF_INTRODUCTION -> timeOfIntroduction;
+                case OPN.VERSION_OF_REMOVAL -> versionOfRemoval;
+                case OPN.TIME_OF_REMOVAL -> timeOfRemoval;
+                case OPN.LIFE_SPAN_IN_VERSIONS -> lifeSpanInVersions;
+                case OPN.LIFE_SPAN_IN_DAYS -> lifeSpanInDays;
+                case OPN.VERSION_ORIENTED_RELATIVE_LIFESPAN -> versionOrientedRelativeLifespan;
+                case OPN.TIME_ORIENTED_RELATIVE_LIFESPAN -> timeOrientedRelativeLifespan;
+                case OPN.PRESENT_IN_FIRST_VERSION -> presentInFirstVersion;
+                case OPN.PRESENT_IN_LAST_VERSION -> presentInLastVersion;
                 default -> null;
             };
     }

@@ -1,44 +1,129 @@
 package org.astdea.io.input;
 
-import java.math.BigInteger;
-import java.util.Comparator;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.math.NumberUtils;
 
-// From https://stackoverflow.com/a/48946673
+import java.util.Comparator;
 
 public final class FilenameComparator implements Comparator<String>
 {
-    private static final Pattern NUMBERS =
-        Pattern.compile("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+    private static final int EQUAL = 0;
+    private static final int A_IS_LATER = 1;
+    private static final int B_IS_LATER = -1;
+
+    private static final String TEXT_NUM_SPLITTER = "(?<=\\d)(?=\\D)";
 
     @Override
-    public final int compare(String o1, String o2)
+    public final int compare(String fileA, String fileB)
     {
-        // Optional "NULLS LAST" semantics:
-        if (o1 == null || o2 == null)
-        { return o1 == null ? o2 == null ? 0 : -1 : 1; }
-        // Splitting both input strings by the above patterns
-        String[] split1 = NUMBERS.split(o1);
-        String[] split2 = NUMBERS.split(o2);
-        for (int i = 0; i < Math.min(split1.length, split2.length); i++)
+        String versionA = extractVersionNumber(fileA);
+        String versionB = extractVersionNumber(fileB);
+
+        // Scenario: total equality (should not happen for correct input)
+        if (versionA.equals(versionB))
         {
-            char c1 = split1[i].charAt(0);
-            char c2 = split2[i].charAt(0);
-            int cmp = 0;
-            // If both segments start with a digit, sort them numerically using
-            // BigInteger to stay safe
-            if (c1 >= '0' && c1 <= '9' && c2 >= '0' && c2 <= '9')
-            { cmp = new BigInteger(split1[i]).compareTo(new BigInteger(split2[i])); }
-            // If we haven't sorted numerically before, or if numeric sorting yielded
-            // equality (e.g 007 and 7) then sort lexicographically
-            if (cmp == 0)
-            { cmp = split1[i].compareTo(split2[i]); }
-            // Abort once some prefix has unequal ordering
-            if (cmp != 0)
-            { return cmp; }
+            return EQUAL;
         }
-        // If we reach this, then both strings have equally ordered prefixes, but
-        // maybe one string is longer than the other (i.e. has more segments)
-        return split1.length - split2.length;
+
+        String[] partsA = versionA.split("\\.");
+        String[] partsB = versionB.split("\\.");
+
+        int partCountA = partsA.length;
+        int partCountB = partsB.length;
+
+        int maxParts = Math.max(partCountA, partCountB);
+        for (int i = 0; i < maxParts; i++)
+        {
+            // Scenario: one version has more remaining parts and the other none
+            // -> assume that more parts imply a later version.
+            if (i >= partCountA) {return B_IS_LATER;}
+            if (i >= partCountB) {return A_IS_LATER;}
+
+            String[] subpartsA = partsA[i].split(TEXT_NUM_SPLITTER);
+            String[] subpartsB = partsB[i].split(TEXT_NUM_SPLITTER);
+
+            String firstSubpartA = subpartsA[0];
+            String firstSubpartB = subpartsB[0];
+
+            if (NumberUtils.isParsable(firstSubpartA))
+            {
+                if (NumberUtils.isParsable(firstSubpartB))
+                {
+                    // Scenario: one version has a higher number at the current part -> it is a later version.
+                    // If both numbers are the same, continue.
+                    int numComp = Integer.compare(Integer.parseInt(firstSubpartA), Integer.parseInt(firstSubpartB));
+                    if (numComp != 0) {return numComp;}
+                }
+                // Scenario: one version has a number and the other a letter at the current part
+                // -> assume that letters imply an earlier version (e.g. alpha)
+                else {return A_IS_LATER;}
+            }
+            // Scenario: one version has a number and the other a letter at the current part
+            // -> assume that letters imply an earlier version (e.g. alpha)
+            else if (NumberUtils.isParsable(firstSubpartB))
+            {
+                return B_IS_LATER;
+            }
+            else
+            {
+                // Scenario: both versions only have text -> compare text
+                // If both texts are the same, continue.
+                int textComp = firstSubpartA.compareTo(firstSubpartB);
+                if (textComp != 0) {return textComp;}
+            }
+
+            if (partCountA != partCountB)
+            {
+                // Scenario: both were equal so far, but one has remaining parts and the other not
+                // -> assume that more parts imply a later version.
+                if (i + 1 >= partCountA) {return B_IS_LATER;}
+                if (i + 1 >= partCountB) {return A_IS_LATER;}
+            }
+
+            if (subpartsA.length > 1)
+            {
+                if (subpartsB.length > 1)
+                {
+                    // Scenario: both versions have the same number plus text -> compare text
+                    // If both texts are the same, continue.
+                    int textComp = subpartsA[1].compareTo(subpartsB[1]);
+                    if (textComp != 0) {return textComp;}
+                }
+                // Scenario: one version has additional letters at the end and the other not
+                // -> assume that letters imply an earlier version (e.g. alpha)
+                else {return B_IS_LATER;}
+            }
+            // Scenario: one version has additional letters at the end and the other not
+            // -> assume that letters imply an earlier version (e.g. alpha)
+            else if (subpartsB.length > 1) {return A_IS_LATER;}
+        }
+        return EQUAL;
+    }
+
+    /*
+     * Can extract version numbers from file names like:
+     * project1.jar
+     * project1.1.jar
+     * project1.1.1.jar (etc.)
+     * project1.1a.jar
+     * project-1a.jar (hyphen required for version numbers with letters and without dots)
+     */
+    private static String extractVersionNumber(String input)
+    {
+        int lastDotInd = input.lastIndexOf(".");
+        int firstIndOfVerNum = input.indexOf(".");
+        while (Character.isDigit(input.charAt(firstIndOfVerNum - 1)))
+        {
+            firstIndOfVerNum--;
+        }
+        String sub = input.substring(firstIndOfVerNum, lastDotInd);
+        if (sub.length() > 0)
+        {
+            return sub;
+        }
+        else
+        {
+            String subOtherPart = input.substring(0, firstIndOfVerNum - 1);
+            return input.substring(subOtherPart.lastIndexOf("-") + 1, lastDotInd);
+        }
     }
 }

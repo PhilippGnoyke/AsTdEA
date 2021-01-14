@@ -4,6 +4,9 @@
     <root id="root">
       <element id="archive" name="AsTdEA.jar">
         <element id="module-output" name="AsTdEA" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/resources/META-INF/MANIFEST.MF" />
+        </element>
       </element>
       <element id="directory" name="lib">
         <element id="library" level="project" name="Maven: com.beust:jcommander:1.60" />
@@ -15,6 +18,7 @@
         <element id="library" level="project" name="commons-lang-2.6" />
         <element id="library" level="project" name="commons-math3-3.6.1" />
         <element id="library" level="project" name="org.psjava:psjava:0.1.19" />
+        <element id="library" level="project" name="junit:junit:4.12" />
       </element>
     </root>
   </artifact>

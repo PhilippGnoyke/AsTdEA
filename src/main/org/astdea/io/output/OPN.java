@@ -5,23 +5,23 @@ public final class OPN
     private OPN() {}
 
     // InterVersionSmell
-    public final static String PROPERTY_ID = "id";
-    public final static String PROPERTY_VERSION_OF_INTRODUCTION = "versionOfIntroduction";
-    public final static String PROPERTY_TIME_OF_INTRODUCTION = "timeOfIntroduction";
-    public final static String PROPERTY_VERSION_OF_REMOVAL = "versionOfRemoval";
-    public final static String PROPERTY_TIME_OF_REMOVAL = "timeOfRemoval";
-    public final static String PROPERTY_LIFE_SPAN_IN_VERSIONS = "lifeSpanInVersions";
-    public final static String PROPERTY_LIFE_SPAN_IN_DAYS = "lifeSpanInDays";
-    public final static String PROPERTY_VERSION_ORIENTED_RELATIVE_LIFESPAN = "versionOrientedRelativeLifespan";
-    public final static String PROPERTY_TIME_ORIENTED_RELATIVE_LIFESPAN = "timeOrientedRelativeLifespan";
-    public final static String PROPERTY_PRESENT_IN_FIRST_VERSION = "presentInFirstVersion";
-    public final static String PROPERTY_PRESENT_IN_LAST_VERSION = "presentInLastVersion";
-    public static final String INTRA_IDS = "intraVersionSmellIds";
+    public final static String ID = "id";
+    public final static String VERSION_OF_INTRODUCTION = "versionOfIntroduction";
+    public final static String TIME_OF_INTRODUCTION = "timeOfIntroduction";
+    public final static String VERSION_OF_REMOVAL = "versionOfRemoval";
+    public final static String TIME_OF_REMOVAL = "timeOfRemoval";
+    public final static String LIFE_SPAN_IN_VERSIONS = "lifeSpanInVersions";
+    public final static String LIFE_SPAN_IN_DAYS = "lifeSpanInDays";
+    public final static String VERSION_ORIENTED_RELATIVE_LIFESPAN = "versionOrientedRelativeLifespan";
+    public final static String TIME_ORIENTED_RELATIVE_LIFESPAN = "timeOrientedRelativeLifespan";
+    public final static String PRESENT_IN_FIRST_VERSION = "presentInFirstVersion";
+    public final static String PRESENT_IN_LAST_VERSION = "presentInLastVersion";
+    public static final String INTRA_IDS = "intraVersionSmells(versionId.smellId-removalWeight)";
 
     // InterVersionCd
-    public final static String PROPERTY_FAMILY_ORDER = "familyOrder";
-    public final static String PROPERTY_MEDIAN_FAMILY_WIDTH = "medianFamilyWidth";
-    public final static String PROPERTY_MAX_FAMILY_WIDTH = "maxFamilyWidth";
+    public final static String FAMILY_ORDER = "familyOrder";
+    public final static String MEDIAN_FAMILY_WIDTH = "medianFamilyWidth";
+    public final static String MAX_FAMILY_WIDTH = "maxFamilyWidth";
     public static final String CD_EDGES = "edges";
 
     // Version
@@ -61,16 +61,20 @@ public final class OPN
     public final static String UD_REMOVS_PER_PACK = "udRemovalsPerPackage";
 
     // Project
-    public static final String PROPERTY_ANALYSED_VERSIONS = "analysedVersions";
-    public static final String PROPERTY_ANALYSED_TIME_SPAN = "analysedTimeSpanInDays";
-    public static final String PROPERTY_NUM_OF_INTER_VERSION_SMELLS = "numOfInterVersionSmells";
-    public static final String PROPERTY_NUM_OF_INTRA_VERSION_CLASS_CDS = "numOfIntraVersionClassCDs";
-    public static final String PROPERTY_NUM_OF_INTRA_VERSION_PACK_CDS = "numOfIntraVersionPackCDs";
-    public static final String PROPERTY_NUM_OF_INTRA_VERSION_HDS = "numOfIntraVersionHDs";
-    public static final String PROPERTY_NUM_OF_INTRA_VERSION_UDS = "numOfIntraVersionUDs";
-    public static final String PROPERTY_NUM_OF_INTRA_VERSION_SMELLS = "numOfIntraVersionSmells";
-    public static final String PROPERTY_NUM_OF_INTER_VERSION_CLASS_CDS = "numOfInterVersionClassCDs";
-    public static final String PROPERTY_NUM_OF_INTER_VERSION_PACK_CDS = "numOfInterVersionPackCDs";
-    public static final String PROPERTY_NUM_OF_INTER_VERSION_HDS = "numOfInterVersionHDs";
-    public static final String PROPERTY_NUM_OF_INTER_VERSION_UDS = "numOfInterVersionUDs";
+    public static final String ANALYSED_VERSIONS = "analysedVersions";
+    public static final String ANALYSED_TIME_SPAN = "analysedTimeSpanInDays";
+    public static final String NUM_OF_INTER_VERSION_SMELLS = "numOfInterVersionSmells";
+    public static final String NUM_OF_INTRA_VERSION_CLASS_CDS = "numOfIntraVersionClassCDs";
+    public static final String NUM_OF_INTRA_VERSION_PACK_CDS = "numOfIntraVersionPackCDs";
+    public static final String NUM_OF_INTRA_VERSION_HDS = "numOfIntraVersionHDs";
+    public static final String NUM_OF_INTRA_VERSION_UDS = "numOfIntraVersionUDs";
+    public static final String NUM_OF_INTRA_VERSION_SMELLS = "numOfIntraVersionSmells";
+    public static final String NUM_OF_INTER_VERSION_CLASS_CDS = "numOfInterVersionClassCDs";
+    public static final String NUM_OF_INTER_VERSION_PACK_CDS = "numOfInterVersionPackCDs";
+    public static final String NUM_OF_INTER_VERSION_HDS = "numOfInterVersionHDs";
+    public static final String NUM_OF_INTER_VERSION_UDS = "numOfInterVersionUDs";
+
+    // VersionNames
+    public static final String VERSION_ID = "versionId";
+    public static final String VERSION_NAME = "versionName";
 }

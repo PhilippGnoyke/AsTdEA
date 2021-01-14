@@ -36,9 +36,9 @@ public class InterVersionCd extends InterVersionSmell<List<Set<IntraVersionCd>>>
     {
         return switch (fieldName)
             {
-                case OPN.PROPERTY_FAMILY_ORDER -> familyOrder;
-                case OPN.PROPERTY_MEDIAN_FAMILY_WIDTH -> medianFamilyWidth;
-                case OPN.PROPERTY_MAX_FAMILY_WIDTH -> maxFamilyWidth;
+                case OPN.FAMILY_ORDER -> familyOrder;
+                case OPN.MEDIAN_FAMILY_WIDTH -> medianFamilyWidth;
+                case OPN.MAX_FAMILY_WIDTH -> maxFamilyWidth;
                 default -> super.get(fieldName);
             };
     }
