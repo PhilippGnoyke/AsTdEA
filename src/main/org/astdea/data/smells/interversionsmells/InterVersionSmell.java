@@ -1,6 +1,5 @@
 package org.astdea.data.smells.interversionsmells;
 
-import org.astdea.data.versions.VersionTimeManager;
 import org.astdea.io.output.OPN;
 
 import java.time.LocalDate;
@@ -39,15 +38,15 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
 
     private void calcAndInitSmellProps()
     {
-        timeOfIntroduction = VersionTimeManager.getVersionTime(versionOfIntroduction);
+        timeOfIntroduction = TimeManager.getVersionTime(versionOfIntroduction);
         versionOfRemoval = versionOfIntroduction + intraVersionSmells.size();
-        timeOfRemoval = VersionTimeManager.getVersionTime(versionOfRemoval);
+        timeOfRemoval = TimeManager.getVersionTime(versionOfRemoval);
         lifeSpanInVersions = versionOfRemoval - versionOfIntroduction;
         lifeSpanInDays = Period.between(timeOfIntroduction, timeOfRemoval).getDays();
-        versionOrientedRelativeLifespan = (double) lifeSpanInVersions / VersionTimeManager.getAnalysedTimeSpanInVersions();
-        timeOrientedRelativeLifespan = (double) lifeSpanInDays / VersionTimeManager.getAnalysedTimeSpanInDays();
+        versionOrientedRelativeLifespan = (double) lifeSpanInVersions / TimeManager.getAnalysedTimeSpanInVersions();
+        timeOrientedRelativeLifespan = (double) lifeSpanInDays / TimeManager.getAnalysedTimeSpanInDays();
         presentInFirstVersion = (versionOfIntroduction == 0);
-        presentInLastVersion = (versionOfRemoval == VersionTimeManager.getAnalysedTimeSpanInVersions());
+        presentInLastVersion = (versionOfRemoval == TimeManager.getAnalysedTimeSpanInVersions());
     }
 
     public Object get(String fieldName)

@@ -5,7 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.IOFN;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 
 import java.util.Set;
 

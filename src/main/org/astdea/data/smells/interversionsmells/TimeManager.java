@@ -1,4 +1,4 @@
-package org.astdea.data.versions;
+package org.astdea.data.smells.interversionsmells;
 
 import org.astdea.io.input.DateReader;
 import org.astdea.utils.MathUtils;
@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 
-public final class VersionTimeManager
+public final class TimeManager
 {
-    private VersionTimeManager() {}
+    private TimeManager() {}
 
     private static LocalDate[] versionTimes;
     private static double[] timeSpans;

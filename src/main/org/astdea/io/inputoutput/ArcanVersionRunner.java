@@ -1,5 +1,6 @@
 package org.astdea.io.inputoutput;
 
+import org.astdea.io.IOUtils;
 import org.astdea.io.output.LogUtil;
 
 public class ArcanVersionRunner extends Thread

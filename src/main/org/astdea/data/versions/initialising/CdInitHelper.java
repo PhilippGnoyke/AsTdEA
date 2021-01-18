@@ -6,7 +6,7 @@ import org.astdea.data.smells.Level;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.IOFN;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 
 import java.util.Set;
 

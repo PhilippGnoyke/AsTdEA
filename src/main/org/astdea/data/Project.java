@@ -1,13 +1,9 @@
 package org.astdea.data;
 
 import org.astdea.data.smells.Level;
-import org.astdea.data.smells.interversionsmells.InterVersionCd;
-import org.astdea.data.smells.interversionsmells.InterVersionHd;
-import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
-import org.astdea.data.smells.interversionsmells.InterVersionUd;
+import org.astdea.data.smells.interversionsmells.*;
 import org.astdea.data.versions.DeltaSmellsInVersion;
 import org.astdea.data.versions.Version;
-import org.astdea.data.versions.VersionTimeManager;
 import org.astdea.io.output.OPN;
 import org.astdea.logic.deltacalc.CdDeltaCalculator;
 import org.astdea.logic.deltacalc.Deltas;
@@ -86,14 +82,14 @@ public class Project
     private void initVersions() throws IOException
     {
         versions = new ArrayList<>();
-        VersionTimeManager.init(inDir, analysedVersions);
+        TimeManager.init(inDir, analysedVersions);
         for (int i = 0; i < analysedVersions; i++)
         {
-            LocalDate versionTime = VersionTimeManager.getVersionTime(i);
-            int versionTimeSpan = VersionTimeManager.getTimeSpan(i);
+            LocalDate versionTime = TimeManager.getVersionTime(i);
+            int versionTimeSpan = TimeManager.getTimeSpan(i);
             versions.add(new Version(i, outDir, versionTime, versionTimeSpan));
         }
-        analysedTimeSpanInDays = VersionTimeManager.getAnalysedTimeSpanInDays();
+        analysedTimeSpanInDays = TimeManager.getAnalysedTimeSpanInDays();
     }
 
     private void calcNumsOfIntraSmells()

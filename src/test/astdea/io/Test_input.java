@@ -1,7 +1,7 @@
 package astdea.io;
 
 import org.astdea.io.input.*;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 import org.astdea.io.output.printer.MainPrinter;
 import org.astdea.io.output.printer.subprinters.PrinterCore;
 import org.junit.Test;

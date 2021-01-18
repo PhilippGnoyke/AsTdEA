@@ -3,7 +3,7 @@ package org.astdea.io.input;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 
 import java.io.FileReader;
 import java.io.IOException;

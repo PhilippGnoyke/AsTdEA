@@ -1,4 +1,4 @@
-package org.astdea.io.inputoutput;
+package org.astdea.io;
 
 import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
 

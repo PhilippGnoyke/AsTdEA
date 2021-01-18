@@ -2,7 +2,7 @@ package org.astdea.io.output.printer.compappender;
 
 import org.astdea.data.smells.interversionsmells.InterVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 
 import java.util.Set;
 

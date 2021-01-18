@@ -9,7 +9,7 @@ import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 import org.astdea.data.versions.Version;
 import org.astdea.io.inputoutput.IOFN;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 import org.astdea.io.output.OFN;
 import org.astdea.io.output.ResultHeaders;
 import org.astdea.io.output.printer.compappender.CdCompAppender;

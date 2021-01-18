@@ -1,6 +1,7 @@
 package org.astdea.io.inputoutput;
 
 import org.apache.commons.io.FilenameUtils;
+import org.astdea.io.IOUtils;
 import org.astdea.io.input.FilenameComparator;
 import org.astdea.io.input.LocReader;
 import org.astdea.io.output.OFN;

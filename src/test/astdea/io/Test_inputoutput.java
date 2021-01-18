@@ -1,6 +1,6 @@
 package astdea.io;
 
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 import org.junit.Test;
 
 import java.util.Set;

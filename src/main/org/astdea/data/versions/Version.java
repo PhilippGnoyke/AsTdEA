@@ -12,7 +12,7 @@ import org.astdea.io.input.CsvReadingUtils;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.ArcanRunner;
 import org.astdea.io.inputoutput.IOFN;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 import org.astdea.io.output.OPN;
 
 import java.io.IOException;

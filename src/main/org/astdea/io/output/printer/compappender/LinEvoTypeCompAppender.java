@@ -2,7 +2,7 @@ package org.astdea.io.output.printer.compappender;
 
 import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
-import org.astdea.io.inputoutput.IOUtils;
+import org.astdea.io.IOUtils;
 
 public class LinEvoTypeCompAppender<IntraType extends IntraVersionLinEvoType,
     InterType extends InterVersionLinEvoType<IntraType>> implements CompAppender<InterType>
