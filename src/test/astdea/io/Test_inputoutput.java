@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class Test_inputoutput
 {
     @Test
-    public void parseStringToSet()
+    public void Test_IOUtils_parseStringToSet()
     {
         final String DEL = ",";
         final String PT1 = "aaa";

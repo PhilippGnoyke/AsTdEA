@@ -6,6 +6,8 @@ import org.astdea.utils.MathUtils;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 
 public final class TimeManager
 {
@@ -16,19 +18,32 @@ public final class TimeManager
     private static int analysedTimeSpanInVersions;
     private static int analysedTimeSpanInDays;
 
-    public static void init(String inDir, int analysedVersions) throws IOException
+    public static void initFromFile(String inDir, int analysedVersions) throws IOException
+    {
+        versionTimes = DateReader.retrieveDates(inDir, analysedVersions);
+        calcAll(analysedVersions);
+    }
+
+    public static void initManually(LocalDate[] newVersionTimes)
+    {
+        int analysedVersions = newVersionTimes.length;
+        versionTimes = new LocalDate[analysedVersions+1];
+        System.arraycopy(newVersionTimes, 0, versionTimes, 0, newVersionTimes.length);
+        calcAll(versionTimes.length-1);
+    }
+
+    private static void calcAll(int analysedVersions)
     {
         analysedTimeSpanInVersions = analysedVersions;
-        versionTimes = DateReader.retrieveDates(inDir, analysedVersions);
         timeSpans = new double[analysedVersions];
         for (int i = 0; i < analysedVersions - 1; i++)
         {
-            timeSpans[i] = Period.between(versionTimes[i], versionTimes[i + 1]).getDays();
+            timeSpans[i] = (int) ChronoUnit.DAYS.between(versionTimes[i], versionTimes[i + 1]);
         }
         double median = MathUtils.median(timeSpans, 0, analysedVersions - 1);
         versionTimes[analysedVersions] = versionTimes[analysedVersions - 1].plusDays((int) median);
         timeSpans[analysedVersions - 1] = median;
-        analysedTimeSpanInDays = Period.between(versionTimes[0], versionTimes[analysedVersions]).getDays() + (int) median;
+        analysedTimeSpanInDays = (int) ChronoUnit.DAYS.between(versionTimes[0], versionTimes[analysedVersions]);
     }
 
     public static LocalDate getVersionTime(int ind) {return versionTimes[ind];}

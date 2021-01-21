@@ -3,6 +3,7 @@ package org.astdea.logic.tracker.projecttracker;
 import org.astdea.data.smells.interversionsmells.InterVersionSmell;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 import org.astdea.data.versions.Version;
+import org.astdea.logic.mapping.CdMappings;
 import org.astdea.logic.mapping.Mappings;
 import org.astdea.logic.tracker.versionpairtracker.VersionPairTracker;
 
@@ -18,17 +19,22 @@ public abstract class SmellProjectTracker<IntraType extends IntraVersionSmell, I
 
     public Set<InterType> track(List<Version> versions)
     {
-        for (int i = 0; i < versions.size() - 1; i++)
+        for (int versionAId = 0; versionAId < versions.size() - 1; versionAId++)
         {
-            Version versionA = versions.get(i);
-            Version versionB = versions.get(i + 1);
+            Version versionA = versions.get(versionAId);
+            Version versionB = versions.get(versionAId + 1);
             VersionPairTracker<IntraType, InterType, MappingsMapType> pairTracker =
                 instantiateVersionPairTracker(versionA, versionB, mappings);
             mappings = pairTracker.track();
+            mappings.addToSmellsWOSuccessor(pairTracker.getUnmappedIntrasA());
+            mappings.addToSmellsWOPredecessor(pairTracker.getUnmappedIntrasB());
         }
         return mappings.buildInterVersionSmells();
     }
 
-    public abstract VersionPairTracker<IntraType, InterType, MappingsMapType> instantiateVersionPairTracker
+    protected abstract VersionPairTracker<IntraType, InterType, MappingsMapType> instantiateVersionPairTracker
         (Version versionA, Version versionB, MappingsMapType mappings);
+
+    public MappingsMapType getMappings() {return mappings;}
+
 }

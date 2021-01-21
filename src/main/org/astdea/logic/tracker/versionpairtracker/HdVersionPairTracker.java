@@ -14,10 +14,11 @@ public class HdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVers
     public HdVersionPairTracker(Version versionA, Version versionB, HdMappings mappings)
     {
         this.mappings = mappings;
-        remainIntrasA = new HashSet<>(versionA.getHds());
-        remainIntrasB = new HashSet<>(versionB.getHds());
+        unmappedIntrasA = new HashSet<>(versionA.getHds());
+        unmappedIntrasB = new HashSet<>(versionB.getHds());
     }
 
+    @Override
     protected double calcJaccOfPair(IntraVersionHd intraA, IntraVersionHd intraB)
     {
         Set<String> affA = intraA.getAffCompsHashSet();

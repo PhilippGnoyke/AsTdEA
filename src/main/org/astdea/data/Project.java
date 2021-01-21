@@ -82,12 +82,12 @@ public class Project
     private void initVersions() throws IOException
     {
         versions = new ArrayList<>();
-        TimeManager.init(inDir, analysedVersions);
+        TimeManager.initFromFile(inDir, analysedVersions);
         for (int i = 0; i < analysedVersions; i++)
         {
             LocalDate versionTime = TimeManager.getVersionTime(i);
             int versionTimeSpan = TimeManager.getTimeSpan(i);
-            versions.add(new Version(i, outDir, versionTime, versionTimeSpan));
+            versions.add(new Version(i, outDir, versionTime, versionTimeSpan).init());
         }
         analysedTimeSpanInDays = TimeManager.getAnalysedTimeSpanInDays();
     }
@@ -142,11 +142,12 @@ public class Project
         Deltas deltasPackCd = new CdDeltaCalculator(cdPackMappings, packCds, analysedVersions).calc();
         Deltas deltasHd = calcLinEvoTypeDeltas(hds);
         Deltas deltasUd = calcLinEvoTypeDeltas(uds);
-        for (int i = 0; i < analysedVersions; i++)
+        for (int versionId = 0; versionId < analysedVersions; versionId++)
         {
             DeltaSmellsInVersion deltaSmells = new DeltaSmellsInVersion
-                (i, deltasClassCd, deltasPackCd, deltasHd, deltasUd);
-            versions.get(i).setDeltaSmellsInVersion(deltaSmells);
+                (versionId, deltasClassCd, deltasPackCd, deltasHd, deltasUd);
+            versions.get(versionId).setDeltaSmellsInVersion(deltaSmells);
+            if (versionId > 0) {versions.get(versionId).setDeltaSmellsAsPrevVersion(deltaSmells);}
         }
     }
 

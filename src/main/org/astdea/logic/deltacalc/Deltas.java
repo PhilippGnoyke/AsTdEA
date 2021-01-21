@@ -8,7 +8,7 @@ public class Deltas
     public Deltas(int analysedVersions)
     {
         this.intros = new int[analysedVersions];
-        this.removs = new int[analysedVersions];
+        this.removs = new int[analysedVersions + 1];
     }
 
     public void incrIntros(int versionId) {intros[versionId] += 1;}

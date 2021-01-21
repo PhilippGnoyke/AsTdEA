@@ -45,9 +45,8 @@ class CdInitHelper implements SmellTypeInitHelper<IntraVersionCd>
     public IntraVersionCd initIntra
         (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank)
     {
-        int order = Integer.parseInt(propRecord.get(IPN.ORDER));
         String compsString = compRecord.get(IPN.AFFECTED_COMPS);
         Set<String> comps = IOUtils.parseStringToSet(compsString, IOUtils.DELIMITER);
-        return new IntraVersionCd(smellId, versionId, pageRank, comps, order);
+        return new IntraVersionCd(smellId, versionId, pageRank, comps);
     }
 }

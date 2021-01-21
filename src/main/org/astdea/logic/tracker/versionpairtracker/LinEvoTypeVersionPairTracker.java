@@ -13,17 +13,21 @@ public abstract class LinEvoTypeVersionPairTracker<IntraType extends IntraVersio
 {
     private final static double JACC_THRESH = 0.6;
 
+    @Override
     public MappingsMapType track()
     {
-        trackMainNameEquality();
-        trackSetSimilarity();
+        if(unmappedIntrasA.size()>0 && unmappedIntrasB.size()>0)
+        {
+            trackMainNameEquality();
+            trackSetSimilarity();
+        }
         return mappings;
     }
 
     private void trackMainNameEquality()
     {
-        LinEvoTypeTrackState<IntraType> trackStateA = initTrackState(remainIntrasA);
-        LinEvoTypeTrackState<IntraType> trackStateB = initTrackState(remainIntrasB);
+        LinEvoTypeTrackState<IntraType> trackStateA = initTrackState(unmappedIntrasA);
+        LinEvoTypeTrackState<IntraType> trackStateB = initTrackState(unmappedIntrasB);
 
         boolean stop = false;
         while (!stop)
@@ -51,8 +55,8 @@ public abstract class LinEvoTypeVersionPairTracker<IntraType extends IntraVersio
     protected void updateMappings(IntraType intraA, IntraType intraB)
     {
         mappings.put(intraA, intraB);
-        remainIntrasA.remove(intraA);
-        remainIntrasB.remove(intraB);
+        unmappedIntrasA.remove(intraA);
+        unmappedIntrasB.remove(intraB);
     }
 
     private LinEvoTypeTrackState<IntraType> initTrackState(Set<IntraType> intrasSet)
@@ -69,7 +73,7 @@ public abstract class LinEvoTypeVersionPairTracker<IntraType extends IntraVersio
         {
             IntraType intraA = jaccPair.getSmellA();
             IntraType intraB = jaccPair.getSmellB();
-            if (remainIntrasA.contains(intraA) && remainIntrasB.contains(intraB))
+            if (unmappedIntrasA.contains(intraA) && unmappedIntrasB.contains(intraB))
             {
                 updateMappings(intraA, intraB);
             }
@@ -78,8 +82,8 @@ public abstract class LinEvoTypeVersionPairTracker<IntraType extends IntraVersio
 
     private TreeSet<IntraJaccardPair<IntraType>> buildJaccPairs()
     {
-        List<IntraType> intrasA = new ArrayList<>(remainIntrasA);
-        List<IntraType> intrasB = new ArrayList<>(remainIntrasB);
+        List<IntraType> intrasA = new ArrayList<>(unmappedIntrasA);
+        List<IntraType> intrasB = new ArrayList<>(unmappedIntrasB);
         TreeSet<IntraJaccardPair<IntraType>> jaccPairs = new TreeSet<>();
         for (IntraType intraA : intrasA)
         {

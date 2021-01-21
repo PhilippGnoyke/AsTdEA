@@ -13,10 +13,11 @@ public class UdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVers
     public UdVersionPairTracker(Version versionA, Version versionB, UdMappings mappings)
     {
         this.mappings = mappings;
-        remainIntrasA = new HashSet<>(versionA.getUds());
-        remainIntrasB = new HashSet<>(versionB.getUds());
+        unmappedIntrasA = new HashSet<>(versionA.getUds());
+        unmappedIntrasB = new HashSet<>(versionB.getUds());
     }
 
+    @Override
     protected double calcJaccOfPair(IntraVersionUd intraA, IntraVersionUd intraB)
     {
         return MathUtils.jaccard(intraA.getLessStablePacksHashSet(), intraB.getLessStablePacksHashSet());

@@ -10,10 +10,11 @@ import java.util.Set;
 
 public class CdMappings extends Mappings<IntraVersionCd, InterVersionCd, Set<IntraVersionCd>>
 {
-    int totalNumOfIntras;
+    private int totalNumOfIntras;
 
     public CdMappings(int totalNumOfIntras) {this.totalNumOfIntras = totalNumOfIntras;}
 
+    @Override
     protected void putMapping(IntraVersionCd smellOld, IntraVersionCd smellNew)
     {
         IntraId oldId = smellOld.getIntraId();
@@ -34,6 +35,7 @@ public class CdMappings extends Mappings<IntraVersionCd, InterVersionCd, Set<Int
         mappingsNewAsKey.put(newId, setNew);
     }
 
+    @Override
     public Set<InterVersionCd> buildInterVersionSmells()
     {
         return new InterVersionCdBuilder(totalNumOfIntras, mappingsOldAsKey, smellsWOPredecessor)

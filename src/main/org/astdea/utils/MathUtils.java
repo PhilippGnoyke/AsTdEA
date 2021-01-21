@@ -6,7 +6,8 @@ import java.util.Set;
 
 public final class MathUtils
 {
-    public final static int INFINITY = 1000000;
+    public final static int INFINITY = Integer.MAX_VALUE;
+    public final static int PERCENTILE_MEDIAN = 50;
     private final static Percentile PERCENTILE = new Percentile().withEstimationType(Percentile.EstimationType.R_7);
 
     private MathUtils() {}
@@ -15,25 +16,31 @@ public final class MathUtils
 
     public static double median(double[] vals, int begin, int length)
     {
-        return PERCENTILE.evaluate(vals, begin, length, 0.5);
+        return PERCENTILE.evaluate(vals, begin, length, PERCENTILE_MEDIAN);
     }
 
     public static double median(double[] vals)
     {
-        return PERCENTILE.evaluate(vals, 0.5);
+        return PERCENTILE.evaluate(vals, PERCENTILE_MEDIAN);
     }
 
     public static <Type> double jaccard(Set<Type> set1, Set<Type> set2)
     {
         int intersection = sizeOfIntersection(set1, set2);
         int union = sizeOfUnion(set1, set2, intersection);
-        return (double) intersection / union;
+        return jaccard(intersection ,union);
     }
 
     // Use this method variant if the intersection is already known to increase efficiency
     public static <Type> double jaccard(Set<Type> set1, Set<Type> set2, int intersection)
     {
         int union = sizeOfUnion(set1, set2, intersection);
+        return jaccard(intersection ,union);
+    }
+
+    // Use this method variant if the intersection and the union are already known to increase efficiency
+    public static double jaccard(int intersection, int union)
+    {
         return (double) intersection / union;
     }
 

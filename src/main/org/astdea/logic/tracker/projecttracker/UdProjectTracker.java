@@ -10,7 +10,8 @@ public class UdProjectTracker extends SmellProjectTracker<IntraVersionUd, InterV
 {
     public UdProjectTracker() {super(new UdMappings());}
 
-    public UdVersionPairTracker instantiateVersionPairTracker
+    @Override
+    protected UdVersionPairTracker instantiateVersionPairTracker
         (Version versionA, Version versionB, UdMappings mappings)
     {
         return new UdVersionPairTracker(versionA, versionB, mappings);

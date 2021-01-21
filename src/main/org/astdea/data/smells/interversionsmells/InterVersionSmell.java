@@ -5,6 +5,7 @@ import org.astdea.io.output.OPN;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collection;
+import java.util.Objects;
 
 public abstract class InterVersionSmell<CollectionType extends Collection>
 {
@@ -48,6 +49,18 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
         presentInFirstVersion = (versionOfIntroduction == 0);
         presentInLastVersion = (versionOfRemoval == TimeManager.getAnalysedTimeSpanInVersions());
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (this == other) { return true; }
+        if (other == null || getClass() != other.getClass()) { return false; }
+        InterVersionSmell<?> that = (InterVersionSmell<?>) other;
+        return smellId == that.smellId;
+    }
+
+    @Override
+    public int hashCode() {return Objects.hash(smellId);}
 
     public Object get(String fieldName)
     {

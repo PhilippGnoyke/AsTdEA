@@ -7,11 +7,15 @@ import org.astdea.logic.mapping.Mappings;
 import java.util.Set;
 
 public abstract class VersionPairTracker<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell,
-    MappingsMapType extends Mappings>
+    MappingsType extends Mappings>
 {
-    protected Set<IntraType> remainIntrasA;
-    protected Set<IntraType> remainIntrasB;
-    protected MappingsMapType mappings;
+    protected Set<IntraType> unmappedIntrasA;
+    protected Set<IntraType> unmappedIntrasB;
+    protected MappingsType mappings;
 
-    public abstract MappingsMapType track();
+    public abstract MappingsType track();
+
+    public Set<IntraType> getUnmappedIntrasA() {return unmappedIntrasA;}
+
+    public Set<IntraType> getUnmappedIntrasB() {return unmappedIntrasB;}
 }

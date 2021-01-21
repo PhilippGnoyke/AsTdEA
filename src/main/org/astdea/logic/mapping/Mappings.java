@@ -14,6 +14,7 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
     protected Map<IntraId, MappingType> mappingsOldAsKey; // All outgoing mappings from the intra
     protected Map<IntraId, MappingType> mappingsNewAsKey; // All incoming mappings to the intra
     protected Set<IntraType> smellsWOPredecessor;
+    protected Set<IntraType> smellsWOSuccessor;
 
     /*
      * Potential for optimising:
@@ -25,6 +26,7 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
         this.mappingsOldAsKey = new HashMap<>();
         this.mappingsNewAsKey = new HashMap<>();
         this.smellsWOPredecessor = new HashSet<>();
+        this.smellsWOSuccessor = new HashSet<>();
     }
 
     public abstract Set<InterType> buildInterVersionSmells();
@@ -33,18 +35,7 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
 
     public Set<IntraType> getSmellsWOPredecessor() {return smellsWOPredecessor;}
 
-    public Set<IntraType> getSmellsWOPredecessorInVersion(int versionId)
-    {
-        Set<IntraType> smellsWOPredInVersion = new HashSet<>();
-        for (IntraType smell : smellsWOPredInVersion)
-        {
-            if (smell.getVersionId() == versionId)
-            {
-                smellsWOPredInVersion.add(smell);
-            }
-        }
-        return smellsWOPredInVersion;
-    }
+    public Set<IntraType> getSmellsWOSuccessor() {return smellsWOSuccessor;}
 
     public MappingType getByOldId(IntraId intraId) {return mappingsOldAsKey.get(intraId);}
 
@@ -70,6 +61,23 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
         {
             smellsWOPredecessor.add(smellOld);
         }
+        if (!doesSmellHaveSuccessor(smellNew))
+        {
+            smellsWOSuccessor.add(smellNew);
+        }
         smellsWOPredecessor.remove(smellNew);
+        smellsWOSuccessor.remove(smellOld);
     }
+
+    public void addToSmellsWOPredecessor(Set<IntraType> remaining)
+    {
+        smellsWOPredecessor.addAll(remaining);
+    }
+
+    public void addToSmellsWOSuccessor(Set<IntraType> remaining)
+    {
+        smellsWOSuccessor.addAll(remaining);
+    }
+
+
 }

@@ -13,7 +13,8 @@ public class HdProjectTracker extends SmellProjectTracker<IntraVersionHd, InterV
         super(new HdMappings());
     }
 
-    public HdVersionPairTracker instantiateVersionPairTracker
+    @Override
+    protected HdVersionPairTracker instantiateVersionPairTracker
         (Version versionA, Version versionB, HdMappings mappings)
     {
         return new HdVersionPairTracker(versionA, versionB, mappings);

@@ -12,12 +12,14 @@ import java.util.Set;
 public abstract class LinEvoTypeMappings<IntraType extends IntraVersionLinEvoType,
     InterType extends InterVersionLinEvoType> extends Mappings<IntraType, InterType, IntraType>
 {
+    @Override
     protected void putMapping(IntraType smellOld, IntraType smellNew)
     {
         mappingsOldAsKey.put(smellOld.getIntraId(), smellNew);
         mappingsNewAsKey.put(smellNew.getIntraId(), smellOld);
     }
 
+    @Override
     public Set<InterType> buildInterVersionSmells()
     {
         Set<InterType> inters = new HashSet<>();
@@ -26,14 +28,12 @@ public abstract class LinEvoTypeMappings<IntraType extends IntraVersionLinEvoTyp
             List<IntraType> path = new ArrayList<>();
             path.add(startIntra);
             IntraType intra = startIntra;
-            IntraId intraId;
-            do
+            while (doesSmellHaveSuccessor(intra))
             {
-                intraId = intra.getIntraId();
-                intra = mappingsOldAsKey.get(intraId);
+                intra = mappingsOldAsKey.get(intra.getIntraId());
                 path.add(intra);
             }
-            while (doesSmellHaveSuccessor(intra));
+
             inters.add(instantiateInter(startIntra.getVersionId(), path));
         }
         return inters;

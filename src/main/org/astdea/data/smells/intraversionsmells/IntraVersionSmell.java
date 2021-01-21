@@ -1,5 +1,9 @@
 package org.astdea.data.smells.intraversionsmells;
 
+import org.astdea.data.smells.interversionsmells.InterVersionSmell;
+
+import java.util.Objects;
+
 public abstract class IntraVersionSmell
 {
     private int smellId;
@@ -22,4 +26,16 @@ public abstract class IntraVersionSmell
     public double getPageRank() {return pageRank;}
 
     public IntraId getIntraId() {return intraId;}
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (this == other) { return true; }
+        if (other == null || getClass() != other.getClass()) { return false; }
+        IntraVersionSmell that = (IntraVersionSmell) other;
+        return intraId.equals(that.intraId);
+    }
+
+    @Override
+    public int hashCode() {return Objects.hash(intraId);}
 }

@@ -5,14 +5,12 @@ import java.util.Set;
 public class IntraVersionCd extends IntraVersionSmell
 {
     private Set<String> comps;
-    private int order;
     private int removalWeight;
 
-    public IntraVersionCd(int smellId, int version, double pageRank, Set<String> comps, int order)
+    public IntraVersionCd(int smellId, int version, double pageRank, Set<String> comps)
     {
         super(smellId, version, pageRank);
         this.comps = comps;
-        this.order = order;
     }
 
     public Set<String> getComps() {return comps;}

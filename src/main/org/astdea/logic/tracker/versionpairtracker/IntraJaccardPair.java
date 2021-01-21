@@ -2,7 +2,7 @@ package org.astdea.logic.tracker.versionpairtracker;
 
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 
-public class IntraJaccardPair<IntraType extends IntraVersionLinEvoType> implements Comparable
+public class IntraJaccardPair<IntraType extends IntraVersionLinEvoType> implements Comparable<IntraJaccardPair<IntraType>>
 {
     private IntraType smellA;
     private IntraType smellB;
@@ -22,17 +22,13 @@ public class IntraJaccardPair<IntraType extends IntraVersionLinEvoType> implemen
     public IntraType getSmellB() {return smellB;}
 
     @Override
-    public int compareTo(Object other)
+    public int compareTo(IntraJaccardPair<IntraType> other)
     {
         int comp = -1;
-        if (other instanceof IntraJaccardPair)
+        if (other != null)
         {
-            IntraJaccardPair otherPair = (IntraJaccardPair) other;
-            comp = Double.compare(this.jaccard, otherPair.jaccard);
-            if (comp == 0)
-            {
-                comp = Double.compare(this.prDiff, otherPair.prDiff);
-            }
+            comp = Double.compare(this.jaccard, other.jaccard);
+            if (comp == 0) {comp = Double.compare(other.prDiff, this.prDiff);}
         }
         return comp;
     }

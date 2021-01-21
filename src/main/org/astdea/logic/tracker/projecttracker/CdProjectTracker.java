@@ -17,11 +17,10 @@ public class CdProjectTracker extends SmellProjectTracker<IntraVersionCd, InterV
         this.level = level;
     }
 
-    public CdVersionPairTracker instantiateVersionPairTracker
+    @Override
+    protected CdVersionPairTracker instantiateVersionPairTracker
         (Version versionA, Version versionB, CdMappings mappings)
     {
         return new CdVersionPairTracker(versionA, versionB, mappings, level);
     }
-
-    public CdMappings getMappings() {return mappings;}
 }

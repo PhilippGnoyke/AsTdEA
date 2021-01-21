@@ -85,7 +85,6 @@ public class InterVersionCdBuilder
             {
                 interAssigns.put(intraToReassign.getIntraId(), existingInter);
             }
-            currentInter.intras.clear();
             currentInter = existingInter;
         }
         else

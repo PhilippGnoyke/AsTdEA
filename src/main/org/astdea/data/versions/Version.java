@@ -8,11 +8,11 @@ import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionHd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
 import org.astdea.data.versions.initialising.VersionSmellsInitialiser;
+import org.astdea.io.IOUtils;
 import org.astdea.io.input.CsvReadingUtils;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.ArcanRunner;
 import org.astdea.io.inputoutput.IOFN;
-import org.astdea.io.IOUtils;
 import org.astdea.io.output.OPN;
 
 import java.io.IOException;
@@ -34,15 +34,30 @@ public class Version
     private int versionTimeSpan;
     private DeltaSmellsInVersion deltaSmellsInVersion;
 
-    public Version(int versionId, String generalOutDir, LocalDate versionTime, int versionTimeSpanInDays) throws IOException
+    public Version(int versionId, String generalOutDir, LocalDate versionTime, int versionTimeSpanInDays)
     {
         this.versionId = versionId;
         this.outDir = ArcanRunner.getArcanOutFolder(generalOutDir, versionId);
         this.versionTime = versionTime;
         this.versionTimeSpan = versionTimeSpanInDays;
+    }
 
+    public Version(int versionId, String generalOutDir, LocalDate versionTime, int versionTimeSpanInDays,
+                   Set<IntraVersionCd> classCds, Set<IntraVersionCd> packCds,
+                   Set<IntraVersionHd> hds, Set<IntraVersionUd> uds)
+    {
+        this(versionId, generalOutDir, versionTime, versionTimeSpanInDays);
+        this.classCds = classCds;
+        this.packCds = packCds;
+        this.hds = hds;
+        this.uds = uds;
+    }
+
+    public Version init() throws IOException
+    {
         initSmells();
         initVersionProps();
+        return this;
     }
 
     public int getVersionId() {return versionId;}
@@ -60,9 +75,13 @@ public class Version
     public void setDeltaSmellsInVersion(DeltaSmellsInVersion deltaSmellManager)
     {
         this.deltaSmellsInVersion = deltaSmellManager;
-        deltaSmellManager.setLoc(loc);
-        deltaSmellManager.setClassCount(classCount);
-        deltaSmellManager.setPackCount(packCount);
+        deltaSmellsInVersion.setCountsOfCurrVersion
+            (loc, classCount, packCount, classCds.size(), packCds.size(), hds.size(), uds.size());
+    }
+
+    public void setDeltaSmellsAsPrevVersion(DeltaSmellsInVersion deltaSmellManager)
+    {
+        deltaSmellManager.setCountsOfPrevVersion(classCds.size(), packCds.size(), hds.size(), uds.size());
     }
 
     private void initSmells() throws IOException
