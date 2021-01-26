@@ -17,7 +17,7 @@ public class VersionNamesPrinter implements PrinterCore
         for (int i = 0; i < versionNames.length; i++)
         {
             printer.print(i);
-            printer.print(FilenameUtils.getBaseName(versionNames[i]));
+            printer.print(FilenameUtils.getName(versionNames[i]));
             printer.println();
         }
     }

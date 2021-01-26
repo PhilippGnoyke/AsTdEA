@@ -10,6 +10,7 @@ public final class IPN
     private IPN() {}
 
     public static final String DATE = "date";
+    public static final String VERSION = "version";
 
     public static final String ID = AsTdEvolutionPrinter.ID;
     public static final String LOC = ProjectMetricsCalculator.PROPERTY_LOC;

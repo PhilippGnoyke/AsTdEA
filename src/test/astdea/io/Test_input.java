@@ -44,9 +44,9 @@ public class Test_input
             }
         };
         final String TEST_DIR = IOUtils.makeFilePath("src","resources","tests");
-        File file = IOUtils.makeFile(IOUtils.makeFilePath(TEST_DIR, IFN.FILE_DATE_CSV));
+        File file = IOUtils.makeFile(IOUtils.makeFilePath(TEST_DIR, IFN.FILE_DATES_CSV));
         MainPrinter.printCore(file, new String[]{IPN.DATE}, printerCore);
-        LocalDate[] actualDates = DateReader.retrieveDates(TEST_DIR, DATES.length);
+        LocalDate[] actualDates = DatesReader.retrieveDates(TEST_DIR, DATES.length);
         for (int i = 0; i < DATES.length; i++)
         {
             assertEquals(EXPECTED_DATES[i], actualDates[i]);

@@ -1,11 +1,13 @@
 package org.astdea.io;
 
 import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
+import org.astdea.io.output.LogUtil;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public final class IOUtils
@@ -37,5 +39,15 @@ public final class IOUtils
     public static File makeFile(String path)
     {
         return Paths.get(path).toAbsolutePath().toFile();
+    }
+
+    public static int numOfFilesInFolder(File folder)
+    {
+        return Objects.requireNonNull(folder.listFiles()).length;
+    }
+
+    public static boolean isFolder(String folderName, String fileName)
+    {
+        return makeFile(folderName, fileName).isDirectory();
     }
 }

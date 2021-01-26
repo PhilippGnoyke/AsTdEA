@@ -109,8 +109,16 @@ public final class FilenameComparator implements Comparator<String>
      */
     private static String extractVersionNumber(String input)
     {
+        final int NOT_FOUND = -1;
         int lastDotInd = input.lastIndexOf(".");
-        int firstIndOfVerNum = input.indexOf(".");
+        int firstIndOfVerNum;
+        if (lastDotInd == NOT_FOUND)
+        {
+            lastDotInd = input.length();
+            firstIndOfVerNum = lastDotInd;
+        }
+        else {firstIndOfVerNum = input.indexOf(".");}
+
         while (Character.isDigit(input.charAt(firstIndOfVerNum - 1)))
         {
             firstIndOfVerNum--;

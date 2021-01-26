@@ -31,8 +31,13 @@ public class LogUtil
         LOGGER.addHandler(handler);
     }
 
-    public static void log(String text)
+    public static void logInfo(String text)
     {
         LOGGER.info(text);
+    }
+
+    public static void logSevere(String text)
+    {
+        LOGGER.severe(text);
     }
 }

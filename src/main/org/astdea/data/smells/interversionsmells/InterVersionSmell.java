@@ -4,6 +4,7 @@ import org.astdea.io.output.OPN;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -43,7 +44,7 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
         versionOfRemoval = versionOfIntroduction + intraVersionSmells.size();
         timeOfRemoval = TimeManager.getVersionTime(versionOfRemoval);
         lifeSpanInVersions = versionOfRemoval - versionOfIntroduction;
-        lifeSpanInDays = Period.between(timeOfIntroduction, timeOfRemoval).getDays();
+        lifeSpanInDays = (int) ChronoUnit.DAYS.between(timeOfIntroduction, timeOfRemoval);
         versionOrientedRelativeLifespan = (double) lifeSpanInVersions / TimeManager.getAnalysedTimeSpanInVersions();
         timeOrientedRelativeLifespan = (double) lifeSpanInDays / TimeManager.getAnalysedTimeSpanInDays();
         presentInFirstVersion = (versionOfIntroduction == 0);

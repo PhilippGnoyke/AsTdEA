@@ -56,7 +56,7 @@ public class TerminalExecutor
                 if (file.isDirectory())
                 {
                     String projectName = file.getName();
-                    LogUtil.log("Began analysis of project " + projectName + ".");
+                    LogUtil.logInfo("Began analysis of project " + projectName + ".");
                     String projectIn = IOUtils.makeFilePath(_inDir, projectName);
                     String projectOut = IOUtils.makeFilePath(_outDir, projectName);
                     ArcanRunner arcanRunner = new ArcanRunner
@@ -64,7 +64,7 @@ public class TerminalExecutor
                     String[] versionNames = arcanRunner.analyseAllVersions();
                     Project project = new Project(projectIn, projectOut, versionNames.length).build();
                     new MainPrinter(projectOut, project, versionNames).printAll();
-                    LogUtil.log("Finished analysis of project " + projectName + ".");
+                    LogUtil.logInfo("Finished analysis of project " + projectName + ".");
                 }
             }
         }

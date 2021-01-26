@@ -7,10 +7,7 @@ import org.astdea.io.IOUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class CsvReadingUtils
 {
@@ -73,11 +70,20 @@ public final class CsvReadingUtils
         int i = 0;
         for (CSVRecord record : records)
         {
-            result[i] = helper.parseValue(record.get(header));
+            String val = record.get(header);
+            if (val.equals("")) {throwError(file);}
+            result[i] = helper.parseValue(val);
             i++;
         }
+        if (i != rows) {throwError(file);}
         records.close();
         return result;
+    }
+
+    private static void throwError(String file)
+    {
+        throw new InputMismatchException("The file " + file +
+            " contains fewer values than provided versions.");
     }
 }
 

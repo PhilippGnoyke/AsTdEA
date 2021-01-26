@@ -3,7 +3,10 @@ package org.astdea.io.inputoutput;
 import org.apache.commons.io.FilenameUtils;
 import org.astdea.io.IOUtils;
 import org.astdea.io.input.FilenameComparator;
+import org.astdea.io.input.IFN;
 import org.astdea.io.input.LocReader;
+import org.astdea.io.input.VersionsReader;
+import org.astdea.io.output.LogUtil;
 import org.astdea.io.output.OFN;
 
 import java.io.File;
@@ -15,7 +18,7 @@ import java.util.List;
 
 public class ArcanRunner
 {
-    private final static PrintStream nullOutputStream = new PrintStream(OutputStream.nullOutputStream());
+    private final static PrintStream NULL_OUTPUT_STREAM = new PrintStream(OutputStream.nullOutputStream());
 
     private String projectName;
     private String outDir;
@@ -38,57 +41,68 @@ public class ArcanRunner
         if (versionNames != null)
         {
             int versionCount = versionNames.length;
-            Thread[] threads = new Thread[versionCount];
+            ArcanVersionRunner[] threads = initThreads(versionCount);
             Integer[] locs = LocReader.retrieveLocs(inDir, versionCount);
             // Disable any console output from Arcan and its usage of other libs (still shows errors)
-            System.setOut(nullOutputStream);
+            System.setOut(NULL_OUTPUT_STREAM);
             for (int versionId = 0; versionId < versionCount; versionId++)
             {
-                threads[versionId] = analyseVersion(
-                    versionNames[versionId], projectName, versionId, versionCount, locs[versionId]);
+                threads[versionId % threads.length].addVersion(versionId, versionNames[versionId], locs[versionId]);
             }
-            for (Thread thread : threads)
-            {
-                thread.join();
-            }
+            for (Thread thread : threads) {thread.start();}
+            for (Thread thread : threads) {thread.join();}
             System.setOut(System.out);
         }
         return versionNames;
     }
 
-    private String[] retrieveVersions()
+    private ArcanVersionRunner[] initThreads(int versionCount)
+    {
+        int procCount = Runtime.getRuntime().availableProcessors();
+        ArcanVersionRunner[] threads = new ArcanVersionRunner[procCount];
+        for (int i = 0; i < threads.length; i++)
+        {
+            threads[i] = new ArcanVersionRunner(inDir, outDir, suppressNonAsTdEvolutionArg,
+                projectName, versionCount);
+        }
+        return threads;
+    }
+
+    private String[] retrieveVersions() throws IOException
     {
         File inFolder = new File(inDir);
+        if (VersionsReader.fileExists(inDir))
+        {
+            final int META_FILE_COUNT = 3;
+            int versionCount = IOUtils.numOfFilesInFolder(inFolder) - META_FILE_COUNT;
+            return VersionsReader.retrieveVersions(inDir, versionCount);
+        }
         File[] files = inFolder.listFiles();
         if (files == null)
         {
-            System.out.println("No jars found in project folder " + inDir);
+            LogUtil.logSevere("No project files found in project folder " + inDir);
             return null;
         }
-        List<String> jars = new ArrayList<>();
+        List<String> versions = new ArrayList<>();
         for (final File file : files)
         {
             String fileName = file.getName();
-            if (FilenameUtils.getExtension(fileName).equals("jar"))
+            if (FilenameUtils.getExtension(fileName).equals(IFN.JAR))
             {
-                jars.add(FilenameUtils.getName(fileName));
+                versions.add(FilenameUtils.getBaseName(fileName));
+            }
+            else if(file.isDirectory())
+            {
+                versions.add(fileName);
             }
         }
         FilenameComparator comparator = new FilenameComparator();
-        jars.sort(comparator);
-        return jars.toArray(new String[0]);
+        versions.sort(comparator);
+        return versions.toArray(new String[0]);
     }
 
     public static String getArcanOutFolder(String generalOutDir, int version)
     {
         return IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION, String.valueOf(version));
-    }
-
-    private Thread analyseVersion(String filename, String projectName, int versionId, int versionCount, int loc)
-    {
-        ArcanVersionRunner versionRunner = new ArcanVersionRunner
-            (inDir, outDir, suppressNonAsTdEvolutionArg, filename, projectName, versionId, versionCount, loc);
-        versionRunner.start();
-        return versionRunner;
     }
 }

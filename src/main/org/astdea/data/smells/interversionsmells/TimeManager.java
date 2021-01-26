@@ -1,13 +1,11 @@
 package org.astdea.data.smells.interversionsmells;
 
-import org.astdea.io.input.DateReader;
+import org.astdea.io.input.DatesReader;
 import org.astdea.utils.MathUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 
 public final class TimeManager
 {
@@ -20,7 +18,7 @@ public final class TimeManager
 
     public static void initFromFile(String inDir, int analysedVersions) throws IOException
     {
-        versionTimes = DateReader.retrieveDates(inDir, analysedVersions);
+        versionTimes = DatesReader.retrieveDates(inDir, analysedVersions);
         calcAll(analysedVersions);
     }
 
