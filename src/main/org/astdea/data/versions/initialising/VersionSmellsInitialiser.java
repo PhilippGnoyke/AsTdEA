@@ -7,9 +7,9 @@ import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionHd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
+import org.astdea.io.IOUtils;
 import org.astdea.io.input.CsvReadingUtils;
 import org.astdea.io.input.IPN;
-import org.astdea.io.IOUtils;
 
 import java.io.IOException;
 import java.util.HashSet;

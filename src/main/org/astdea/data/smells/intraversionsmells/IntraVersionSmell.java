@@ -1,7 +1,5 @@
 package org.astdea.data.smells.intraversionsmells;
 
-import org.astdea.data.smells.interversionsmells.InterVersionSmell;
-
 import java.util.Objects;
 
 public abstract class IntraVersionSmell

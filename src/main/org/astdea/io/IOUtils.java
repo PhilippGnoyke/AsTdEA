@@ -1,7 +1,6 @@
 package org.astdea.io;
 
 import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
-import org.astdea.io.output.LogUtil;
 
 import java.io.File;
 import java.nio.file.Paths;

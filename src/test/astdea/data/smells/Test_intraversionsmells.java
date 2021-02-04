@@ -33,8 +33,5 @@ public class Test_intraversionsmells
 
         final int TOTAL_DAYS = 386;
         assertEquals(TOTAL_DAYS,TimeManager.getAnalysedTimeSpanInDays());
-
     }
-
-
 }

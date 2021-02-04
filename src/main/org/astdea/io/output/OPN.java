@@ -16,7 +16,8 @@ public final class OPN
     public final static String TIME_ORIENTED_RELATIVE_LIFESPAN = "timeOrientedRelativeLifespan";
     public final static String PRESENT_IN_FIRST_VERSION = "presentInFirstVersion";
     public final static String PRESENT_IN_LAST_VERSION = "presentInLastVersion";
-    public static final String INTRA_IDS = "intraVersionSmells(versionId.smellId-removalWeight)";
+    public static final String CD_INTRA_IDS = "intraVersionSmells(versionId.smellId-removalWeight)";
+    public static final String LIN_EVO_TYPE_INTRA_IDS = "intraVersionSmells(versionId.smellId)";
 
     // InterVersionCd
     public final static String FAMILY_ORDER = "familyOrder";

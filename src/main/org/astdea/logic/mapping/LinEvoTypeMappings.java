@@ -1,7 +1,6 @@
 package org.astdea.logic.mapping;
 
 import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
-import org.astdea.data.smells.intraversionsmells.IntraId;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 
 import java.util.ArrayList;

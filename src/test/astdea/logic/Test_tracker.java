@@ -49,6 +49,10 @@ public class Test_tracker
         intrasInter2.add(new HashSet<>(Arrays.asList(ExPrj.CD_E2)));
         intrasOfExpectedInters.add(intrasInter2);
 
+        List<Set<IntraVersionCd>> intrasInter3 = new ArrayList<>();
+        intrasInter3.add(new HashSet<>(Arrays.asList(ExPrj.CD_A3)));
+        intrasOfExpectedInters.add(intrasInter3);
+
         assertEquals(new HashSet<>(Arrays.asList(ExPrj.CD_B2)), ACTUAL_MAPPINGS.getByOldIntra(ExPrj.CD_A1));
         assertEquals(new HashSet<>(Arrays.asList(ExPrj.CD_C1, ExPrj.CD_C2)), ACTUAL_MAPPINGS.getByOldIntra(ExPrj.CD_B2));
         assertEquals(new HashSet<>(Arrays.asList(ExPrj.CD_B1, ExPrj.CD_B2)), ACTUAL_MAPPINGS.getByNewIntra(ExPrj.CD_C1));

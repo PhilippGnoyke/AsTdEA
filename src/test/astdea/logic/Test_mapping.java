@@ -31,13 +31,14 @@ public class Test_mapping
         mappings.put(ExPrj.CD_D2, ExPrj.CD_E1);
         mappings.put(ExPrj.CD_D3, ExPrj.CD_E2);
 
-        final Set<IntraVersionCd> unmapped = new HashSet<>(Arrays.asList(ExPrj.CD_B3));
+        final Set<IntraVersionCd> unmapped = new HashSet<>(Arrays.asList(ExPrj.CD_A3,ExPrj.CD_B3));
         mappings.addToSmellsWOPredecessor(unmapped);
         mappings.addToSmellsWOSuccessor(unmapped);
 
         final Set<IntraVersionCd> NO_PRED = mappings.getSmellsWOPredecessor();
         assertTrue(NO_PRED.contains(ExPrj.CD_A1));
         assertTrue(NO_PRED.contains(ExPrj.CD_A2));
+        assertTrue(NO_PRED.contains(ExPrj.CD_A3));
         assertTrue(NO_PRED.contains(ExPrj.CD_B1));
         assertFalse(NO_PRED.contains(ExPrj.CD_B2));
         assertTrue(NO_PRED.contains(ExPrj.CD_B3));
@@ -52,6 +53,7 @@ public class Test_mapping
         final Set<IntraVersionCd> NO_SUC = mappings.getSmellsWOSuccessor();
         assertFalse(NO_SUC.contains(ExPrj.CD_A1));
         assertFalse(NO_SUC.contains(ExPrj.CD_A2));
+        assertTrue(NO_SUC.contains(ExPrj.CD_A3));
         assertFalse(NO_SUC.contains(ExPrj.CD_B1));
         assertFalse(NO_SUC.contains(ExPrj.CD_B2));
         assertTrue(NO_SUC.contains(ExPrj.CD_B3));

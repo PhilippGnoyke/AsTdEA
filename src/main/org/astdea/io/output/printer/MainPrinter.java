@@ -8,8 +8,8 @@ import org.astdea.data.smells.interversionsmells.InterVersionCd;
 import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 import org.astdea.data.versions.Version;
-import org.astdea.io.inputoutput.IOFN;
 import org.astdea.io.IOUtils;
+import org.astdea.io.inputoutput.IOFN;
 import org.astdea.io.output.OFN;
 import org.astdea.io.output.ResultHeaders;
 import org.astdea.io.output.printer.compappender.CdCompAppender;
@@ -83,7 +83,7 @@ public class MainPrinter
         Set<InterVersionCd> inters = project.getCds(level);
         CdMappings mappings = project.getCdMappingsMap(level);
         printCore(fileProps, ResultHeaders.cdPropHeaders, new PropsPrinter<>(inters));
-        printCore(fileComps, ResultHeaders.generalSmellCompHeaders, new CompsPrinter<>(inters, new CdCompAppender()));
+        printCore(fileComps, ResultHeaders.cdCompHeaders, new CompsPrinter<>(inters, new CdCompAppender()));
         printCore(fileEdges, ResultHeaders.cdEdgesHeaders, new CdEdgesPrinter(inters, mappings));
     }
 
@@ -101,7 +101,7 @@ public class MainPrinter
     printLinEvoTypesCore(Set<InterType> inters, String fileProps, String fileComps) throws IOException
     {
         printCore(fileProps, ResultHeaders.generalSmellPropHeaders, new PropsPrinter<>(inters));
-        printCore(fileComps, ResultHeaders.generalSmellCompHeaders, new CompsPrinter<>
+        printCore(fileComps, ResultHeaders.linEvoTypeCompHeaders, new CompsPrinter<>
             (inters, new LinEvoTypeCompAppender<>()));
     }
 

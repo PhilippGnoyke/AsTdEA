@@ -2,7 +2,6 @@ package org.astdea.io.input;
 
 import org.astdea.io.IOUtils;
 
-import java.io.File;
 import java.io.IOException;
 
 public final class VersionsReader
@@ -24,6 +23,6 @@ public final class VersionsReader
 
     public static boolean fileExists(String inDir)
     {
-        return IOUtils.makeFile(inDir,IFN.FILE_VERSIONS_CSV).exists();
+        return IOUtils.makeFile(inDir, IFN.FILE_VERSIONS_CSV).exists();
     }
 }

@@ -24,6 +24,7 @@ public final class ExPrj
     public final static IntraVersionCd[][] CDS;
     public final static IntraVersionCd CD_A1;
     public final static IntraVersionCd CD_A2;
+    public final static IntraVersionCd CD_A3;
     public final static IntraVersionCd CD_B1;
     public final static IntraVersionCd CD_B2;
     public final static IntraVersionCd CD_B3;
@@ -68,6 +69,9 @@ public final class ExPrj
         final Set<String> COMPS_A2 = new HashSet<>(Arrays.asList("D", "E"));
         final int PR_A2 = 1;
 
+        final Set<String> COMPS_A3 = new HashSet<>(Arrays.asList("X", "Y"));
+        final int PR_A3 = 1;
+
         final Set<String> COMPS_B1 = new HashSet<>(Arrays.asList("C", "F"));
         final int PR_B1 = 1;
 
@@ -100,6 +104,7 @@ public final class ExPrj
 
         CD_A1 = new IntraVersionCd(smellId++, VERSION_ID_A, PR_A1, COMPS_A1);
         CD_A2 = new IntraVersionCd(smellId++, VERSION_ID_A, PR_A2, COMPS_A2);
+        CD_A3 = new IntraVersionCd(smellId++, VERSION_ID_A, PR_A3, COMPS_A3);
         CD_B1 = new IntraVersionCd(smellId++, VERSION_ID_B, PR_B1, COMPS_B1);
         CD_B2 = new IntraVersionCd(smellId++, VERSION_ID_B, PR_B2, COMPS_B2);
         CD_B3 = new IntraVersionCd(smellId++, VERSION_ID_B, PR_B3, COMPS_B3);
@@ -112,7 +117,7 @@ public final class ExPrj
         CD_E2 = new IntraVersionCd(smellId, VERSION_ID_E, PR_E2, COMPS_E2);
 
         CDS = new IntraVersionCd[][]{
-            {CD_A1, CD_A2}, {CD_B1, CD_B2, CD_B3}, {CD_C1, CD_C2}, {CD_D1, CD_D2, CD_D3}, {CD_E1, CD_E2}
+            {CD_A1, CD_A2,CD_A3}, {CD_B1, CD_B2, CD_B3}, {CD_C1, CD_C2}, {CD_D1, CD_D2, CD_D3}, {CD_E1, CD_E2}
         };
         INTRA_CD_COUNT = 12;
     }

@@ -25,9 +25,9 @@ public final class TimeManager
     public static void initManually(LocalDate[] newVersionTimes)
     {
         int analysedVersions = newVersionTimes.length;
-        versionTimes = new LocalDate[analysedVersions+1];
+        versionTimes = new LocalDate[analysedVersions + 1];
         System.arraycopy(newVersionTimes, 0, versionTimes, 0, newVersionTimes.length);
-        calcAll(versionTimes.length-1);
+        calcAll(versionTimes.length - 1);
     }
 
     private static void calcAll(int analysedVersions)

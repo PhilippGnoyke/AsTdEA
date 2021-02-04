@@ -78,6 +78,4 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
     {
         smellsWOSuccessor.addAll(remaining);
     }
-
-
 }

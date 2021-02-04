@@ -16,7 +16,7 @@ public abstract class LinEvoTypeVersionPairTracker<IntraType extends IntraVersio
     @Override
     public MappingsMapType track()
     {
-        if(unmappedIntrasA.size()>0 && unmappedIntrasB.size()>0)
+        if (unmappedIntrasA.size() > 0 && unmappedIntrasB.size() > 0)
         {
             trackMainNameEquality();
             trackSetSimilarity();

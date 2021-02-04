@@ -99,7 +99,7 @@ public class CdDeltaCalculator
     {
         for (IntraVersionCd intra : mappings.getSmellsWOSuccessor())
         {
-            deltas.addRemovs(intra.getVersionId()+1, intra.getRemovalWeight());
+            deltas.addRemovs(intra.getVersionId() + 1, intra.getRemovalWeight());
         }
     }
 

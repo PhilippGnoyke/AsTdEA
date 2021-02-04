@@ -91,7 +91,7 @@ public class ArcanRunner
             {
                 versions.add(FilenameUtils.getBaseName(fileName));
             }
-            else if(file.isDirectory())
+            else if (file.isDirectory())
             {
                 versions.add(fileName);
             }

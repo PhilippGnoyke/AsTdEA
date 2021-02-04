@@ -2,7 +2,8 @@ package org.astdea.logic.tracker.versionpairtracker;
 
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 
-public class IntraJaccardPair<IntraType extends IntraVersionLinEvoType> implements Comparable<IntraJaccardPair<IntraType>>
+public class IntraJaccardPair<IntraType extends IntraVersionLinEvoType> implements
+    Comparable<IntraJaccardPair<IntraType>>
 {
     private IntraType smellA;
     private IntraType smellB;

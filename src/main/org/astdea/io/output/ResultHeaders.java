@@ -43,9 +43,14 @@ public final class ResultHeaders
             OPN.MAX_FAMILY_WIDTH
         });
 
-    public static final String[] generalSmellCompHeaders = new String[]{
+    public static final String[] cdCompHeaders = new String[]{
         OPN.ID,
-        OPN.INTRA_IDS
+        OPN.CD_INTRA_IDS
+    };
+
+    public static final String[] linEvoTypeCompHeaders = new String[]{
+        OPN.ID,
+        OPN.LIN_EVO_TYPE_INTRA_IDS
     };
 
     public static final String[] cdEdgesHeaders = new String[]{

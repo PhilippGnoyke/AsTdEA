@@ -3,7 +3,6 @@ package org.astdea.data.smells.interversionsmells;
 import org.astdea.io.output.OPN;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Objects;

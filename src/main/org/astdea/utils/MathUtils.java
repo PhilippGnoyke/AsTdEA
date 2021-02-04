@@ -28,14 +28,14 @@ public final class MathUtils
     {
         int intersection = sizeOfIntersection(set1, set2);
         int union = sizeOfUnion(set1, set2, intersection);
-        return jaccard(intersection ,union);
+        return jaccard(intersection, union);
     }
 
     // Use this method variant if the intersection is already known to increase efficiency
     public static <Type> double jaccard(Set<Type> set1, Set<Type> set2, int intersection)
     {
         int union = sizeOfUnion(set1, set2, intersection);
-        return jaccard(intersection ,union);
+        return jaccard(intersection, union);
     }
 
     // Use this method variant if the intersection and the union are already known to increase efficiency
