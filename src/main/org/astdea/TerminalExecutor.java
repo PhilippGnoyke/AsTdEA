@@ -87,14 +87,18 @@ public class TerminalExecutor
             "All jars of a project have to be inserted in a folder with the project's name, " +
             "located in the general input folder. " +
             "Each jar has to contain its version number at the end of its name. " +
-            "The TdAsEA sorts the versions automatically according to their version number. " +
+            "The TdAsEA can sort the versions automatically according to their version number. " +
             "For example: If a project named \"MyProject\" shall be analysed " +
             "and the input folder is the default \"in\", " +
             "insert the jars in the folder \"in/MyProject\". " +
             "The jars have to look like \"[anyText]-[version number].jar\", " +
             "with the version number for example being \"1\", \"3.5\", \"10.7.11\", \"1.2a\", \"1.a\"." +
-            "In addition, for each project, you have to provide two files with additional metadata for the analysis. " +
-            "These are \"date.csv\" and \"loc.csv\" and must be put in the same folder as the jars. " +
+            "Alternatively, provide an additional file that contains the version numbers from oldest to newest." +
+            "This file is \"versions.csv\" and has to put into the same folder as the jars." +
+            "An example for its structure is given below." +
+            "In addition, for each project, you always have to provide" +
+            "two files with additional metadata for the analysis. " +
+            "These are \"date.csv\" and \"loc.csv\" and must also be put in the same folder as the jars. " +
             "Examples for their structure are given below. " +
             "The output of all analyses is put into the output folder, subdivided by projects and " +
             "further subdivided by simple version numbers (0, 1, 2, etc.) " +
@@ -115,7 +119,14 @@ public class TerminalExecutor
             "\t25247\n" +
             "\t27410\n" +
             "\t31582\n" +
-            "\t30642\n\n";
+            "\t30642\n\n"+
+        "Example for \"versions.csv\" (contains the version number of each version " +
+            "(sorted in ascending order of their release date)):\n" +
+            "\tversion\n" +
+            "\tmyProject-1.1\n" +
+            "\tmyProject-1.2g\n" +
+            "\tmyProject-1.2final\n" +
+            "\tmyProject-1.3\n\n";
         System.out.println(manualPt2);
     }
 }
