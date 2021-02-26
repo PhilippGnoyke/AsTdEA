@@ -20,7 +20,7 @@ public class TerminalExecutor
     @Parameter(names = {"-help", "-h"}, help = true, description = "Print this help")
     private static boolean _help = false;
 
-    @Parameter(names = {"-inputDir", "-in"}, description = "Top level input dir. For each project to analyse," +
+    @Parameter(names = {"-inputDir", "-in"}, description = "Top level input dir. For each project to analyse, " +
         "put a folder with the project's jars in it.", converter = StringConverter.class)
     private static String _inDir = "in";
 
@@ -29,7 +29,7 @@ public class TerminalExecutor
     private static String _outDir = "out";
 
     @Parameter(names = {"-suppressNonAsTdEvolution", "-sup"}, description =
-        "Only output results of the modded features (td, supercycle CDs, etc.)")
+        "Only output results of the modded features (TD, supercycle CDs, etc.)")
     private static boolean _suppressNonAsTdEvolution = true;
 
     public static void main(String[] args) throws IOException, InterruptedException
@@ -92,11 +92,11 @@ public class TerminalExecutor
             "and the input folder is the default \"in\", " +
             "insert the jars in the folder \"in/MyProject\". " +
             "The jars have to look like \"[anyText]-[version number].jar\", " +
-            "with the version number for example being \"1\", \"3.5\", \"10.7.11\", \"1.2a\", \"1.a\"." +
-            "Alternatively, provide an additional file that contains the version numbers from oldest to newest." +
-            "This file is \"versions.csv\" and has to put into the same folder as the jars." +
-            "An example for its structure is given below." +
-            "In addition, for each project, you always have to provide" +
+            "with the version number for example being \"1\", \"3.5\", \"10.7.11\", \"1.2a\", \"1.a\". " +
+            "Alternatively, provide an additional file that contains the version numbers from oldest to newest. " +
+            "This file is \"versions.csv\" and has to be put into the same folder as the jars. " +
+            "An example for its structure is given below. " +
+            "In addition, for each project, you always have to provide " +
             "two files with additional metadata for the analysis. " +
             "These are \"date.csv\" and \"loc.csv\" and must also be put in the same folder as the jars. " +
             "Examples for their structure are given below. " +
