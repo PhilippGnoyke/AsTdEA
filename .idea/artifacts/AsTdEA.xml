@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact name="AsTdEA">
+    <output-path>$PROJECT_DIR$/out/artifacts/AsTdEA</output-path>
+    <root id="root">
+      <element id="archive" name="AsTdEA.jar">
+        <element id="module-output" name="AsTdEA" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/resources/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="Maven: com.beust:jcommander:1.60" />
+        <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
+        <element id="library" level="project" name="Maven: org.apache.commons:commons-csv:1.4" />
+        <element id="library" level="project" name="Maven: it.unimib.disco.essere:arcan:1.2.1-modded" />
+        <element id="library" level="project" name="org.apache.commons:commons-collections4:4.4" />
+        <element id="library" level="project" name="org.apache.commons:commons-text:1.8" />
+        <element id="library" level="project" name="commons-lang-2.6" />
+        <element id="library" level="project" name="commons-math3-3.6.1" />
+        <element id="library" level="project" name="org.psjava:psjava:0.1.19" />
+        <element id="library" level="project" name="junit:junit:4.12" />
+      </element>
+    </root>
+  </artifact>
+</component>
