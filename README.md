@@ -2,7 +2,7 @@
 Architecture Smell and Technical Debt Evolution Analyser
 
 ## About The Project
-AsTdEA runs a modified version of Arcan to detect architecture smells and calcuate technical debt in multiple versions of a project. Smells are tracked across versions. Many properties of smells and versions are calculated to enable statistical analyses.
+AsTdEA runs a modified version of Arcan to detect architecture smells and calculate technical debt in multiple versions of a project. Smells are tracked across versions. Many properties of smells and versions are calculated to enable statistical analyses.
 
 ## Installation
 Download from [here](https://drive.google.com/uc?export=download&id=1NArqsJyah7NhCcYacjxoOnzcypt-On08) and unzip.
@@ -19,7 +19,8 @@ date
 2020-03-24
 2020-08-01
 2021-01-04
-
+```
+```sh
 loc
 32626
 37805
