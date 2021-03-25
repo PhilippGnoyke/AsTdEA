@@ -15,10 +15,10 @@
         <element id="library" level="project" name="Maven: it.unimib.disco.essere:arcan:1.2.1-modded" />
         <element id="library" level="project" name="org.apache.commons:commons-collections4:4.4" />
         <element id="library" level="project" name="org.apache.commons:commons-text:1.8" />
-        <element id="library" level="project" name="commons-lang-2.6" />
-        <element id="library" level="project" name="commons-math3-3.6.1" />
         <element id="library" level="project" name="org.psjava:psjava:0.1.19" />
         <element id="library" level="project" name="junit:junit:4.12" />
+        <element id="library" level="project" name="commons-lang:commons-lang:2.6" />
+        <element id="library" level="project" name="commons-math3-3.6.11" />
       </element>
     </root>
   </artifact>

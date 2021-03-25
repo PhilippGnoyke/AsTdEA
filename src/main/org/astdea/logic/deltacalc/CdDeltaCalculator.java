@@ -30,15 +30,14 @@ public class CdDeltaCalculator
         for (InterVersionCd inter : inters)
         {
             List<Set<IntraVersionCd>> intrasOfInter = inter.getIntraVersionSmells();
+            initWeightsInVersion(intrasOfInter, 0);
             for (int versionId = 0; versionId < intrasOfInter.size() - 1; versionId++)
             {
-                initWeightsInVersion(intrasOfInter, versionId);
+                initWeightsInVersion(intrasOfInter, versionId+1);
                 MutableBipartiteGraph<IntraVersionCd> graph = buildInterBiparGraph(intrasOfInter, versionId);
                 updateIntrosForIntrasAfterSplit(versionId, graph);
                 transferWeights(graph);
             }
-            // Not necessary for calculations, but for correct printing results in interVersion/xCdComponents.csv
-            initWeightsInVersion(intrasOfInter, intrasOfInter.size() - 1);
         }
         calcRemovs();
         return deltas;
