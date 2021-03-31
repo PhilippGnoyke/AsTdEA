@@ -147,7 +147,7 @@ public class Project
             DeltaSmellsInVersion deltaSmells = new DeltaSmellsInVersion
                 (versionId, deltasClassCd, deltasPackCd, deltasHd, deltasUd);
             versions.get(versionId).setDeltaSmellsInVersion(deltaSmells);
-            if (versionId > 0) {versions.get(versionId).setDeltaSmellsAsPrevVersion(deltaSmells);}
+            if (versionId > 0) {versions.get(versionId - 1).setDeltaSmellsAsPrevVersion(deltaSmells);}
         }
     }
 
