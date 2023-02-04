@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: it.unimib.disco.essere:arcan:1.2.1-modded">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/it/unimib/disco/essere/arcan/1.2.1-modded/arcan-1.2.1-modded.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/arcan-1.2.1-modded.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/it/unimib/disco/essere/arcan/1.2.1-modded/arcan-1.2.1-modded-javadoc.jar!/" />

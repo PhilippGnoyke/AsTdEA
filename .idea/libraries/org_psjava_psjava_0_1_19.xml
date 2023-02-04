@@ -6,7 +6,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.ideaLibSources/psjava-0.1.19-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/psjava/psjava/0.1.19/psjava-0.1.19-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

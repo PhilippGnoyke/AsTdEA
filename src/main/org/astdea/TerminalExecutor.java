@@ -32,6 +32,13 @@ public class TerminalExecutor
         "Only output results of the modded features (TD, supercycle CDs, etc.)")
     private static boolean _suppressNonAsTdEvolution = true;
 
+    @Parameter(names = {"-dontRunArcan", "-noA"}, description =
+        "Don't run Arcan but parse previously generated .csv files in the out folder.")
+    private static boolean _dontRunArcan = false;
+
+
+
+
     public static void main(String[] args) throws IOException, InterruptedException
     {
         TerminalExecutor tt = new TerminalExecutor();
@@ -61,7 +68,7 @@ public class TerminalExecutor
                     String projectOut = IOUtils.makeFilePath(_outDir, projectName);
                     ArcanRunner arcanRunner = new ArcanRunner
                         (projectName, projectOut, projectIn, suppressNonAsTdEvolutionArg);
-                    String[] versionNames = arcanRunner.analyseAllVersions();
+                    String[] versionNames = arcanRunner.analyseAllVersions(_dontRunArcan);
                     Project project = new Project(projectIn, projectOut, versionNames.length).build();
                     new MainPrinter(projectOut, project, versionNames).printAll();
                     LogUtil.logInfo("Finished analysis of project " + projectName + ".");

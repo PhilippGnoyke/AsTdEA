@@ -33,12 +33,12 @@ public class ArcanRunner
         this.suppressNonAsTdEvolutionArg = suppressNonAsTdEvolutionArg;
     }
 
-    public String[] analyseAllVersions() throws IOException, InterruptedException
+    public String[] analyseAllVersions(boolean dontRunArcan) throws IOException, InterruptedException
     {
         IOUtils.makeDir(outDir);
         String[] versionNames = retrieveVersions();
         ArcanVersionRunner.resetTotalVersionsAnalysed();
-        if (versionNames != null)
+        if (versionNames != null && !dontRunArcan)
         {
             int versionCount = versionNames.length;
             ArcanVersionRunner[] threads = initThreads(versionCount);
