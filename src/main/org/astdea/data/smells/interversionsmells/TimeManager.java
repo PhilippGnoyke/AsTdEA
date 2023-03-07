@@ -18,7 +18,7 @@ public final class TimeManager
 
     public static void initFromFile(String inDir, int analysedVersions) throws IOException
     {
-        versionTimes = DatesReader.retrieveDates(inDir, analysedVersions);
+        versionTimes = DatesReader.retrieveDates(inDir);
         calcAll(analysedVersions);
     }
 

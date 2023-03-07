@@ -6,7 +6,7 @@ public final class LocReader
 {
     private LocReader() {}
 
-    public static Integer[] retrieveLocs(String inDir, int numVersions) throws IOException
+    public static Integer[] retrieveLocs(String inDir) throws IOException
     {
         HelperCsvRetriever<Integer> helper = new HelperCsvRetriever<>()
         {
@@ -16,6 +16,6 @@ public final class LocReader
             @Override
             public Integer parseValue(String input) {return Integer.parseInt(input);}
         };
-        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_LOC_CSV, IPN.LOC, numVersions, helper);
+        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_LOC_CSV, IPN.LOC, helper);
     }
 }

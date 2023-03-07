@@ -8,7 +8,7 @@ public final class VersionsReader
 {
     private VersionsReader() {}
 
-    public static String[] retrieveVersions(String inDir, int numVersions) throws IOException
+    public static String[] retrieveVersions(String inDir) throws IOException
     {
         HelperCsvRetriever<String> helper = new HelperCsvRetriever<>()
         {
@@ -18,7 +18,7 @@ public final class VersionsReader
             @Override
             public String parseValue(String input) {return input;}
         };
-        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_VERSIONS_CSV, IPN.VERSION, numVersions, helper);
+        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_VERSIONS_CSV, IPN.VERSION, helper);
     }
 
     public static boolean fileExists(String inDir)

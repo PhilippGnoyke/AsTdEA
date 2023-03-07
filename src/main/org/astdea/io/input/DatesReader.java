@@ -7,7 +7,7 @@ public final class DatesReader
 {
     private DatesReader() {}
 
-    public static LocalDate[] retrieveDates(String inDir, int numVersions) throws IOException
+    public static LocalDate[] retrieveDates(String inDir) throws IOException
     {
         HelperCsvRetriever<LocalDate> helper = new HelperCsvRetriever<>()
         {
@@ -17,6 +17,6 @@ public final class DatesReader
             @Override
             public LocalDate parseValue(String input) {return LocalDate.parse(input);}
         };
-        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_DATES_CSV, IPN.DATE, numVersions, helper);
+        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_DATES_CSV, IPN.DATE, helper);
     }
 }

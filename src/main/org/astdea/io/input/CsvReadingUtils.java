@@ -61,23 +61,20 @@ public final class CsvReadingUtils
         return vals;
     }
 
-    public static <Type> Type[] retrieveHelperCsv(String inDir, String fileName, String header, int rows,
+    public static <Type> Type[] retrieveHelperCsv(String inDir, String fileName, String header,
                                                   HelperCsvRetriever<Type> helper) throws IOException
     {
-        Type[] result = helper.instantiateArray(rows);
+        ArrayList<Type> result = new ArrayList<Type>();
         String file = IOUtils.makeFilePath(inDir, fileName);
         CSVParser records = CsvReadingUtils.initCsvParser(file, new String[]{header});
-        int i = 0;
         for (CSVRecord record : records)
         {
             String val = record.get(header);
             if (val.equals("")) {throwError(file);}
-            result[i] = helper.parseValue(val);
-            i++;
+            result.add( helper.parseValue(val));
         }
-        if (i != rows) {throwError(file);}
         records.close();
-        return result;
+        return result.toArray(helper.instantiateArray(result.size()));
     }
 
     private static void throwError(String file)

@@ -42,7 +42,7 @@ public class ArcanRunner
         {
             int versionCount = versionNames.length;
             ArcanVersionRunner[] threads = initThreads(versionCount);
-            Integer[] locs = LocReader.retrieveLocs(inDir, versionCount);
+            Integer[] locs = LocReader.retrieveLocs(inDir);
             // Disable any console output from Arcan and its usage of other libs (still shows errors)
             System.setOut(NULL_OUTPUT_STREAM);
             for (int versionId = 0; versionId < versionCount; versionId++)
@@ -74,8 +74,7 @@ public class ArcanRunner
         if (VersionsReader.fileExists(inDir))
         {
             final int META_FILE_COUNT = 3;
-            int versionCount = IOUtils.numOfFilesInFolder(inFolder) - META_FILE_COUNT;
-            return VersionsReader.retrieveVersions(inDir, versionCount);
+            return VersionsReader.retrieveVersions(inDir);
         }
         File[] files = inFolder.listFiles();
         if (files == null)
