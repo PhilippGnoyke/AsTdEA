@@ -31,15 +31,13 @@
 			<artifactId>commons-csv</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<dependency>
-			<groupId>it.unimib.disco.essere</groupId>
-			<artifactId>arcan</artifactId>
-			<version>1.2.1-modded</version>
-		</dependency>		
-		
-		
-		
-		
+        <dependency>
+            <groupId>it.unimib.disco.essere</groupId>
+            <artifactId>arcan</artifactId>
+            <scope>system</scope>
+            <version>1.2.1-modded</version>
+            <systemPath>${project.basedir}/libs/arcan-1.2.1-modded.jar</systemPath>
+        </dependency>				
     </dependencies>
 
 
