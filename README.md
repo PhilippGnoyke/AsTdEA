@@ -35,7 +35,7 @@ java -jar AsTdEA.jar
 ```
 5. After finishing the analysis, results are provided in an output directory as csv files.
 
-## Other source code
+## Other Source Code
 The source code of the modified version of Arcan is available [here](https://github.com/PhilippGnoyke/arcan-1.2.1-modded).
 
 ## Studies
