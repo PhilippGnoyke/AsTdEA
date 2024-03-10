@@ -205,7 +205,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 10           | numOfInterVersionHDs      | Integer   | [0..∞) | Number of detected inter-version hub-like dependencies                                 |
 | 11           | numOfInterVersionUDs      | Integer   | [0..∞) | Number of detected inter-version unstable dependencies                                 |
 
-#### interVersion\ClassCdsMerges\<Inter-version smell ID>.csv<br>interVersion\PackageCdsMerges\<Inter-version smell ID>.csv
+#### interVersion\ClassCdsMerges\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsMerges\\&lt;Inter-version smell ID&gt;.csv
 | Column index | Column name in the .csv | Data type             | Range  | Column description                                                                                                                     |
 |--------------|-------------------------|-----------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer               | [0..∞) | ID of the version before the merge occurred                                                                                            |
@@ -223,7 +223,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 12           | overallSubcyclesChange  | Floating point        | (-1,∞) | Rate of change of the number of subcycles                                                                                              |
 | 13           | sourceIntraVersionCds   | List<Integer.Integer> |        | Intra-version smell IDs of all intra-version smells that were merged, separated by commas (version ID and smell ID within the version) |
 
-#### interVersion\ClassCdsSplits\<Inter-version smell ID>.csv<br>interVersion\PackageCdsSplits\<Inter-version smell ID>.csv
+#### interVersion\ClassCdsSplits\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsSplits\\&lt;Inter-version smell ID&gt;.csv
 | Column index | Column name in the .csv | Data type             | Range  | Column description                                                                                                                    |
 |--------------|-------------------------|-----------------------|--------|---------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer               | [0..∞) | ID of the version before the split occurred                                                                                           |
@@ -241,7 +241,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 12           | overallSubcyclesChange  | Floating point        | (-1,∞) | Rate of change of the number of subcycles                                                                                             |
 | 13           | targetIntraVersionCds   | List<Integer.Integer> |        | Intra-version smell IDs of all intra-version smells that were split, separated by commas (version ID and smell ID within the version) |
 
-#### interVersion\ClassCdsTransitions\<Inter-version smell ID>.csv<br>interVersion\PackageCdsTransitions\<Inter-version smell ID>.csv
+#### interVersion\ClassCdsTransitions\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsTransitions\\&lt;Inter-version smell ID&gt;.csv
 | Column index | Column name in the .csv | Data type       | Range                                                              | Column description                                                                                                           |
 |--------------|-------------------------|-----------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer         | [0..∞)                                                             | ID of the version at the tail of the transition                                                                              |
