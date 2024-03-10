@@ -8,9 +8,10 @@ public class IntraVersionHd extends IntraVersionLinEvoType
     private Set<String> affComps;
     private Set<String> effComps;
 
-    public IntraVersionHd(int smellId, int version, double pageRank, String mainComp, Set<String> affComps, Set<String> effComps)
+    public IntraVersionHd(int smellId, int version, double pageRank, int order, int size, String mainComp,
+                          Set<String> affComps, Set<String> effComps)
     {
-        super(smellId, version, pageRank, mainComp);
+        super(smellId, version, pageRank, order, size, mainComp);
         this.affComps = affComps;
         this.effComps = effComps;
     }

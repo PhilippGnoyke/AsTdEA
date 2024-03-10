@@ -17,7 +17,7 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
     protected Set<IntraType> smellsWOSuccessor;
 
     /*
-     * Potential for optimising:
+     * TODO: Potential for optimising:
      * Retrieve how many mappings are expected to arise from a given number of intra-version smells.
      * Init the map and set sizes to a corresponding value.
      */
@@ -69,13 +69,8 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
         smellsWOSuccessor.remove(smellOld);
     }
 
-    public void addToSmellsWOPredecessor(Set<IntraType> remaining)
-    {
-        smellsWOPredecessor.addAll(remaining);
-    }
+    public void addToSmellsWOPredecessor(Set<IntraType> remaining) { smellsWOPredecessor.addAll(remaining); }
 
-    public void addToSmellsWOSuccessor(Set<IntraType> remaining)
-    {
-        smellsWOSuccessor.addAll(remaining);
-    }
+    public void addToSmellsWOSuccessor(Set<IntraType> remaining) { smellsWOSuccessor.addAll(remaining); }
+
 }

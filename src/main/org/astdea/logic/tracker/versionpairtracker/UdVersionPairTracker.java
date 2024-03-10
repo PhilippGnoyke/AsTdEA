@@ -13,8 +13,8 @@ public class UdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVers
     public UdVersionPairTracker(Version versionA, Version versionB, UdMappings mappings)
     {
         this.mappings = mappings;
-        unmappedIntrasA = new HashSet<>(versionA.getUds());
-        unmappedIntrasB = new HashSet<>(versionB.getUds());
+        unmappedIntrasA = new HashSet<>(versionA.getUds().values());
+        unmappedIntrasB = new HashSet<>(versionB.getUds().values());
     }
 
     @Override

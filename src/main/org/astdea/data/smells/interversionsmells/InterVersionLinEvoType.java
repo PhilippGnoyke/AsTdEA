@@ -10,5 +10,16 @@ public abstract class InterVersionLinEvoType<IntraType extends IntraVersionLinEv
     public InterVersionLinEvoType(int versionOfIntroduction, List<IntraType> intraVersionSmells)
     {
         super(versionOfIntroduction, intraVersionSmells);
+        setAges();
+    }
+
+    private void setAges()
+    {
+        for(int i = 0;i<intraVersionSmells.size();i++)
+        {
+            IntraType intra = intraVersionSmells.get(i);
+            intra.setAge(i);
+            intra.setRemainingAge(intraVersionSmells.size()-1-i);
+        }
     }
 }

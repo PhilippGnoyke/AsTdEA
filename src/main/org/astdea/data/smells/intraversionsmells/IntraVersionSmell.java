@@ -8,22 +8,40 @@ public abstract class IntraVersionSmell
     private int versionId;
     private IntraId intraId;
     private double pageRank;
+    private int order;
+    private int size;
+    private int age = 0;
+    private int remainingAge = 0;
 
-    public IntraVersionSmell(int smellId, int versionId, double pageRank)
+    public IntraVersionSmell(int smellId, int versionId, double pageRank, int order, int size)
     {
         this.smellId = smellId;
         this.versionId = versionId;
         this.pageRank = pageRank;
+        this.order = order;
+        this.size = size;
         this.intraId = new IntraId(versionId, smellId);
     }
 
-    public int getSmellId() {return smellId;}
+    public int getSmellId() { return smellId; }
 
-    public int getVersionId() {return versionId;}
+    public int getVersionId() { return versionId; }
 
-    public double getPageRank() {return pageRank;}
+    public double getPageRank() { return pageRank; }
 
-    public IntraId getIntraId() {return intraId;}
+    public int getOrder() { return order; }
+
+    public int getSize() { return size; }
+
+    public IntraId getIntraId() { return intraId; }
+
+    public int getAge() { return age; }
+
+    public void setAge(int age) { this.age = age; }
+
+    public int getRemainingAge() { return remainingAge; }
+
+    public void setRemainingAge(int remainingAge) { this.remainingAge = remainingAge; }
 
     @Override
     public boolean equals(Object other)
@@ -36,4 +54,5 @@ public abstract class IntraVersionSmell
 
     @Override
     public int hashCode() {return Objects.hash(intraId);}
+
 }

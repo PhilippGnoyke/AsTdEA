@@ -107,4 +107,9 @@ public final class MathUtils
     {
         return (weight1 + weight2) / (weight1 / value1 + weight2 / value2);
     }
+
+    public static double calcChange(int after, int before)
+    {
+        return (double) (after - before) / before;
+    }
 }

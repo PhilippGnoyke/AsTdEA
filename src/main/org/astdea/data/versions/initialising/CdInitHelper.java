@@ -4,6 +4,7 @@ import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.astdea.data.smells.Level;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
+import org.astdea.data.smells.intraversionsmells.Shape;
 import org.astdea.io.IOUtils;
 import org.astdea.io.input.IPN;
 import org.astdea.io.inputoutput.IOFN;
@@ -43,10 +44,12 @@ class CdInitHelper implements SmellTypeInitHelper<IntraVersionCd>
 
     @Override
     public IntraVersionCd initIntra
-        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank)
+        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank, int order, int size)
     {
+        int numSubcycles =  Integer.parseInt(propRecord.get(IPN.NUM_SUBCYCLES));
+        Shape shape = Shape.parseString(propRecord.get(IPN.SHAPE));
         String compsString = compRecord.get(IPN.AFFECTED_COMPS);
         Set<String> comps = IOUtils.parseStringToSet(compsString, IOUtils.DELIMITER);
-        return new IntraVersionCd(smellId, versionId, pageRank, comps);
+        return new IntraVersionCd(smellId, versionId, pageRank,order,size,numSubcycles, shape,comps);
     }
 }

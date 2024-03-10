@@ -4,6 +4,14 @@ public final class OPN
 {
     private OPN() {}
 
+    //IntraVersionSmell
+    public final static String AGE = "age";
+    public final static String REMAINING_AGE = "remainingAge";
+    public final static String NUM_PREDS = "numDirectPredecessors";
+    public final static String NUM_ALL_PREDS = "numAllPredecessors";
+    public final static String NUM_SUCCS = "numDirectSuccessors";
+    public final static String NUM_ALL_SUCCS = "numAllSuccessors";
+
     // InterVersionSmell
     public final static String ID = "id";
     public final static String VERSION_OF_INTRODUCTION = "versionOfIntroduction";
@@ -22,8 +30,45 @@ public final class OPN
     // InterVersionCd
     public final static String FAMILY_ORDER = "familyOrder";
     public final static String MEDIAN_FAMILY_WIDTH = "medianFamilyWidth";
+    public final static String MIN_FAMILY_WIDTH = "minFamilyWidth";
     public final static String MAX_FAMILY_WIDTH = "maxFamilyWidth";
+    public final static String FAMILY_SIZE = "familySize"; //=Total transitions
+    public final static String PURE_TRANSITIONS = "pureTransitions";
+    public final static String MERGE_ONLY_TRANSITIONS = "mergeOnlyTransitions";
+    public final static String SPLIT_ONLY_TRANSITIONS = "splitOnlyTransitions";
+    public final static String MERGE_AND_SPLIT_TRANSITIONS = "mergeAndSplitTransitions";
+    public final static String MERGES_COUNT = "mergesCount";
+    public final static String SPLITS_COUNT = "splitsCount";
+    public final static String SIMPLE_MERGES_SHARE_UNWEIGHTED = "simpleMergesShareUnweighted"; //Share of 2->1 merges among all merges in family
+    public final static String SIMPLE_SPLITS_SHARE_UNWEIGHTED = "simpleSplitsShareUnweighted"; //Share of 1->2 splits among all splits in family
+    public final static String SIMPLE_MERGES_SHARE_WEIGHTED = "simpleMergesShareWeighted"; //Share of merge transitions in family within 2->1 merges
+    public final static String SIMPLE_SPLITS_SHARE_WEIGHTED = "simpleSplitsShareWeighted"; //Share of split transitions in family within 2->1 splits
+    public final static String INCOMING_EDGE_COUNT_LARGEST_MERGE = "incomingEdgeCountLargestMerge";
+    public final static String OUTGOING_EDGE_COUNT_LARGEST_SPLIT = "outgoingEdgeCountLargestSplit";
+
+    //Other inter-version CD output
     public static final String CD_EDGES = "edges";
+    public static final String CD_TARGET_ID = "targetIntraVersionCd";
+    public static final String CD_MERGE_SIZE = "incomingEdgesCount";
+    public static final String CD_MERGE_SOURCES = "sourceIntraVersionCds";
+    public static final String CD_SOURCE_ID = "sourceIntraVersionCd";
+    public static final String CD_SPLIT_SIZE = "outgoingEdgesCount";
+    public static final String CD_SPLIT_SOURCES = "targetIntraVersionCds";
+    public static final String CD_OVERALL_ORDER_BEFORE = "overallOrderBefore";
+    public static final String CD_OVERALL_ORDER_AFTER = "overallOrderAfter";
+    public static final String CD_OVERALL_ORDER_CHANGE = "overallOrderChange";
+    public static final String CD_OVERALL_SIZE_BEFORE = "overallSizeBefore";
+    public static final String CD_OVERALL_SIZE_AFTER = "overallSizeAfter";
+    public static final String CD_OVERALL_SIZE_CHANGE = "overallSizeChange";
+    public static final String CD_OVERALL_SUBCYCLES_BEFORE = "overallSubcyclesBefore";
+    public static final String CD_OVERALL_SUBCYCLES_AFTER = "overallSubcyclesAfter";
+    public static final String CD_OVERALL_SUBCYCLES_CHANGE = "overallSubcyclesChange";
+    public static final String CD_SOURCE_VERSION = "sourceVersion";
+    public static final String CD_TARGET_VERSION = "targetVersion";
+    public static final String CD_TRANSITION_TYPE = "transitionType";
+    public static final String CD_SHAPE_SOURCE = "shapeSource";
+    public static final String CD_SHAPE_TARGET = "shapeTarget";
+
 
     // Version
     public final static String VERSION_TIME = "versionTime";

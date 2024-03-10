@@ -13,5 +13,5 @@ interface SmellTypeInitHelper<IntraType extends IntraVersionSmell>
 
     String[] getPropsHeaders();
 
-    IntraType initIntra(CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank);
+    IntraType initIntra(CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank, int order, int size);
 }

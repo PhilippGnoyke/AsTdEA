@@ -25,11 +25,11 @@ class HdInitHelper implements SmellTypeInitHelper<IntraVersionHd>
 
     @Override
     public IntraVersionHd initIntra
-        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank)
+        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank, int order, int size)
     {
         String mainComp = compRecord.get(IPN.MAIN_COMP);
         Set<String> affComps = IOUtils.parseStringToSet(compRecord.get(IPN.AFF_COMPS), IOUtils.DELIMITER);
         Set<String> effComps = IOUtils.parseStringToSet(compRecord.get(IPN.EFF_COMPS), IOUtils.DELIMITER);
-        return new IntraVersionHd(smellId, versionId, pageRank, mainComp, affComps, effComps);
+        return new IntraVersionHd(smellId, versionId, pageRank,order,size, mainComp, affComps, effComps);
     }
 }

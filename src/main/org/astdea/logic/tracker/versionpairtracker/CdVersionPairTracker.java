@@ -15,8 +15,8 @@ public class CdVersionPairTracker extends VersionPairTracker<IntraVersionCd, Int
     public CdVersionPairTracker(Version versionA, Version versionB, CdMappings mappings, Level level)
     {
         this.mappings = mappings;
-        unmappedIntrasA = new HashSet<>(versionA.getCds(level));
-        unmappedIntrasB = new HashSet<>(versionB.getCds(level));
+        unmappedIntrasA = new HashSet<>(versionA.getCds(level).values());
+        unmappedIntrasB = new HashSet<>(versionB.getCds(level).values());
     }
 
     @Override

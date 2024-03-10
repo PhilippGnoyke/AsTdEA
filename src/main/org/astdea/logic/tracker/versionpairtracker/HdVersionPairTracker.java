@@ -16,8 +16,8 @@ public class HdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVers
     public HdVersionPairTracker(Version versionA, Version versionB, HdMappings mappings)
     {
         this.mappings = mappings;
-        unmappedIntrasA = new HashSet<>(versionA.getHds());
-        unmappedIntrasB = new HashSet<>(versionB.getHds());
+        unmappedIntrasA = new HashSet<>(versionA.getHds().values());
+        unmappedIntrasB = new HashSet<>(versionB.getHds().values());
     }
 
     @Override

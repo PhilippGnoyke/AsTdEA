@@ -17,6 +17,9 @@ public final class IPN
     public static final String CLASS_COUNT = ProjectMetricsCalculator.PROPERTY_CLASS_COUNT;
     public static final String PACK_COUNT = ProjectMetricsCalculator.PROPERTY_PACK_COUNT;
     public static final String ORDER = GraphBuilder.PROPERTY_ORDER;
+    public static final String SIZE = GraphBuilder.PROPERTY_SIZE;
+    public static final String NUM_SUBCYCLES = GraphBuilder.PROPERTY_NUM_SUBCYCLES;
+    public static final String SHAPE = GraphBuilder.PROPERTY_SHAPE;
     public static final String CENTRALITY = GraphBuilder.PROPERTY_CENTRALITY;
     public static final String AFFECTED_COMPS = AsTdEvolutionPrinter.AFFECTED_COMPS;
     public static final String MAIN_COMP = AsTdEvolutionPrinter.MAIN_COMP;

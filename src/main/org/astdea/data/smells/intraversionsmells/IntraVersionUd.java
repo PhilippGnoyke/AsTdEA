@@ -7,9 +7,9 @@ public class IntraVersionUd extends IntraVersionLinEvoType
 {
     private Set<String> lessStablePacks;
 
-    public IntraVersionUd(int smellId, int version, double pageRank, String mainComp, Set<String> lessStablePacks)
+    public IntraVersionUd(int smellId, int version, double pageRank, int order, int size, String mainComp, Set<String> lessStablePacks)
     {
-        super(smellId, version, pageRank, mainComp);
+        super(smellId, version, pageRank,order, size, mainComp);
         this.lessStablePacks = lessStablePacks;
     }
 

@@ -25,11 +25,11 @@ class UdInitHelper implements SmellTypeInitHelper<IntraVersionUd>
 
     @Override
     public IntraVersionUd initIntra
-        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank)
+        (CSVRecord compRecord, CSVRecord propRecord, int versionId, int smellId, double pageRank, int order, int size)
     {
         String mainComp = compRecord.get(IPN.MAIN_COMP);
         Set<String> lessStablePacks =
             IOUtils.parseStringToSet(compRecord.get(IPN.LESS_STABLE_PACKS), IOUtils.DELIMITER);
-        return new IntraVersionUd(smellId, versionId, pageRank, mainComp, lessStablePacks);
+        return new IntraVersionUd(smellId, versionId, pageRank,order,size, mainComp, lessStablePacks);
     }
 }

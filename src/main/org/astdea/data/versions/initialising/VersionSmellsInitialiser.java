@@ -3,18 +3,13 @@ package org.astdea.data.versions.initialising;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.astdea.data.smells.Level;
-import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
-import org.astdea.data.smells.intraversionsmells.IntraVersionHd;
-import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
-import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
+import org.astdea.data.smells.intraversionsmells.*;
 import org.astdea.io.IOUtils;
 import org.astdea.io.input.CsvReadingUtils;
 import org.astdea.io.input.IPN;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class VersionSmellsInitialiser
 {
@@ -27,15 +22,15 @@ public class VersionSmellsInitialiser
         this.versionId = versionId;
     }
 
-    public Set<IntraVersionCd> initClassCds() throws IOException {return initCore(new CdInitHelper(Level.CLASS));}
+    public Map<IntraId,IntraVersionCd> initClassCds() throws IOException {return initCore(new CdInitHelper(Level.CLASS));}
 
-    public Set<IntraVersionCd> initPackCds() throws IOException {return initCore(new CdInitHelper(Level.PACK));}
+    public Map<IntraId,IntraVersionCd> initPackCds() throws IOException {return initCore(new CdInitHelper(Level.PACK));}
 
-    public Set<IntraVersionHd> initHds() throws IOException {return initCore(new HdInitHelper());}
+    public Map<IntraId,IntraVersionHd> initHds() throws IOException {return initCore(new HdInitHelper());}
 
-    public Set<IntraVersionUd> initUds() throws IOException {return initCore(new UdInitHelper());}
+    public Map<IntraId,IntraVersionUd> initUds() throws IOException {return initCore(new UdInitHelper());}
 
-    private <IntraType extends IntraVersionSmell> Set<IntraType> initCore
+    private <IntraType extends IntraVersionSmell> Map<IntraId,IntraType> initCore
         (SmellTypeInitHelper<IntraType> helper) throws IOException
     {
         String fileComps = IOUtils.makeFilePath(outDir, helper.getCompsFile());
@@ -44,14 +39,17 @@ public class VersionSmellsInitialiser
         CSVParser recordsProps = CsvReadingUtils.initCsvParser(fileProps, helper.getPropsHeaders());
         Iterator<CSVRecord> compsIter = recordsComps.iterator();
         Iterator<CSVRecord> propsIter = recordsProps.iterator();
-        Set<IntraType> intras = new HashSet<>();
+        Map<IntraId,IntraType> intras = new HashMap<>();
         while (compsIter.hasNext())
         {
             CSVRecord compRecord = compsIter.next();
             CSVRecord propRecord = propsIter.next();
             int smellId = Integer.parseInt(compRecord.get(IPN.ID));
+            IntraId intraId = new IntraId(versionId,smellId);
+            int order =  Integer.parseInt(propRecord.get(IPN.ORDER));
+            int size =  Integer.parseInt(propRecord.get(IPN.SIZE));
             double pageRank = Double.parseDouble(propRecord.get(IPN.CENTRALITY));
-            intras.add(helper.initIntra(compRecord, propRecord, versionId, smellId, pageRank));
+            intras.put(intraId,helper.initIntra(compRecord, propRecord, versionId, smellId, pageRank, order, size));
         }
         recordsComps.close();
         recordsProps.close();

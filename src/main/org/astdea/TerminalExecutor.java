@@ -37,8 +37,6 @@ public class TerminalExecutor
     private static boolean _dontRunArcan = false;
 
 
-
-
     public static void main(String[] args) throws IOException, InterruptedException
     {
         TerminalExecutor tt = new TerminalExecutor();
@@ -112,7 +110,7 @@ public class TerminalExecutor
             "(their mapping to actual version numbers is given in the file \"VersionNumbers.csv\". " +
             "This program runs a modified version of Arcan (arcan-1.2.1-modded.jar), " +
             "which must be provided on the top level. " +
-            "If you already generated modded Arcan output, you don't have to run it again for AsTdEA. "+
+            "If you already generated modded Arcan output, you don't have to run it again for AsTdEA. " +
             "Simply add the \"-noA\" argument and just provide the three meta data .csv files. " +
             "Input .jar files are not necessary in this case, " +
             "but make sure that the meta data .csv files are still in the input folder " +
@@ -133,8 +131,8 @@ public class TerminalExecutor
             "\t25247\n" +
             "\t27410\n" +
             "\t31582\n" +
-            "\t30642\n\n"+
-        "Example for \"versions.csv\" (contains the version number of each version " +
+            "\t30642\n\n" +
+            "Example for \"versions.csv\" (contains the version number of each version " +
             "(sorted in ascending order of their release date)):\n" +
             "\tversion\n" +
             "\tmyProject-1.1\n" +

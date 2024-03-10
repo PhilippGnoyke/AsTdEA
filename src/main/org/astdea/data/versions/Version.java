@@ -4,6 +4,7 @@ import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.astdea.data.smells.Level;
+import org.astdea.data.smells.intraversionsmells.IntraId;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionHd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
@@ -17,16 +18,17 @@ import org.astdea.io.output.OPN;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
 public class Version
 {
     private String outDir;
     private int versionId;
-    private Set<IntraVersionCd> classCds;
-    private Set<IntraVersionCd> packCds;
-    private Set<IntraVersionHd> hds;
-    private Set<IntraVersionUd> uds;
+    private Map<IntraId,IntraVersionCd> classCds;
+    private Map<IntraId,IntraVersionCd> packCds;
+    private Map<IntraId,IntraVersionHd> hds;
+    private Map<IntraId,IntraVersionUd> uds;
     private int loc;
     private int classCount;
     private int packCount;
@@ -43,8 +45,8 @@ public class Version
     }
 
     public Version(int versionId, String generalOutDir, LocalDate versionTime, int versionTimeSpanInDays,
-                   Set<IntraVersionCd> classCds, Set<IntraVersionCd> packCds,
-                   Set<IntraVersionHd> hds, Set<IntraVersionUd> uds)
+                   Map<IntraId,IntraVersionCd> classCds, Map<IntraId,IntraVersionCd> packCds,
+                   Map<IntraId,IntraVersionHd> hds, Map<IntraId,IntraVersionUd> uds)
     {
         this(versionId, generalOutDir, versionTime, versionTimeSpanInDays);
         this.classCds = classCds;
@@ -62,15 +64,15 @@ public class Version
 
     public int getVersionId() {return versionId;}
 
-    public Set<IntraVersionCd> getClassCds() {return classCds;}
+    public Map<IntraId,IntraVersionCd> getClassCds() {return classCds;}
 
-    public Set<IntraVersionCd> getPackCds() {return packCds;}
+    public Map<IntraId,IntraVersionCd> getPackCds() {return packCds;}
 
-    public Set<IntraVersionHd> getHds() {return hds;}
+    public Map<IntraId,IntraVersionHd> getHds() {return hds;}
 
-    public Set<IntraVersionUd> getUds() {return uds;}
+    public Map<IntraId,IntraVersionUd> getUds() {return uds;}
 
-    public Set<IntraVersionCd> getCds(Level level) {return level == Level.CLASS ? getClassCds() : getPackCds();}
+    public Map<IntraId,IntraVersionCd> getCds(Level level) {return level == Level.CLASS ? getClassCds() : getPackCds();}
 
     public void setDeltaSmellsInVersion(DeltaSmellsInVersion deltaSmellManager)
     {

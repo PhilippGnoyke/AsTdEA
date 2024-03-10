@@ -40,7 +40,21 @@ public final class ResultHeaders
         CollectionUtils.mergeStringArrays(generalSmellPropHeaders, new String[]{
             OPN.FAMILY_ORDER,
             OPN.MEDIAN_FAMILY_WIDTH,
-            OPN.MAX_FAMILY_WIDTH
+            OPN.MIN_FAMILY_WIDTH,
+            OPN.MAX_FAMILY_WIDTH,
+            OPN.FAMILY_SIZE,
+            OPN.PURE_TRANSITIONS,
+            OPN.MERGE_ONLY_TRANSITIONS,
+            OPN.SPLIT_ONLY_TRANSITIONS,
+            OPN.MERGE_AND_SPLIT_TRANSITIONS,
+            OPN.MERGES_COUNT,
+            OPN.SPLITS_COUNT,
+            OPN.SIMPLE_MERGES_SHARE_UNWEIGHTED,
+            OPN.SIMPLE_SPLITS_SHARE_UNWEIGHTED,
+            OPN.SIMPLE_MERGES_SHARE_WEIGHTED,
+            OPN.SIMPLE_SPLITS_SHARE_WEIGHTED,
+            OPN.INCOMING_EDGE_COUNT_LARGEST_MERGE,
+            OPN.OUTGOING_EDGE_COUNT_LARGEST_SPLIT
         });
 
     public static final String[] cdCompHeaders = new String[]{
@@ -57,6 +71,80 @@ public final class ResultHeaders
         OPN.ID,
         OPN.CD_EDGES
     };
+
+    public static final String[] cdMergeHeaders = new String[]{
+        OPN.CD_SOURCE_VERSION,
+        OPN.CD_TARGET_VERSION,
+        OPN.CD_TARGET_ID,
+        OPN.CD_MERGE_SIZE,
+        OPN.CD_OVERALL_ORDER_BEFORE,
+        OPN.CD_OVERALL_ORDER_AFTER,
+        OPN.CD_OVERALL_ORDER_CHANGE,
+        OPN.CD_OVERALL_SIZE_BEFORE,
+        OPN.CD_OVERALL_SIZE_AFTER,
+        OPN.CD_OVERALL_SIZE_CHANGE,
+        OPN.CD_OVERALL_SUBCYCLES_BEFORE,
+        OPN.CD_OVERALL_SUBCYCLES_AFTER,
+        OPN.CD_OVERALL_SUBCYCLES_CHANGE,
+        OPN.CD_MERGE_SOURCES
+    };
+
+    public static final String[] cdSplitHeaders = new String[]{
+        OPN.CD_SOURCE_VERSION,
+        OPN.CD_TARGET_VERSION,
+        OPN.CD_SOURCE_ID,
+        OPN.CD_SPLIT_SIZE,
+        OPN.CD_OVERALL_ORDER_BEFORE,
+        OPN.CD_OVERALL_ORDER_AFTER,
+        OPN.CD_OVERALL_ORDER_CHANGE,
+        OPN.CD_OVERALL_SIZE_BEFORE,
+        OPN.CD_OVERALL_SIZE_AFTER,
+        OPN.CD_OVERALL_SIZE_CHANGE,
+        OPN.CD_OVERALL_SUBCYCLES_BEFORE,
+        OPN.CD_OVERALL_SUBCYCLES_AFTER,
+        OPN.CD_OVERALL_SUBCYCLES_CHANGE,
+        OPN.CD_SPLIT_SOURCES
+    };
+
+    public static final String[] cdTransitionHeaders = new String[]{
+        OPN.CD_SOURCE_VERSION,
+        OPN.CD_TARGET_VERSION,
+        OPN.CD_SOURCE_ID,
+        OPN.CD_TARGET_ID,
+        OPN.CD_TRANSITION_TYPE,
+        OPN.CD_SHAPE_SOURCE,
+        OPN.CD_SHAPE_TARGET
+    };
+
+    public static final String[] intraVersionClassCdPropHeadersPt1 = AsTdEvolutionPrinter.classCdPropHeaders;
+    public static final String[] intraVersionPackCdPropHeadersPt1 = AsTdEvolutionPrinter.packCdPropHeaders;
+    public static final String[] intraVersionHdPropHeadersPt1 = AsTdEvolutionPrinter.hdPropHeaders;
+    public static final String[] intraVersionUdPropHeadersPt1 = AsTdEvolutionPrinter.udPropHeaders;
+
+    public static final String[] intraVersionPropHeadersPt2  = new String[]{
+      OPN.AGE,
+      OPN.REMAINING_AGE
+    };
+
+    public static final String[] intraVersionCdPropHeadersPt3  = new String[]{
+        OPN.NUM_PREDS,
+        OPN.NUM_ALL_PREDS,
+        OPN.NUM_SUCCS,
+        OPN.NUM_ALL_SUCCS,
+    };
+
+
+    public static final String[] intraVersionClassCdPropHeaders = CollectionUtils.mergeStringArrays(
+        intraVersionClassCdPropHeadersPt1, intraVersionPropHeadersPt2,intraVersionCdPropHeadersPt3);
+
+    public static final String[] intraVersionPackCdPropHeaders = CollectionUtils.mergeStringArrays(
+        intraVersionPackCdPropHeadersPt1, intraVersionPropHeadersPt2,intraVersionCdPropHeadersPt3);
+
+    public static final String[] intraVersionHdPropHeaders = CollectionUtils.mergeStringArrays(
+        intraVersionHdPropHeadersPt1, intraVersionPropHeadersPt2);
+
+    public static final String[] intraVersionUdPropHeaders = CollectionUtils.mergeStringArrays(
+        intraVersionUdPropHeadersPt1, intraVersionPropHeadersPt2);
 
     public static final String[] versionHeadersPt1 = new String[]{
         OPN.VERSION_TIME,
