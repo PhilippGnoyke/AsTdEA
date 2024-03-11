@@ -8,32 +8,53 @@ AsTdEA runs a modified version of Arcan to detect architecture smells and calcul
 Download from [here](https://drive.google.com/uc?export=download&id=1NArqsJyah7NhCcYacjxoOnzcypt-On08) and unzip.
 
 ## Usage
+### Overview
 1. For each version to analyse, provide a jar or a folder of jars in the project's subdirectory in the input directory. The name of each jar or folder must contain the respective version number after a dash. AsTdEA can automatically retrieve the correct order of versions. If the versioning of the project to analyse deviates from simple patterns, follow the instructions in 4.
 2. For each project, provide two additional files with metadata: dates.csv and loc.csv. Both must contain one entry per version from the oldest to newest version. The former provides the release date of each version and the latter the number of lines of code (LOC) of each version. Here is an example for their layout:
-```sh
+```
 date
 2020-03-24
 2020-08-01
 2021-01-04
 ```
-```sh
+```
 loc
 32626
 37805
 47216
 ```
 3. Optional: Provide an addition file with metadata: versions.csv in a similar format to the aforementioned two files. Provide the version number of each version, which must resemble the corresponding jar or folder name. Example:
-```sh
+```
 date
 yourProjectName-1.1
 yourProjectName-1.2
 yourProjectName-1.3
 ```
 4. Open a terminal in the unzipped folder and run the following:
-```sh
+```
 java -jar AsTdEA.jar
 ```
 5. After finishing the analysis, results are provided in an output directory as csv files.
+
+### Arguments
+By adding arguments after "java -jar AsTdEA.jar", you can customize AsTdEA:
+```
+-dontRunArcan, -noA
+  Don't run Arcan but parse previously generated .csv files in the out folder.
+  Default: false
+-dontSuppressNonAsTdEvolution, -noSup
+  Only output results of the modded features (TD, supercycle CDs, etc.)
+  Default: false
+-help, -h
+  Print this help
+  Default: false
+-inputDir, -in
+  Top level input dir. For each project to analyse, put a folder with the project's jars in it.
+  Default: in
+-outputDir, -out
+  Top level output dir of results
+  Default: out
+```
 
 ## Other Source Code
 The source code of the modified version of Arcan is available [here](https://github.com/PhilippGnoyke/arcan-1.2.1-modded).
@@ -48,7 +69,7 @@ The listed studies employed AsTdEA. You can take examples from them and their re
 ### Structure
 
 The generated file structure looks like this:
-```sh
+```
 └───out
     ├───system0
     │   ├───interVersion
