@@ -161,24 +161,28 @@ In the intra-version data, a folder per version is generated, counting up from 0
 In this section, we list and describe every column of every generated .csv file.
 
 #### interVersion\ClassCDsComponents.csv<br>interVersion\PackageCDsComponents.csv
+These files provide a list of all inter-version cyclic dependencies and their components, i.e., intra-version smells.
 | Column index | Column name in the .csv                             | Column description                                                                                                                                                                                                                                                                                                                                                                   |
 |--------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                                                  | ID of the inter-version smell in this row (across all analyzed systems)                                                                                                                                                                                                                                                                                                              |
 | 1            | intraVersionSmells(versionId.smellId-removalWeight) | List of all intra-version smell IDs in this inter-version smell, separated by commas. Each intra-version smell ID consists of its version ID and its smell ID within the version. Specifically for cyclic dependencies, the ID is followed by a hyphen and the removal weight, which is relevant for calculating the number of smell removals in cyclic-dependency evolution graphs. |
 
 #### interVersion\HDsComponents.csv<br>interVersion\UDsComponents.csv
+These files provide a list of all inter-version hub-like and unstable dependencies and their components, i.e., intra-version smells.
 | Column index | Column name in the .csv               | Column description                                                                                                                                                                |
 |--------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                                    | ID of the inter-version smell in this row (across all analyzed systems)                                                                                               |
 | 1            | intraVersionSmells(versionId.smellId) | List of all intra-version smell IDs in this inter-version smell, separated by commas. Each intra-version smell ID consists of its version ID and its smell ID within the version. |
 
 #### interVersion\ClassCDsEdges.csv<br>interVersion\PackageCDsEdges.csv
+These files provide a list of all inter-version cyclic dependencies and the edges their cyclic-dependency evolution graphs.
 | Column index | Column name in the .csv | Column description                                                                                                                                                                                                                                                                                                            |
 |--------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                      | ID of the inter-version smell in this row (across all analyzed systems)                                                                                                                                                                                                                                           |
 | 1            | edges                   | List of all edges between adjacent intra-version cyclic dependencies in the inter-version cyclic dependency, seperated by commas. Each edge is represented by the intra-version smell ID of the outgoing vertex (version ID + smell ID in the version), an arrow "->", and the intra-version smell ID of the incoming vertex. |
 
 #### interVersion\ClassCDsProperties.csv<br>interVersion\PackageCDsProperties.csv<br>interVersion\HDsProperties.csv (Column 0 – 10)<br>interVersion\UDsProperties.csv (Column 0 – 10)
+These files provide a list of all inter-version smells and their properties.
 | Column index | Column name in the .csv         | Data type      | Range  | Column description                                                                                                                |
 |--------------|---------------------------------|----------------|--------|-----------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                              | Integer        | [0..∞) | ID of the inter-version smell in this row (across all analyzed systems)                                               |
@@ -211,6 +215,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 27           | outgoingEdgeCountLargestSplit   | Integer        | [0..∞) | Number of split transitions in the largest split in this inter-version smell                                                      |
 
 #### interVersion\ProjectMetrics.csv
+This file provides a list of the properties of the subject system, i.e., development project 
 | Column index | Column name in the .csv   | Data type | Range  | Column description                                                                     |
 |--------------|---------------------------|-----------|--------|----------------------------------------------------------------------------------------|
 | 0            | analysedVersions          | Integer   | [1..∞) | Number of analyzed versions                                                            |
@@ -227,6 +232,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 11           | numOfInterVersionUDs      | Integer   | [0..∞) | Number of detected inter-version unstable dependencies                                 |
 
 #### interVersion\ClassCdsMerges\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsMerges\\&lt;Inter-version smell ID&gt;.csv
+These files provide a list of all merges and their properties within the respective inter-version cyclic dependency.
 | Column index | Column name in the .csv | Data type             | Range  | Column description                                                                                                                     |
 |--------------|-------------------------|-----------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer               | [0..∞) | ID of the version before the merge occurred                                                                                            |
@@ -245,6 +251,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 13           | sourceIntraVersionCds   | List<Integer.Integer> |        | Intra-version smell IDs of all intra-version smells that were merged, separated by commas (version ID and smell ID within the version) |
 
 #### interVersion\ClassCdsSplits\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsSplits\\&lt;Inter-version smell ID&gt;.csv
+These files provide a list of all splits and their properties within the respective inter-version cyclic dependency.
 | Column index | Column name in the .csv | Data type             | Range  | Column description                                                                                                                    |
 |--------------|-------------------------|-----------------------|--------|---------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer               | [0..∞) | ID of the version before the split occurred                                                                                           |
@@ -263,6 +270,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 13           | targetIntraVersionCds   | List<Integer.Integer> |        | Intra-version smell IDs of all intra-version smells that were split, separated by commas (version ID and smell ID within the version) |
 
 #### interVersion\ClassCdsTransitions\\&lt;Inter-version smell ID&gt;.csv<br>interVersion\PackageCdsTransitions\\&lt;Inter-version smell ID&gt;.csv
+These files provide a list of all transitions and their properties within the respective inter-version cyclic dependency.
 | Column index | Column name in the .csv | Data type       | Range                                                              | Column description                                                                                                           |
 |--------------|-------------------------|-----------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | 0            | sourceVersion           | Integer         | [0..∞)                                                             | ID of the version at the tail of the transition                                                                              |
@@ -274,13 +282,14 @@ In this section, we list and describe every column of every generated .csv file.
 | 6            | shapeTarget             | String          | {tiny, chain, star, circle, clique, multiHub, semiClique, unknown} | Shape of the intra-version smell at the head of the transition                                                               |
 
 #### intraVersion\VersionNames.csv
+This file provides a list of all analyzed versions of the subject system to map the AsTdEA-internal version ID and each version's designation.
 | Column index | Column name in the .csv | Column description                                                   |
 |--------------|-------------------------|----------------------------------------------------------------------|
 | 0            | versionId               | ID of the version in this row, counted upwards from 0                |
 | 1            | versionName             | Designation of the version in this row, for example "argouml-0.16.1" |
 
 #### intraVersion\\&lt;versionID&gt;\ClassCDsProperties.csv<br>intraVersion\\&lt;versionID&gt;\PackageCDsProperties.csv<br>intraVersion\\&lt;versionID&gt;\HDsProperties.csv<br>intraVersion\\&lt;versionID&gt;\UDsProperties.csv
-
+These files provide a list of all intra-version smells in the respective version and their properties.
 | Column index for class-level CDs | ...package-level CDs | ...HDs | ...UDs | Column name in the .csv   | Data type      | Range        | Column description                                                                                                                                                                                                                    |
 |----------------------------------|----------------------|--------|--------|---------------------------|----------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0                                | 0                    | 0      | 0      | id                        | Integer        | [0..∞)       | ID of the intra-version smell in this row within this version                                                                                                                                                                         |
@@ -320,6 +329,7 @@ In this section, we list and describe every column of every generated .csv file.
 | 27                               | 23                   |        |        | numAllSuccessors          | Integer        | [0..∞)       | Number of direct and indirect successors of this intra-version cyclic dependency, i.e. related intra-version cyclic dependencies in all later versions                                                                                |
 
 #### intraVersion\\&lt;versionID&gt;\ClassCDsComponents.csv<br>intraVersion\\&lt;versionID&gt;\PackageCDsComponents.csv<br>intraVersion\\&lt;versionID&gt;\HDsComponents.csv<br>intraVersion\\&lt;versionID&gt;\UDsComponents.csv
+These files provide a list of all intra-version smells in the respective version and their components, i.e., classes or packages.
 | Column index | Column name in the .csv | Column description                                                                                                                             |
 |--------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                      | ID of the intra-version smell in this row within this version                                                                                  |
@@ -327,6 +337,7 @@ In this section, we list and describe every column of every generated .csv file.
 
 
 #### intraVersion\\&lt;versionID&gt;\ClassCDsmEFS.csv<br>intraVersion\\&lt;versionID&gt;\PackageCDsmEFS.csv<br>intraVersion\\&lt;versionID&gt;\ClassCDsmEFSWOTinys.csv<br>intraVersion\\&lt;versionID&gt;\PackageCDsmEFSWOTinys.csv
+These files provide a list of all dependency edges in the minimum edge feedback set of the respective intra-version cyclic dependency.
 | Column index | Column name in the .csv | Column description                                                                                                                                                                                                                                          |
 |--------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | id                      | ID of the intra-version cyclic dependency in this row within this version                                                                                                                                                                                   |
@@ -334,13 +345,13 @@ In this section, we list and describe every column of every generated .csv file.
 
 #### intraVersion\\&lt;versionID&gt;\classCdEdges\\&lt;intra-version smell ID&gt;.csv<br>intraVersion\\&lt;versionID&gt;\packageCdEdges\\&lt;intra-version smell ID&gt;.csv
 Each file represents a dependency matrix for the components that are affected by the respective intra-version cyclic dependency. Every pair of outgoing and incoming components is represented by a 0 (no dependency edge) or 1 (dependency edge).
-
 | Column index | Column name in the .csv        | Column description                                                             |
 |--------------|--------------------------------|--------------------------------------------------------------------------------|
 | 0            | dependency edge outgoing from  | Edges in this row are outgoing from this component (fully qualified name)       |
 | 1            | dependency edge incoming to... | Edges in this column are incoming into this component (fully qualified name); the first row after the header defines the data for each column, separated by commas |
 
 #### intraVersion\\&lt;versionID&gt;\ProjectMetrics.csv
+These files provide a list of the properties of the respective version. 
 | Column index | Column name in the .csv       | Data type      | Range  | Column description                                                                                                                                                  |
 |--------------|-------------------------------|----------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0            | versionTime                   | Date           | [0,∞)  | This version's time of release (YYYY-MM-DD)                                                                                                                         |
@@ -433,4 +444,3 @@ Each file represents a dependency matrix for the components that are affected by
 | 87           | udRemovalsPerLoc              | Floating point | [0,∞)  | Normalized number of removed inter-version unstable dependencies in this version according to the number of lines of code                                           |
 | 88           | udRemovalsPerPackage          | Floating point | [0,∞)  | Normalized number of removed inter-version unstable dependencies in this version according to the number of packages                                                |
 | 89           | degreeOfUdRemoval             | Floating point | [0,∞)  | Ratio of the number of inter-version unstable dependency removals to the number of intra-version unstable dependencies in this version                              |
-
