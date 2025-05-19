@@ -116,10 +116,11 @@ public final class ResultHeaders
         OPN.CD_SHAPE_TARGET
     };
 
+    public static final String[] intraVersionUdPropHeadersPt1 = AsTdEvolutionPrinter.udPropHeaders;
     public static final String[] intraVersionClassCdPropHeadersPt1 = AsTdEvolutionPrinter.classCdPropHeaders;
     public static final String[] intraVersionPackCdPropHeadersPt1 = AsTdEvolutionPrinter.packCdPropHeaders;
     public static final String[] intraVersionHdPropHeadersPt1 = AsTdEvolutionPrinter.hdPropHeaders;
-    public static final String[] intraVersionUdPropHeadersPt1 = AsTdEvolutionPrinter.udPropHeaders;
+    public static final String[] exTimeLogsHeaders = AsTdEvolutionPrinter.exTimeLogsHeaders;
 
     public static final String[] intraVersionPropHeadersPt2  = new String[]{
       OPN.AGE,

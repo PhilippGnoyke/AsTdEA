@@ -19,7 +19,7 @@ public class Test_mapping
     @Test
     public void test_CdMappings()
     {
-        CdMappings mappings = new CdMappings(ExPrj.INTRA_CD_COUNT);
+        CdMappings mappings = new CdMappings(null,ExPrj.INTRA_CD_COUNT);
         mappings.put(ExPrj.CD_A1, ExPrj.CD_B2);
         mappings.put(ExPrj.CD_A2, ExPrj.CD_B2);
         mappings.put(ExPrj.CD_B1, ExPrj.CD_C1);
@@ -89,7 +89,7 @@ public class Test_mapping
     @Test
     public void test_HdMappings()
     {
-        HdMappings mappings = new HdMappings();
+        HdMappings mappings = new HdMappings(null);
         mappings.put(ExPrj.HD_A1, ExPrj.HD_B1);
         mappings.put(ExPrj.HD_A2, ExPrj.HD_B2);
         mappings.put(ExPrj.HD_B1, ExPrj.HD_C2);
@@ -127,7 +127,7 @@ public class Test_mapping
     @Test
     public void test_UdMappings()
     {
-        UdMappings mappings = new UdMappings();
+        UdMappings mappings = new UdMappings(null);
         mappings.put(ExPrj.UD_A1, ExPrj.UD_B1);
         mappings.put(ExPrj.UD_A2, ExPrj.UD_B2);
         mappings.put(ExPrj.UD_B1, ExPrj.UD_C2);

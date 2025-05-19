@@ -49,4 +49,9 @@ public final class IOUtils
     {
         return makeFile(folderName, fileName).isDirectory();
     }
+
+    public static boolean doesFileExist(String path)
+    {
+        return makeFile(path).exists();
+    }
 }

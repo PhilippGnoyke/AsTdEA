@@ -1,10 +1,15 @@
 package org.astdea.data;
 
+import it.unimib.disco.essere.main.ETLE.*;
+import it.unimib.disco.essere.main.ExTimeLogger;
 import org.astdea.data.smells.Level;
 import org.astdea.data.smells.interversionsmells.*;
 import org.astdea.data.versions.DeltaSmellsInVersion;
 import org.astdea.data.versions.Version;
+import org.astdea.io.input.CsvReadingUtils;
+import org.astdea.io.input.VersionsReader;
 import org.astdea.io.output.OPN;
+import org.astdea.io.output.printer.subprinters.ExTimeLogsPrinter;
 import org.astdea.logic.deltacalc.CdDeltaCalculator;
 import org.astdea.logic.deltacalc.Deltas;
 import org.astdea.logic.mapping.CdMappings;
@@ -36,7 +41,7 @@ public class Project
     private int numOfInterVersionHDs;
     private int numOfInterVersionUDs;
 
-    private String inDir;
+    private String projectInDir;
     private String outDir;
     private List<Version> versions;
 
@@ -48,11 +53,18 @@ public class Project
     private CdMappings cdClassMappings;
     private CdMappings cdPackMappings;
 
-    public Project(String inDir, String outDir, int analysedVersions)
+    private final boolean newStructure;
+    private final TimeManager timeManager;
+    private ExTimeLogger exTimeLogger;
+
+    public Project(String projectInDir, String outDir, int analysedVersions, ExTimeLogger exTimeLogger) throws IOException
     {
-        this.inDir = inDir;
+        this.projectInDir = projectInDir;
         this.outDir = outDir;
         this.analysedVersions = analysedVersions;
+        newStructure = VersionsReader.isNewStructure(projectInDir);
+        timeManager = initTimeManager();
+        this.exTimeLogger = exTimeLogger;
     }
 
     public Project build() throws IOException
@@ -81,19 +93,27 @@ public class Project
 
     private void initVersions() throws IOException
     {
+        exTimeLogger.logEventStart(Event.INIT_VERSIONS);
         versions = new ArrayList<>();
-        TimeManager.initFromFile(inDir, analysedVersions);
         for (int i = 0; i < analysedVersions; i++)
         {
-            LocalDate versionTime = TimeManager.getVersionTime(i);
-            int versionTimeSpan = TimeManager.getTimeSpan(i);
+            LocalDate versionTime = timeManager.getVersionTime(i);
+            int versionTimeSpan = timeManager.getTimeSpan(i);
             versions.add(new Version(i, outDir, versionTime, versionTimeSpan).init());
         }
-        analysedTimeSpanInDays = TimeManager.getAnalysedTimeSpanInDays();
+        analysedTimeSpanInDays = timeManager.getAnalysedTimeSpanInDays();
+        exTimeLogger.logEventEnd(Event.INIT_VERSIONS);
+    }
+
+    private TimeManager initTimeManager() throws IOException
+    {
+        String timeDirectory = newStructure ? CsvReadingUtils.getStatsFolder(projectInDir) : projectInDir;
+        return new TimeManager(timeDirectory, analysedVersions, newStructure);
     }
 
     private void calcNumsOfIntraSmells()
     {
+        exTimeLogger.logEventStart(Event.PROCESS_INTRA_SMELLS);
         for (Version version : versions)
         {
             numOfIntraVersionClassCDs += version.getClassCds().size();
@@ -103,10 +123,12 @@ public class Project
         }
         numOfIntraVersionSmells = numOfIntraVersionClassCDs + numOfIntraVersionPackCDs +
             numOfIntraVersionHDs + numOfIntraVersionUDs;
+        exTimeLogger.logEventEnd(Event.PROCESS_INTRA_SMELLS);
     }
 
     private void initInterSmells()
     {
+        exTimeLogger.logEventStart(Event.PROCESS_INTER_SMELLS);
         classCds = new HashSet<>();
         packCds = new HashSet<>();
         hds = new HashSet<>();
@@ -115,10 +137,10 @@ public class Project
 
     private void retrieveInterSmells()
     {
-        uds = new UdProjectTracker().track(versions);
-        hds = new HdProjectTracker().track(versions);
-        CdProjectTracker cdClassTracker = new CdProjectTracker(Level.CLASS, numOfIntraVersionClassCDs);
-        CdProjectTracker cdPackTracker = new CdProjectTracker(Level.PACK, numOfIntraVersionPackCDs);
+        uds = new UdProjectTracker(timeManager).track(versions);
+        hds = new HdProjectTracker(timeManager).track(versions);
+        CdProjectTracker cdClassTracker = new CdProjectTracker(timeManager, Level.CLASS, numOfIntraVersionClassCDs);
+        CdProjectTracker cdPackTracker = new CdProjectTracker(timeManager, Level.PACK, numOfIntraVersionPackCDs);
         classCds = cdClassTracker.track(versions);
         packCds = cdPackTracker.track(versions);
         cdClassMappings = cdClassTracker.getMappings();
@@ -134,10 +156,12 @@ public class Project
 
         numOfInterVersionSmells = numOfInterVersionClassCDs + numOfInterVersionPackCDs +
             numOfInterVersionHDs + numOfInterVersionUDs;
+        exTimeLogger.logEventEnd(Event.PROCESS_INTER_SMELLS);
     }
 
     private void calcSmellDeltas()
     {
+        exTimeLogger.logEventStart(Event.CALC_SMELL_DELTAS);
         Deltas deltasClassCd = new CdDeltaCalculator(cdClassMappings, classCds, analysedVersions).calc();
         Deltas deltasPackCd = new CdDeltaCalculator(cdPackMappings, packCds, analysedVersions).calc();
         Deltas deltasHd = calcLinEvoTypeDeltas(hds);
@@ -149,6 +173,7 @@ public class Project
             versions.get(versionId).setDeltaSmellsInVersion(deltaSmells);
             if (versionId > 0) {versions.get(versionId - 1).setDeltaSmellsAsPrevVersion(deltaSmells);}
         }
+        exTimeLogger.logEventEnd(Event.CALC_SMELL_DELTAS);
     }
 
     private <InterType extends InterVersionLinEvoType> Deltas calcLinEvoTypeDeltas(Set<InterType> inters)

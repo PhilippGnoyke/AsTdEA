@@ -1,6 +1,7 @@
 package org.astdea.logic.mapping;
 
 import org.astdea.data.smells.interversionsmells.InterVersionCd;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraId;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.logic.interbuilding.InterVersionCdBuilder;
@@ -12,7 +13,11 @@ public class CdMappings extends Mappings<IntraVersionCd, InterVersionCd, Set<Int
 {
     private int totalNumOfIntras;
 
-    public CdMappings(int totalNumOfIntras) {this.totalNumOfIntras = totalNumOfIntras;}
+    public CdMappings(TimeManager timeManager, int totalNumOfIntras)
+    {
+        super(timeManager);
+        this.totalNumOfIntras = totalNumOfIntras;
+    }
 
     @Override
     protected void putMapping(IntraVersionCd smellOld, IntraVersionCd smellNew)
@@ -39,7 +44,7 @@ public class CdMappings extends Mappings<IntraVersionCd, InterVersionCd, Set<Int
     public Set<InterVersionCd> buildInterVersionSmells()
     {
         return new InterVersionCdBuilder(totalNumOfIntras, mappingsOldAsKey,mappingsNewAsKey,
-            smellsWOPredecessor,smellsWOSuccessor).buildInterVersionSmells();
+            smellsWOPredecessor,smellsWOSuccessor,timeManager).buildInterVersionSmells();
     }
 
     private void setSmellAges()

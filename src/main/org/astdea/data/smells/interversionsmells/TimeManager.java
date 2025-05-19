@@ -9,20 +9,20 @@ import java.time.temporal.ChronoUnit;
 
 public final class TimeManager
 {
-    private TimeManager() {}
+    private final LocalDate[] versionTimes;
+    private double[] timeSpans;
+    private int analysedTimeSpanInVersions;
+    private int analysedTimeSpanInDays;
 
-    private static LocalDate[] versionTimes;
-    private static double[] timeSpans;
-    private static int analysedTimeSpanInVersions;
-    private static int analysedTimeSpanInDays;
-
-    public static void initFromFile(String inDir, int analysedVersions) throws IOException
+    //initFromFile
+    public TimeManager(String inDir, int analysedVersions,boolean newStructure) throws IOException
     {
         versionTimes = DatesReader.retrieveDates(inDir);
         calcAll(analysedVersions);
     }
 
-    public static void initManually(LocalDate[] newVersionTimes)
+    //initManually
+    public TimeManager(LocalDate[] newVersionTimes)
     {
         int analysedVersions = newVersionTimes.length;
         versionTimes = new LocalDate[analysedVersions + 1];
@@ -30,7 +30,7 @@ public final class TimeManager
         calcAll(versionTimes.length - 1);
     }
 
-    private static void calcAll(int analysedVersions)
+    private void calcAll(int analysedVersions)
     {
         analysedTimeSpanInVersions = analysedVersions;
         timeSpans = new double[analysedVersions];
@@ -44,11 +44,11 @@ public final class TimeManager
         analysedTimeSpanInDays = (int) ChronoUnit.DAYS.between(versionTimes[0], versionTimes[analysedVersions]);
     }
 
-    public static LocalDate getVersionTime(int ind) {return versionTimes[ind];}
+    public LocalDate getVersionTime(int ind) {return versionTimes[ind];}
 
-    public static int getTimeSpan(int ind) {return (int) timeSpans[ind];}
+    public int getTimeSpan(int ind) {return (int) timeSpans[ind];}
 
-    public static int getAnalysedTimeSpanInVersions() {return analysedTimeSpanInVersions;}
+    public int getAnalysedTimeSpanInVersions() {return analysedTimeSpanInVersions;}
 
-    public static int getAnalysedTimeSpanInDays() {return analysedTimeSpanInDays;}
+    public int getAnalysedTimeSpanInDays() {return analysedTimeSpanInDays;}
 }

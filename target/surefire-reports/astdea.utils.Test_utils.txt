@@ -1,0 +1,43 @@
+-------------------------------------------------------------------------------
+Test set: astdea.utils.Test_utils
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0 sec <<< FAILURE!
+astdea.utils.Test_utils.test_MathUtils_median()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: Could not initialize class org.astdea.utils.MathUtils
+	at astdea.utils.Test_utils.test_MathUtils_median(Test_utils.java:22)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/math3/stat/descriptive/rank/Percentile [in thread "main"]
+	at org.astdea.utils.MathUtils.<clinit>(MathUtils.java:11)
+	at org.astdea.data.smells.interversionsmells.TimeManager.calcAll(TimeManager.java:41)
+	at org.astdea.data.smells.interversionsmells.TimeManager.<init>(TimeManager.java:30)
+	at astdea.data.smells.Test_intraversionsmells.test_TimeManager(Test_intraversionsmells.java:23)
+	... 14 more
+
+astdea.utils.Test_utils.test_mergeStringArrays()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: org/junit/Assert
+	at astdea.utils.Test_utils.test_mergeStringArrays(Test_utils.java:80)
+Caused by: java.lang.ClassNotFoundException: org.junit.Assert
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	... 15 more
+
+astdea.utils.Test_utils.test_MathUtils_SetOperations()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: Could not initialize class org.astdea.utils.MathUtils
+	at astdea.utils.Test_utils.test_MathUtils_SetOperations(Test_utils.java:40)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/math3/stat/descriptive/rank/Percentile [in thread "main"]
+	at org.astdea.utils.MathUtils.<clinit>(MathUtils.java:11)
+	at org.astdea.data.smells.interversionsmells.TimeManager.calcAll(TimeManager.java:41)
+	at org.astdea.data.smells.interversionsmells.TimeManager.<init>(TimeManager.java:30)
+	at astdea.data.smells.Test_intraversionsmells.test_TimeManager(Test_intraversionsmells.java:23)
+	... 14 more
+
+astdea.utils.Test_utils.test_weightedHarmonicMeanOfTwo()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: Could not initialize class org.astdea.utils.MathUtils
+	at astdea.utils.Test_utils.test_weightedHarmonicMeanOfTwo(Test_utils.java:69)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/math3/stat/descriptive/rank/Percentile [in thread "main"]
+	at org.astdea.utils.MathUtils.<clinit>(MathUtils.java:11)
+	at org.astdea.data.smells.interversionsmells.TimeManager.calcAll(TimeManager.java:41)
+	at org.astdea.data.smells.interversionsmells.TimeManager.<init>(TimeManager.java:30)
+	at astdea.data.smells.Test_intraversionsmells.test_TimeManager(Test_intraversionsmells.java:23)
+	... 14 more
+

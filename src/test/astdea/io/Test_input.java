@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class Test_input
 {
-    public final static String TEST_DIR = IOUtils.makeFilePath("src","resources","tests");
+    public final static String TEST_DIR = IOUtils.makeFilePath("src","resources");
 
 
     @Test
@@ -43,7 +43,7 @@ public class Test_input
                 printer.println();
             }
         };
-        final String TEST_DIR = IOUtils.makeFilePath("src","resources","tests");
+        final String TEST_DIR = IOUtils.makeFilePath("src","resources");
         File file = IOUtils.makeFile(IOUtils.makeFilePath(TEST_DIR, IFN.FILE_DATES_CSV));
         MainPrinter.printCore(file, new String[]{IPN.DATE}, printerCore);
         LocalDate[] actualDates = DatesReader.retrieveDates(TEST_DIR);
@@ -73,7 +73,7 @@ public class Test_input
         };
         File file = IOUtils.makeFile(IOUtils.makeFilePath(TEST_DIR, IFN.FILE_LOC_CSV));
         MainPrinter.printCore(file, new String[]{IPN.LOC}, printerCore);
-        Integer[] actualLocs = LocReader.retrieveLocs(TEST_DIR);
+        Integer[] actualLocs = LocReader.retrieveLocs(TEST_DIR,false);
         for (int i = 0; i < EXPECTED_LOCS.length; i++)
         {
             assertEquals(EXPECTED_LOCS[i], actualLocs[i].intValue());

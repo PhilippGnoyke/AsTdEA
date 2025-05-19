@@ -1,13 +1,16 @@
 package org.astdea.io.input;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public final class LocReader
 {
     private LocReader() {}
 
-    public static Integer[] retrieveLocs(String inDir) throws IOException
+    public static Integer[] retrieveLocs(String inDir, boolean newStructure) throws IOException
     {
+        String folder = newStructure ? Paths.get(inDir, IFN.STATS).toString() : inDir;
+        String locFile = newStructure ? IFN.FILE_LOC_SHARED_CSV : IFN.FILE_LOC_CSV;
         HelperCsvRetriever<Integer> helper = new HelperCsvRetriever<>()
         {
             @Override
@@ -16,6 +19,6 @@ public final class LocReader
             @Override
             public Integer parseValue(String input) {return Integer.parseInt(input);}
         };
-        return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_LOC_CSV, IPN.LOC, helper);
+        return CsvReadingUtils.retrieveHelperCsv(folder, locFile, IPN.LOC, helper);
     }
 }

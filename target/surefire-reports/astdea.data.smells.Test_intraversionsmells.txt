@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: astdea.data.smells.Test_intraversionsmells
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE!
+astdea.data.smells.Test_intraversionsmells.test_TimeManager()  Time elapsed: 0.002 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: org/apache/commons/math3/stat/descriptive/rank/Percentile
+	at org.astdea.utils.MathUtils.<clinit>(MathUtils.java:11)
+	at org.astdea.data.smells.interversionsmells.TimeManager.calcAll(TimeManager.java:41)
+	at org.astdea.data.smells.interversionsmells.TimeManager.<init>(TimeManager.java:30)
+	at astdea.data.smells.Test_intraversionsmells.test_TimeManager(Test_intraversionsmells.java:23)
+Caused by: java.lang.ClassNotFoundException: org.apache.commons.math3.stat.descriptive.rank.Percentile
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	... 18 more
+

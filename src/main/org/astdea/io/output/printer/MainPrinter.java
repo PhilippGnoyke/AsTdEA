@@ -1,6 +1,8 @@
 package org.astdea.io.output.printer;
 
 import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
+import it.unimib.disco.essere.main.ETLE;
+import it.unimib.disco.essere.main.ExTimeLogger;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.astdea.data.Project;
@@ -9,7 +11,6 @@ import org.astdea.data.smells.Level;
 import org.astdea.data.smells.interversionsmells.InterVersionCd;
 import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
 import org.astdea.data.smells.intraversionsmells.IntraId;
-import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 import org.astdea.data.versions.Version;
@@ -42,8 +43,9 @@ public class MainPrinter
 
     private String[] versionNames;
     private Project project;
+    private ExTimeLogger exTimeLogger;
 
-    public MainPrinter(String generalOutDir, Project project, String[] versionNames)
+    public MainPrinter(String generalOutDir, Project project, String[] versionNames,ExTimeLogger exTimeLogger)
     {
         this.versionNames = versionNames;
         this.intraOutDir = IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION);
@@ -54,6 +56,7 @@ public class MainPrinter
         this.packCdSplitOutDir = IOUtils.makeFilePath(interOutDir, OFN.FOLDER_PACK_CDS_SPLITS);
         this.classCdTransitionOutDir = IOUtils.makeFilePath(interOutDir, OFN.FOLDER_CLASS_CDS_TRANSITIONS);
         this.packCdTransitionOutDir = IOUtils.makeFilePath(interOutDir, OFN.FOLDER_PACK_CDS_TRANSITIONS);
+        this.exTimeLogger = exTimeLogger;
 
         IOUtils.makeFilePath(interOutDir, OFN.INTRA_VERSION);
         IOUtils.makeDir(interOutDir);
@@ -76,6 +79,8 @@ public class MainPrinter
         printUds();
         updateIntraVersionProps();
         printVersionNames();
+        exTimeLogger.logEventEnd(ETLE.Event.ASTDEA_PRINTING);
+        printExTimeLogs();
     }
 
     public static void printCore(File file, String[] headers, PrinterCore printerCore)
@@ -105,6 +110,11 @@ public class MainPrinter
     public void printProjectMetrics() throws IOException, NullPointerException
     {
         printCore(IOFN.FILE_PROJECT, ResultHeaders.projectMetricsHeaders, new ProjectMetricsPrinter(project));
+    }
+
+    public void printExTimeLogs() throws IOException, NullPointerException
+    {
+        printCore(IOFN.FILE_EX_TIME_LOGS, ResultHeaders.exTimeLogsHeaders, new ExTimeLogsPrinter(exTimeLogger));
     }
 
     public void printCds() throws IOException, NullPointerException
@@ -257,7 +267,7 @@ public class MainPrinter
 
     public void printVersionNames() throws IOException
     {
-        File outfile = IOUtils.makeFile(IOUtils.makeFilePath(intraOutDir, IOFN.FILE_VERSION_NAMES));
+        File outfile = IOUtils.makeFile(IOUtils.makeFilePath(intraOutDir, IOFN.FILE_VERSION_NAMES_CSV));
         printCore(outfile, ResultHeaders.versionNamesHeaders, new VersionNamesPrinter(versionNames));
     }
 

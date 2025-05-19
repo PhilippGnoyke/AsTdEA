@@ -3,6 +3,8 @@ package org.astdea;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.StringConverter;
+import it.unimib.disco.essere.main.ETLE;
+import it.unimib.disco.essere.main.ExTimeLogger;
 import org.apache.commons.text.WordUtils;
 import org.astdea.data.Project;
 import org.astdea.io.IOUtils;
@@ -60,15 +62,19 @@ public class TerminalExecutor
             {
                 if (file.isDirectory())
                 {
+                    ExTimeLogger exTimeLogger = new ExTimeLogger();
                     String projectName = file.getName();
                     LogUtil.logInfo("Began analysis of project " + projectName + ".");
-                    String projectIn = IOUtils.makeFilePath(_inDir, projectName);
-                    String projectOut = IOUtils.makeFilePath(_outDir, projectName);
+                    String projectInDir = IOUtils.makeFilePath(_inDir, projectName);
+                    String projectOutDir = IOUtils.makeFilePath(_outDir, projectName);
+                    exTimeLogger.logEventStart(ETLE.Event.ARCAN_RUNNING);
                     ArcanRunner arcanRunner = new ArcanRunner
-                        (projectName, projectOut, projectIn, suppressNonAsTdEvolutionArg);
+                        (projectName, projectOutDir, projectInDir, suppressNonAsTdEvolutionArg);
                     String[] versionNames = arcanRunner.analyseAllVersions(_dontRunArcan);
-                    Project project = new Project(projectIn, projectOut, versionNames.length).build();
-                    new MainPrinter(projectOut, project, versionNames).printAll();
+                    exTimeLogger.logEventEnd(ETLE.Event.ARCAN_RUNNING);
+                    Project project = new Project(projectInDir, projectOutDir, versionNames.length,exTimeLogger).build();
+                    exTimeLogger.logEventStart(ETLE.Event.ASTDEA_PRINTING);
+                    new MainPrinter(projectOutDir, project, versionNames,exTimeLogger).printAll();
                     LogUtil.logInfo("Finished analysis of project " + projectName + ".");
                 }
             }

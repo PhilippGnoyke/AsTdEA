@@ -2,6 +2,7 @@ package org.astdea.logic.tracker.projecttracker;
 
 import org.astdea.data.smells.Level;
 import org.astdea.data.smells.interversionsmells.InterVersionCd;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.data.versions.Version;
 import org.astdea.logic.mapping.CdMappings;
@@ -11,9 +12,9 @@ public class CdProjectTracker extends SmellProjectTracker<IntraVersionCd, InterV
 {
     private Level level;
 
-    public CdProjectTracker(Level level, int totalNumOfIntras)
+    public CdProjectTracker(TimeManager timeManager, Level level, int totalNumOfIntras)
     {
-        super(new CdMappings(totalNumOfIntras));
+        super(timeManager,new CdMappings(timeManager,totalNumOfIntras));
         this.level = level;
     }
 
