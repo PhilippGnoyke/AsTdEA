@@ -2,11 +2,12 @@
 Architecture Smell and Technical Debt Evolution Analyzer
 
 ## About The Project
-AsTdEA runs a modified version of Arcan to detect architecture smells and calculate technical debt in multiple versions of a project. Smells are tracked across versions. Many properties of smells and versions are calculated to enable statistical analyses.
+AsTdEA runs a modified version of Arcan to detect architecture smells and calculate technical debt in multiple versions of a project. Smells are tracked across versions. Many properties of smells and versions are calculated to enable statistical analyses. Among other changes, we optimized Arcan to a close-to-linear runtime complexity in relation to the input size (number of classes, packages, dependency edges).
 
 ## Installation
-Download from [here](https://drive.google.com/uc?export=download&id=1NArqsJyah7NhCcYacjxoOnzcypt-On08) and unzip.
+Download from [here](https://drive.google.com/uc?export=download&id=1AaFt1rw69C65n3UPqKcdswhXmGIS6bmg) and unzip.
 
+Alternatively, download the [out/artifacts](https://github.com/PhilippGnoyke/AsTdEA/tree/master/out/artifacts/AsTdEA) folder from this repository and add metadata files according to the below documentation.
 ## Usage
 ### Overview
 1. For each version to analyse, provide a jar or a folder of jars in the project's subdirectory in the input directory. The name of each jar or folder must contain the respective version number after a dash. AsTdEA can automatically retrieve the correct order of versions. If the versioning of the project to analyse deviates from simple patterns, follow the instructions in 4.
@@ -63,7 +64,7 @@ The source code of the modified version of Arcan is available [here](https://git
 The listed studies employed AsTdEA. You can take examples from them and their replication packages.
 - [An Evolutionary Analysis of Software-Architecture Smells](https://ieeexplore.ieee.org/abstract/document/9609226) (&#8594; [replication package](https://figshare.com/s/fa17e81cf4f27c84d059))
 - [On Developing and Improving Tools for Architecture-Smell Tracking in Java Systems](https://ieeexplore.ieee.org/abstract/document/10356402)
-- Evolution Patterns of Software-Architecture Smells: An Empirical Study of Intra- and Inter-Version Smells (in review) (&#8594; [replication package](https://tinyurl.com/ArchSmellsEvoJSS))
+- [Evolution Patterns of Software-Architecture Smells: An Empirical Study of Intra- and Inter-Version Smells](https://www.sciencedirect.com/science/article/pii/S0164121224002152) (&#8594; [replication package](https://tinyurl.com/ArchSmellsEvoJSS))
 
 ## Output
 ### Structure
@@ -76,6 +77,7 @@ The generated file structure looks like this:
     │   │   │   ClassCDsComponents.csv
     │   │   │   ClassCDsEdges.csv
     │   │   │   ClassCDsProperties.csv
+    │   │   │   ExTimeLogs.csv
     │   │   │   HDsComponents.csv
     │   │   │   HDsProperties.csv
     │   │   │   PackageCDsComponents.csv
@@ -123,6 +125,7 @@ The generated file structure looks like this:
     │       │   │   classCDmEFSWOTinys.csv
     │       │   │   ClassCDsComponents.csv
     │       │   │   ClassCDsProperties.csv
+    │       │   │   ExTimeLogs.csv
     │       │   │   HDsComponents.csv
     │       │   │   HDsProperties.csv
     │       │   │   packageCDmEFS.csv
