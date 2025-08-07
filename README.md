@@ -10,7 +10,7 @@ Download from [here](https://drive.google.com/uc?export=download&id=1AaFt1rw69C6
 Alternatively, download the [out/artifacts](https://github.com/PhilippGnoyke/AsTdEA/tree/master/out/artifacts/AsTdEA) folder from this repository and add metadata files according to the below documentation.
 ## Usage
 ### Overview
-1. For each version to analyse, provide a jar or a folder of jars in the project's subdirectory in the input directory. The name of each jar or folder must contain the respective version number after a dash. AsTdEA can automatically retrieve the correct order of versions. If the versioning of the project to analyse deviates from simple patterns, follow the instructions in 4.
+1. For each version to analyse, provide a jar or a folder of jars in the project's subdirectory in the input directory. The name of each jar or folder must contain the respective version number after a dash. AsTdEA can automatically retrieve the correct order of versions. If the versioning of the project to analyse deviates from simple patterns, follow the instructions in step 3.
 2. For each project, provide two additional files with metadata: dates.csv and loc.csv. Both must contain one entry per version from the oldest to newest version. The former provides the release date of each version and the latter the number of lines of code (LOC) of each version. Here is an example for their layout:
 ```
 date
@@ -24,18 +24,25 @@ loc
 37805
 47216
 ```
-3. Optional: Provide an addition file with metadata: versions.csv in a similar format to the aforementioned two files. Provide the version number of each version, which must resemble the corresponding jar or folder name. Example:
+3. Optional: Provide an additional file with metadata: versions.csv in a similar format to the aforementioned two files. Provide the version number of each version, which must resemble the corresponding jar or folder name. Example:
 ```
 date
 yourProjectName-1.1
 yourProjectName-1.2
 yourProjectName-1.3
 ```
-4. Open a terminal in the unzipped folder and run the following:
+4. Optional: Provide an additional file with metadata for every version: SharedClasses.csv. You can whitelist classes in the binaries that represent the actual application to be analyzed, excluding third-party dependencies that were also compiled into the jar(s). Example structure:
+```
+fullyQualifiedName,srcPath
+com.yourOrg.yourSystem.package.classname,yourSystemName\versions\yourSystemName-versionNumber\src\hereComesThePathWithInTheSrcRepo.java
+```
+AsTdEA currently does not use the srcPath field, but filling this field can yield additional information for further analyses.
+
+6. Open a terminal in the unzipped folder and run the following:
 ```
 java -jar AsTdEA.jar
 ```
-5. After finishing the analysis, results are provided in an output directory as csv files.
+6. After finishing the analysis, results are provided in an output directory as csv files.
 
 ### Arguments
 By adding arguments after "java -jar AsTdEA.jar", you can customize AsTdEA:
@@ -57,6 +64,39 @@ By adding arguments after "java -jar AsTdEA.jar", you can customize AsTdEA:
   Default: out
 ```
 
+### Input structure
+We recommend that you arrange the input files in the following folder structure:
+```
+└───in
+    ├───system1
+    │   ├───stats
+    │   │       dates.csv
+    │   │       loc.csv
+    │   │       versions.csv
+    │   │
+    │   └───versions
+    │       ├───system0-version0
+    │       │   ├───bin
+    │       │   │       jarFile1.jar
+    │       │   │       jarFile2.jar
+    │       │   │       ...
+    │       │   │
+    │       │   └───stats
+    │       │           SharedClasses.csv
+    │       │
+    │       ├───system0-version1
+    │       ├───system0-version2
+    │       └───system0-version3
+    │       └───...
+    ├───system2
+    └───system3
+    └───...
+
+
+
+
+
+
 ## Other Source Code
 The source code of the modified version of Arcan is available [here](https://github.com/PhilippGnoyke/arcan-1.2.1-modded).
 
@@ -72,7 +112,7 @@ The listed studies employed AsTdEA. You can take examples from them and their re
 The generated file structure looks like this:
 ```
 └───out
-    ├───system0
+    ├───system1
     │   ├───interVersion
     │   │   │   ClassCDsComponents.csv
     │   │   │   ClassCDsEdges.csv
@@ -150,8 +190,8 @@ The generated file structure looks like this:
     │       ├───2
     │       └───3
     │       └───...
-    ├───system1
-    └───system2
+    ├───system2
+    └───system3
     └───...
 ```
 The default output folder is "out". Underneath, you can find a folder per system that was analyzed. One level down, we differentiate between intra-version and inter-version data.
