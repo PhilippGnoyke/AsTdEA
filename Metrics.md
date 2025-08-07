@@ -293,8 +293,7 @@ This file provide a list of the properties of the respective version.
 | 96           | udRemovalsPerPackage          | Floating point | [0,∞)  | Normalized number of removed inter-version unstable dependencies in this version according to the number of packages                                                |
 | 97           | degreeOfUdRemoval             | Floating point | [0,∞)  | Ratio of the number of inter-version unstable dependency removals to the number of intra-version unstable dependencies in this version                              |
 
-#### interVersion\\ExTimeLogs.csv
-#### intraVersion\\&lt;versionID&gt;\ExTimeLogs.csv
+#### interVersion\\ExTimeLogs.csv<br>#### intraVersion\\&lt;versionID&gt;\ExTimeLogs.csv
 This file contains the execution times of different processing steps/events to enable performance analysis. The intra-version level represents steps performed by Arcan, while the inter-version level represents steps performed by AsTdEA.
 | Column index | Column name in the .csv | Column description                                                                                                  |
 |--------------|-------------------------|---------------------------------------------------------------------------------------------------------------------|
