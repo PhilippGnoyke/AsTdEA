@@ -6,8 +6,8 @@ import java.util.List;
 
 public class InterVersionUd extends InterVersionLinEvoType<IntraVersionUd>
 {
-    public InterVersionUd(int versionOfIntroduction, List<IntraVersionUd> intraVersionSmells)
+    public InterVersionUd(TimeManager timeManager,int versionOfIntroduction, List<IntraVersionUd> intraVersionSmells)
     {
-        super(versionOfIntroduction, intraVersionSmells);
+        super(timeManager,versionOfIntroduction, intraVersionSmells);
     }
 }

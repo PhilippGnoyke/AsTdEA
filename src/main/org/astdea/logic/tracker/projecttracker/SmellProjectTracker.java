@@ -1,6 +1,7 @@
 package org.astdea.logic.tracker.projecttracker;
 
 import org.astdea.data.smells.interversionsmells.InterVersionSmell;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 import org.astdea.data.versions.Version;
 import org.astdea.logic.mapping.Mappings;
@@ -13,8 +14,13 @@ public abstract class SmellProjectTracker<IntraType extends IntraVersionSmell, I
     MappingsMapType extends Mappings<IntraType, InterType, ?>>
 {
     protected MappingsMapType mappings;
+    protected final TimeManager timeManager;
 
-    protected SmellProjectTracker(MappingsMapType mappings) {this.mappings = mappings;}
+    protected SmellProjectTracker(TimeManager timeManager, MappingsMapType mappings)
+    {
+        this.timeManager = timeManager;
+        this.mappings = mappings;
+    }
 
     public Set<InterType> track(List<Version> versions)
     {

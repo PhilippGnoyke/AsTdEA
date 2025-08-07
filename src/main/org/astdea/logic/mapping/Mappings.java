@@ -1,6 +1,7 @@
 package org.astdea.logic.mapping;
 
 import org.astdea.data.smells.interversionsmells.InterVersionSmell;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraId;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 
 public abstract class Mappings<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell, MappingType>
 {
+    protected final TimeManager timeManager;
     protected Map<IntraId, MappingType> mappingsOldAsKey; // All outgoing mappings from the intra
     protected Map<IntraId, MappingType> mappingsNewAsKey; // All incoming mappings to the intra
     protected Set<IntraType> smellsWOPredecessor;
@@ -21,8 +23,9 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
      * Retrieve how many mappings are expected to arise from a given number of intra-version smells.
      * Init the map and set sizes to a corresponding value.
      */
-    public Mappings()
+    public Mappings(TimeManager timeManager)
     {
+        this.timeManager =  timeManager;
         this.mappingsOldAsKey = new HashMap<>();
         this.mappingsNewAsKey = new HashMap<>();
         this.smellsWOPredecessor = new HashSet<>();

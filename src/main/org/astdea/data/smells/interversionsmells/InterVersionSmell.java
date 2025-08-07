@@ -23,8 +23,11 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
 
     protected CollectionType intraVersionSmells;
 
-    public InterVersionSmell(int versionOfIntroduction, CollectionType intraVersionSmells)
+    protected final TimeManager timeManager;
+
+    public InterVersionSmell(TimeManager timeManager, int versionOfIntroduction, CollectionType intraVersionSmells)
     {
+        this.timeManager = timeManager;
         this.versionOfIntroduction = versionOfIntroduction;
         this.intraVersionSmells = intraVersionSmells;
         smellId = InterVersionSmellIdManager.assignId();
@@ -39,15 +42,15 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
 
     private void calcAndInitSmellProps()
     {
-        timeOfIntroduction = TimeManager.getVersionTime(versionOfIntroduction);
+        timeOfIntroduction = timeManager.getVersionTime(versionOfIntroduction);
         versionOfRemoval = versionOfIntroduction + intraVersionSmells.size();
-        timeOfRemoval = TimeManager.getVersionTime(versionOfRemoval);
+        timeOfRemoval = timeManager.getVersionTime(versionOfRemoval);
         lifeSpanInVersions = versionOfRemoval - versionOfIntroduction;
         lifeSpanInDays = (int) ChronoUnit.DAYS.between(timeOfIntroduction, timeOfRemoval);
-        versionOrientedRelativeLifespan = (double) lifeSpanInVersions / TimeManager.getAnalysedTimeSpanInVersions();
-        timeOrientedRelativeLifespan = (double) lifeSpanInDays / TimeManager.getAnalysedTimeSpanInDays();
+        versionOrientedRelativeLifespan = (double) lifeSpanInVersions / timeManager.getAnalysedTimeSpanInVersions();
+        timeOrientedRelativeLifespan = (double) lifeSpanInDays / timeManager.getAnalysedTimeSpanInDays();
         presentInFirstVersion = (versionOfIntroduction == 0);
-        presentInLastVersion = (versionOfRemoval == TimeManager.getAnalysedTimeSpanInVersions());
+        presentInLastVersion = (versionOfRemoval == timeManager.getAnalysedTimeSpanInVersions());
     }
 
     @Override

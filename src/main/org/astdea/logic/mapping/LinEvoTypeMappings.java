@@ -1,16 +1,17 @@
 package org.astdea.logic.mapping;
 
 import org.astdea.data.smells.interversionsmells.InterVersionLinEvoType;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraVersionLinEvoType;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Time;
+import java.util.*;
 
 public abstract class LinEvoTypeMappings<IntraType extends IntraVersionLinEvoType,
     InterType extends InterVersionLinEvoType> extends Mappings<IntraType, InterType, IntraType>
 {
+    public LinEvoTypeMappings(TimeManager timeManager) { super(timeManager); }
+
     @Override
     protected void putMapping(IntraType smellOld, IntraType smellNew)
     {

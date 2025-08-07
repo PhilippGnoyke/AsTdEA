@@ -4,11 +4,13 @@ import org.astdea.data.graphelements.MergeSplit;
 import org.astdea.data.graphelements.Transition;
 import org.astdea.data.graphelements.TransitionType;
 import org.astdea.data.smells.interversionsmells.InterVersionCd;
+import org.astdea.data.smells.interversionsmells.TimeManager;
 import org.astdea.data.smells.intraversionsmells.IntraId;
 import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 import org.astdea.utils.CollectionUtils;
 import org.astdea.utils.MathUtils;
 
+import java.sql.Time;
 import java.util.*;
 
 public class InterVersionCdBuilder
@@ -19,17 +21,20 @@ public class InterVersionCdBuilder
     protected Map<IntraId, Set<IntraVersionCd>> mappingsNewAsKey;
     protected Set<IntraVersionCd> smellsWOPredecessor;
     protected Set<IntraVersionCd> smellsWOSuccessor;
+    protected final TimeManager timeManager;
 
     public InterVersionCdBuilder(int totalNumOfIntras,
                                  Map<IntraId, Set<IntraVersionCd>> mappingsOldAsKey,
                                  Map<IntraId, Set<IntraVersionCd>> mappingsNewAsKey,
                                  Set<IntraVersionCd> smellsWOPredecessor,
-                                 Set<IntraVersionCd> smellsWOSuccessor)
+                                 Set<IntraVersionCd> smellsWOSuccessor,
+                                 TimeManager timeManager)
     {
         this.mappingsOldAsKey = mappingsOldAsKey;
         this.mappingsNewAsKey = mappingsNewAsKey;
         this.smellsWOPredecessor = smellsWOPredecessor;
         this.smellsWOSuccessor = smellsWOSuccessor;
+        this.timeManager = timeManager;
         visited = CollectionUtils.initHashSet(totalNumOfIntras);
         interAssigns = CollectionUtils.initHashMap(totalNumOfIntras);
     }
@@ -80,10 +85,9 @@ public class InterVersionCdBuilder
                 }
                 setAges(intrasSetList);
                 ProtoTransitions ts = buildTransitionsOfInter(intrasSetList, protoInter.intras.size());
-                InterVersionCd cd = new InterVersionCd(firstVersion, intrasSetList,ts.transitions,ts.merges,ts.splits);
-                cd.setTransitionCounts(ts.pure,ts.mergeOnly,ts.splitOnly,ts.mergeAndSplit);
+                InterVersionCd cd = new InterVersionCd(timeManager, firstVersion, intrasSetList, ts.transitions, ts.merges, ts.splits);
+                cd.setTransitionCounts(ts.pure, ts.mergeOnly, ts.splitOnly, ts.mergeAndSplit);
                 inters.add(cd);
-
             }
         }
         return inters;
@@ -91,15 +95,16 @@ public class InterVersionCdBuilder
 
     private void setAges(List<Set<IntraVersionCd>> intrasSetList)
     {
-        for (Set<IntraVersionCd> intras: intrasSetList)
+        for (Set<IntraVersionCd> intras : intrasSetList)
         {
             for (IntraVersionCd intra : intras)
             {
                 setAge(intra);
             }
         }
-        for (int i = intrasSetList.size() - 1; i >= 0; i--) {
-            Set<IntraVersionCd> intras =  intrasSetList.get(i);
+        for (int i = intrasSetList.size() - 1; i >= 0; i--)
+        {
+            Set<IntraVersionCd> intras = intrasSetList.get(i);
             for (IntraVersionCd intra : intras)
             {
                 setRemainingAge(intra);
@@ -109,35 +114,35 @@ public class InterVersionCdBuilder
 
     private void setAge(IntraVersionCd intra)
     {
-        if(!smellsWOPredecessor.contains(intra))
+        if (!smellsWOPredecessor.contains(intra))
         {
             int ageMax = 0;
             Set<IntraVersionCd> predecessors = mappingsNewAsKey.get(intra.getIntraId());
             intra.addPreds(predecessors);
             for (IntraVersionCd predecessor : predecessors)
             {
-                ageMax = Math.max(ageMax,predecessor.getAge());
+                ageMax = Math.max(ageMax, predecessor.getAge());
                 intra.addPreds(predecessor.getAllPreds());
             }
             intra.setNumDirectPreds(predecessors.size());
-            intra.setAge(ageMax+1);
+            intra.setAge(ageMax + 1);
         }
     }
 
     private void setRemainingAge(IntraVersionCd intra)
     {
-        if(!smellsWOSuccessor.contains(intra))
+        if (!smellsWOSuccessor.contains(intra))
         {
             int ageMax = 0;
             Set<IntraVersionCd> successors = mappingsOldAsKey.get(intra.getIntraId());
             intra.addSuccs(successors);
             for (IntraVersionCd successor : successors)
             {
-                ageMax = Math.max(ageMax,successor.getRemainingAge());
+                ageMax = Math.max(ageMax, successor.getRemainingAge());
                 intra.addSuccs(successor.getAllSuccs());
             }
             intra.setNumDirectSuccs(successors.size());
-            intra.setRemainingAge(ageMax+1);
+            intra.setRemainingAge(ageMax + 1);
         }
     }
 
@@ -160,8 +165,8 @@ public class InterVersionCdBuilder
                         int sourceCount = mappingsNewAsKey.get(target.getIntraId()).size();
                         TransitionType transitionType = TransitionType.getTransitionType(sourceCount, targetCount);
                         transitions.add(new Transition(source, target, transitionType));
-                        if (targetCount > 1) { protoSplits.add(source,target); }
-                        if (sourceCount > 1) { protoMerges.add(target,source); }
+                        if (targetCount > 1) { protoSplits.add(source, target); }
+                        if (sourceCount > 1) { protoMerges.add(target, source); }
                     }
                 }
             }
@@ -177,7 +182,7 @@ public class InterVersionCdBuilder
         for (IntraVersionCd targetOrSource : protoMergesSplits.protos.keySet())
         {
             Set<IntraVersionCd> targetsOrSources = protoMergesSplits.protos.get(targetOrSource);
-            mergesOrSplits.add(new MergeSplit(targetOrSource,targetsOrSources));
+            mergesOrSplits.add(new MergeSplit(targetOrSource, targetsOrSources));
         }
         return mergesOrSplits;
     }
@@ -227,11 +232,11 @@ public class InterVersionCdBuilder
 
     private static class ProtoMergesSplits
     {
-        Map<IntraVersionCd,Set<IntraVersionCd>> protos = new HashMap<>();
+        Map<IntraVersionCd, Set<IntraVersionCd>> protos = new HashMap<>();
 
         void add(IntraVersionCd key, IntraVersionCd val)
         {
-            if(protos.containsKey(key))
+            if (protos.containsKey(key))
             {
                 protos.get(key).add(val);
             }
@@ -239,7 +244,7 @@ public class InterVersionCdBuilder
             {
                 Set<IntraVersionCd> vals = new HashSet<>();
                 vals.add(val);
-                protos.put(key,vals);
+                protos.put(key, vals);
             }
         }
     }

@@ -36,13 +36,14 @@ public class InterVersionCd extends InterVersionSmell<List<Set<IntraVersionCd>>>
     @Override
     public List<Set<IntraVersionCd>> getIntraVersionSmells() {return intraVersionSmells;}
 
-    public InterVersionCd(int versionOfIntroduction,
+    public InterVersionCd(TimeManager timeManager,
+                          int versionOfIntroduction,
                           List<Set<IntraVersionCd>> intraVersionSmells,
                           Set<Transition> transitions,
                           Set<MergeSplit> merges,
                           Set<MergeSplit> splits)
     {
-        super(versionOfIntroduction, intraVersionSmells);
+        super(timeManager,versionOfIntroduction, intraVersionSmells);
         this.transitions = transitions;
         this.merges = merges;
         this.splits = splits;

@@ -14,8 +14,8 @@ public final class IPN
 
     public static final String ID = AsTdEvolutionPrinter.ID;
     public static final String LOC = ProjectMetricsCalculator.PROPERTY_LOC;
-    public static final String CLASS_COUNT = ProjectMetricsCalculator.PROPERTY_CLASS_COUNT;
-    public static final String PACK_COUNT = ProjectMetricsCalculator.PROPERTY_PACK_COUNT;
+    public static final String CLASS_COUNT = ProjectMetricsCalculator.PROPERTY_INT_CLASS_COUNT;
+    public static final String PACK_COUNT = ProjectMetricsCalculator.PROPERTY_INT_PACK_COUNT;
     public static final String ORDER = GraphBuilder.PROPERTY_ORDER;
     public static final String SIZE = GraphBuilder.PROPERTY_SIZE;
     public static final String NUM_SUBCYCLES = GraphBuilder.PROPERTY_NUM_SUBCYCLES;
