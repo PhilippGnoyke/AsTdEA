@@ -38,7 +38,7 @@ com.yourOrg.yourSystem.package.classname,yourSystemName\versions\yourSystemName-
 ```
 AsTdEA currently does not use the srcPath field, but filling this field can yield additional information for further analyses.
 
-6. Open a terminal in the unzipped folder and run the following:
+5. Open a terminal in the unzipped folder and run the following:
 ```
 java -jar AsTdEA.jar
 ```
