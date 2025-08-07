@@ -91,11 +91,7 @@ We recommend that you arrange the input files in the following folder structure:
     ├───system2
     └───system3
     └───...
-
-
-
-
-
+```
 
 ## Other Source Code
 The source code of the modified version of Arcan is available [here](https://github.com/PhilippGnoyke/arcan-1.2.1-modded).
