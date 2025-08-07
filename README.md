@@ -31,12 +31,11 @@ yourProjectName-1.1
 yourProjectName-1.2
 yourProjectName-1.3
 ```
-4. Optional: Provide an additional file with metadata for every version: SharedClasses.csv. You can whitelist classes in the binaries that represent the actual application to be analyzed, excluding third-party dependencies that were also compiled into the jar(s). Example structure:
+4. Optional: Provide an additional file with metadata for every version: SharedClasses.csv. You can whitelist classes in the binaries that represent the actual application to be analyzed, excluding third-party dependencies that were also compiled into the jar(s). AsTdEA currently does not use the srcPath field, but filling this field can yield additional information for further analyses. Example structure:
 ```
 fullyQualifiedName,srcPath
 com.yourOrg.yourSystem.package.classname,yourSystemName\versions\yourSystemName-versionNumber\src\hereComesThePathWithInTheSrcRepo.java
 ```
-AsTdEA currently does not use the srcPath field, but filling this field can yield additional information for further analyses.
 
 5. Open a terminal in the unzipped folder and run the following:
 ```
