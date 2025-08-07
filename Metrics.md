@@ -121,16 +121,6 @@ These files provide a list of all transitions and their properties within the re
 | 5            | shapeSource             | String          | {tiny, chain, star, circle, clique, multiHub, semiClique, unknown} | Shape of the intra-version smell at the tail of the transition                                                               |
 | 6            | shapeTarget             | String          | {tiny, chain, star, circle, clique, multiHub, semiClique, unknown} | Shape of the intra-version smell at the head of the transition                                                               |
 
-#### interVersion\\ExTimeLogs.csv
-This file contains the execution times of different processing steps/events to enable performance analysis. The inter-version level represents steps performed by AsTdEA.
-| Column index | Column name in the .csv | Column description                                                                                                  |
-|--------------|-------------------------|---------------------------------------------------------------------------------------------------------------------|
-| 0            | id                      | Processing step/event ID                                                                                            |
-| 1            | parentId                | ID of the step's parent. If the step is first-level, the value is -1.                                               |
-| 2            | cumulatedDuration       | Excecution time for this step/event in ms. If it has occured multiple times, the individual times are added up.     |
-| 3            | eventCount              | Number of individual times, the step/event has been executed. |
-| 4            | eventDescription        | Description of the step/event. The ID and description have a 1:1 relationship across intra- and inter-version data. |
-
 #### intraVersion\VersionNames.csv
 This file provides a list of all analyzed versions of the subject system to map the AsTdEA-internal version ID and each version's designation.
 | Column index | Column name in the .csv | Column description                                                   |
@@ -303,9 +293,9 @@ This file provide a list of the properties of the respective version.
 | 96           | udRemovalsPerPackage          | Floating point | [0,∞)  | Normalized number of removed inter-version unstable dependencies in this version according to the number of packages                                                |
 | 97           | degreeOfUdRemoval             | Floating point | [0,∞)  | Ratio of the number of inter-version unstable dependency removals to the number of intra-version unstable dependencies in this version                              |
 
-
+#### interVersion\\ExTimeLogs.csv
 #### intraVersion\\&lt;versionID&gt;\ExTimeLogs.csv
-This file contains the execution times of different processing steps/events to enable performance analysis. The intra-version level represents steps performed by Arcan.
+This file contains the execution times of different processing steps/events to enable performance analysis. The intra-version level represents steps performed by Arcan, while the inter-version level represents steps performed by AsTdEA.
 | Column index | Column name in the .csv | Column description                                                                                                  |
 |--------------|-------------------------|---------------------------------------------------------------------------------------------------------------------|
 | 0            | id                      | Processing step/event ID                                                                                            |
