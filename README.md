@@ -197,3 +197,9 @@ In the intra-version data, a folder per version is generated, counting up from 0
 
 ### Metrics
 In [Metrics.md](https://github.com/PhilippGnoyke/AsTdEA/blob/master/Metrics.md), we list and describe every column of every generated .csv file.
+
+## Known issues
+If your input systems are large and consume a lot of RAM, the default RAM assignment to Java might not suffice. If you notice that, you can increase the RAM assignment when calling AsTdEA from the terminal. Example:
+```
+java -Xmx20G -Xms10G -jar AsTdEA.jar
+```
