@@ -37,15 +37,24 @@ fullyQualifiedName,srcPath
 com.yourOrg.yourSystem.package.classname,yourSystemName\versions\yourSystemName-versionNumber\src\hereComesThePathWithInTheSrcRepo.java
 ```
 
-5. Open a terminal in the unzipped folder and run the following:
+5. Optional: Provide an .csv file for class changes and another one for package changes per system in the component change input directory (see below). Example structure:
+```
+versionOld,versionNew,fqcnOld,fqcnNew
+1.18,1.19,com.yourOrg.yourSystem.package.classnameOld,com.yourOrg.yourSystem.package.classnameNew
+```
+
+6. Open a terminal in the unzipped folder and run the following:
 ```
 java -jar AsTdEA.jar
 ```
-6. After finishing the analysis, results are provided in an output directory as csv files.
+7. After finishing the analysis, results are provided in an output directory as csv files.
 
 ### Arguments
 By adding arguments after "java -jar AsTdEA.jar", you can customize AsTdEA:
 ```
+-componentChanges, -cc
+  If you have retrieved class and package changes between versions due to refactorings from RefactoringMiner, you can provide a top level dir with a     custom name to consider them for smell tracking.
+  Default: "" -> none
 -dontRunArcan, -noA
   Don't run Arcan but parse previously generated .csv files in the out folder.
   Default: false
@@ -92,6 +101,22 @@ We recommend that you arrange the input files in the following folder structure:
     └───...
 ```
 
+If you provide a component changes directory, it should be structured as such:
+```
+└───componentChanges
+    ├───classChanges
+    │   ├───system1.csv
+    │   ├───system2.csv
+    │   ├───system3.csv
+    │   └───...
+    │
+    └───packChanges
+        ├───system1.csv
+        ├───system2.csv
+        ├───system3.csv
+        └───...
+```
+
 ## Other Source Code
 The source code of the modified version of Arcan is available [here](https://github.com/PhilippGnoyke/arcan-1.2.1-modded).
 
@@ -109,82 +134,137 @@ The generated file structure looks like this:
 └───out
     ├───system1
     │   ├───interVersion
-    │   │   │   ClassCDsComponents.csv
-    │   │   │   ClassCDsEdges.csv
-    │   │   │   ClassCDsProperties.csv
-    │   │   │   ExTimeLogs.csv
-    │   │   │   HDsComponents.csv
-    │   │   │   HDsProperties.csv
-    │   │   │   PackageCDsComponents.csv
-    │   │   │   PackageCDsEdges.csv
-    │   │   │   PackageCDsProperties.csv
-    │   │   │   ProjectMetrics.csv
-    │   │   │   UDsComponents.csv
-    │   │   │   UDsProperties.csv
+    │   │   ├───AffectedCompEvolution
+    │   │   │   ├───Incoming
+    │   │   │   │   ├───classLevelCdAffectedCompEvolution.csv
+    │   │   │   │   ├───hdAfferentEfferentCompsAffectedCompEvolution.csv
+    │   │   │   │   ├───hdCentralCompAffectedCompEvolution.csv
+    │   │   │   │   ├───packLevelCdAffectedCompEvolution.csv
+    │   │   │   │   ├───udAfferentEfferentCompsAffectedCompEvolution.csv
+    │   │   │   │   └───udCentralCompAffectedCompEvolution.csv
+    │   │   │   │ 
+    │   │   │   └───Outcoming
+    │   │   │       ├───classLevelCdAffectedCompEvolution.csv
+    │   │   │       ├───hdAfferentEfferentCompsAffectedCompEvolution.csv
+    │   │   │       ├───hdCentralCompAffectedCompEvolution.csv
+    │   │   │       ├───packLevelCdAffectedCompEvolution.csv
+    │   │   │       ├───udAfferentEfferentCompsAffectedCompEvolution.csv
+    │   │   │       └───udCentralCompAffectedCompEvolution.csv
+    │   │   │
+    │   │   ├───ClassCDsComponents.csv
+    │   │   ├───ClassCDsEdges.csv
+    │   │   ├───ClassCDsProperties.csv
+    │   │   ├───ExTimeLogs.csv
+    │   │   ├───HDsComponents.csv
+    │   │   ├───HDsProperties.csv
+    │   │   ├───PackageCDsComponents.csv
+    │   │   ├───PackageCDsEdges.csv
+    │   │   ├───PackageCDsProperties.csv
+    │   │   ├───ProjectMetrics.csv
+    │   │   ├───UDsComponents.csv
+    │   │   ├───UDsProperties.csv
     │   │   │
     │   │   ├───ClassCdsMerges
-    │   │   │       89.csv
-    │   │   │       90.csv
-    │   │   │       ...
+    │   │   │   ├───89.csv
+    │   │   │   ├───90.csv
+    │   │   │   └───...
     │   │   │
     │   │   ├───ClassCdsSplits
-    │   │   │       89.csv
-    │   │   │       90.csv
-    │   │   │       ...
+    │   │   │   ├───89.csv
+    │   │   │   ├───90.csv
+    │   │   │   └───...
     │   │   │
     │   │   ├───ClassCdTransitions
-    │   │   │       89.csv
-    │   │   │       90.csv
-    │   │   │       ...
+    │   │   │   ├───89.csv
+    │   │   │   ├───90.csv
+    │   │   │   └───...
+    │   │   │
+    │   │   ├───CompEvolutionSmellTransitions
+    │   │   │   ├───classLevelCdCompChangeSmellTransitions.csv
+    │   │   │   ├───hdAfferentEfferentCompsCompChangeSmellTransitions.csv
+    │   │   │   ├───hdCentralCompCompChangeSmellTransitions.csv
+    │   │   │   ├───packLevelCdCompChangeSmellTransitions.csv
+    │   │   │   ├───udAfferentEfferentCompsCompChangeSmellTransitions.csv
+    │   │   │   └───udCentralCompCompChangeSmellTransitions.csv
     │   │   │
     │   │   ├───PackCdMerges
-    │   │   │       181.csv
-    │   │   │       182.csv
-    │   │   │       ...
+    │   │   │   ├───181.csv
+    │   │   │   ├───182.csv
+    │   │   │   └───...
     │   │   │
     │   │   ├───PackCdSplits
-    │   │   │       181.csv
-    │   │   │       182.csv
-    │   │   │       ...
+    │   │   │   ├───181.csv
+    │   │   │   ├───182.csv
+    │   │   │   └───...
     │   │   │
     │   │   └───PackCdTransitions
-    │   │           181.csv
-    │   │           182.csv
-    │   │           ...
+    │   │       ├───181.csv
+    │   │       ├───182.csv
+    │   │       └───...
     │   │
     │   └───intraVersion
     │       │   VersionNames.csv
     │       │
     │       ├───0
-    │       │   │   classCDmEFS.csv
-    │       │   │   classCDmEFSWOTinys.csv
-    │       │   │   ClassCDsComponents.csv
-    │       │   │   ClassCDsProperties.csv
-    │       │   │   ExTimeLogs.csv
-    │       │   │   HDsComponents.csv
-    │       │   │   HDsProperties.csv
-    │       │   │   packageCDmEFS.csv
-    │       │   │   packageCDmEFSWOTinys.csv
-    │       │   │   PackageCDsComponents.csv
-    │       │   │   PackageCDsProperties.csv
-    │       │   │   ProjectMetrics.csv
-    │       │   │   UDsComponents.csv
-    │       │   │   UDsProperties.csv
+    │       │   ├───AffectedCompEvolution
+    │       │   │   ├───Incoming
+    │       │   │   │   ├───classLevelCdAffectedCompEvolution.csv
+    │       │   │   │   ├───hdAfferentEfferentCompsAffectedCompEvolution.csv
+    │       │   │   │   ├───hdCentralCompAffectedCompEvolution.csv
+    │       │   │   │   ├───packLevelCdAffectedCompEvolution.csv
+    │       │   │   │   ├───udAfferentEfferentCompsAffectedCompEvolution.csv
+    │       │   │   │   └───udCentralCompAffectedCompEvolution.csv
+    │       │   │   │
+    │       │   │   └───Outgoing
+    │       │   │       ├───classLevelCdAffectedCompEvolution.csv
+    │       │   │       ├───hdAfferentEfferentCompsAffectedCompEvolution.csv
+    │       │   │       ├───hdCentralCompAffectedCompEvolution.csv
+    │       │   │       ├───packLevelCdAffectedCompEvolution.csv
+    │       │   │       ├───udAfferentEfferentCompsAffectedCompEvolution.csv
+    │       │   │       └───udCentralCompAffectedCompEvolution.csv
     │       │   │
     │       │   ├───classCDEdges
-    │       │   │       64021.csv
-    │       │   │       64022.csv
-    │       │   │       ...
+    │       │   │   ├───64021.csv
+    │       │   │   ├───64022.csv
+    │       │   │   └───...
+    │       │   │
+    │       │   ├───classCDmEFS.csv
+    │       │   ├───classCDmEFSWOTinys.csv
+    │       │   ├───ClassCDsComponents.csv
+    │       │   ├───ClassCDsProperties.csv
+    │       │   ├───ClassDependencies.csv
+    │       │   ├───CompEvolutionSmellTransitions
+    │       │   │   ├───classLevelCdCompChangeSmellTransitions.csv
+    │       │   │   ├───hdAfferentEfferentCompsCompChangeSmellTransitions.csv
+    │       │   │   ├───hdCentralCompCompChangeSmellTransitions.csv
+    │       │   │   ├───packLevelCdCompChangeSmellTransitions.csv
+    │       │   │   ├───udAfferentEfferentCompsCompChangeSmellTransitions.csv
+    │       │   │   └───udCentralCompCompChangeSmellTransitions.csv
+    │       │   │
+    │       │   ├───ExTimeLogs.csv
+    │       │   ├───HDsComponents.csv
+    │       │   ├───HDsProperties.csv
+    │       │   ├───LocPerClass.csv
+    │       │   ├───packageCDmEFS.csv
+    │       │   ├───packageCDmEFSWOTinys.csv
+    │       │   ├───PackageCDsComponents.csv
+    │       │   ├───PackageCDsProperties.csv
+    │       │   ├───PackDependencies.csv
+    │       │   ├───ProjectMetrics.csv
+    │       │   ├───SharedClasses.csv
+    │       │   ├───UDsComponents.csv
+    │       │   ├───UDsProperties.csv
     │       │   │
     │       │   └───packageCDEdges
-    │       │           66613.csv
-    │       │           66614.csv
-    │       │           ...
+    │       │       ├───66613.csv
+    │       │       ├───66614.csv
+    │       │       └───...
     │       │
     │       ├───1
     │       ├───2
     │       └───3
     │       └───...
+    │
     ├───system2
     └───system3
     └───...
