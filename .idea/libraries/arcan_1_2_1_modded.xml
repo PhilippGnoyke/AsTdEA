@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="arcan-1.2.1-modded">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/arcan-1.2.1-modded.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

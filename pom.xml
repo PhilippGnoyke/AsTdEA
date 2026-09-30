@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>ArcanRunner</artifactId>
+    <artifactId>AsTdEA</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -32,12 +32,34 @@
 			<version>1.4</version>
 		</dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
             <groupId>it.unimib.disco.essere</groupId>
             <artifactId>arcan</artifactId>
             <scope>system</scope>
             <version>1.2.1-modded</version>
             <systemPath>${project.basedir}/libs/arcan-1.2.1-modded.jar</systemPath>
-        </dependency>				
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.psjava</groupId>
+            <artifactId>psjava</artifactId>
+            <version>0.1.19</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
