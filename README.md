@@ -124,7 +124,8 @@ The source code of the modified version of Arcan is available [here](https://git
 The listed studies employed AsTdEA. You can take examples from them and their replication packages.
 - [An Evolutionary Analysis of Software-Architecture Smells](https://ieeexplore.ieee.org/abstract/document/9609226) (&#8594; [replication package](https://figshare.com/s/fa17e81cf4f27c84d059))
 - [On Developing and Improving Tools for Architecture-Smell Tracking in Java Systems](https://ieeexplore.ieee.org/abstract/document/10356402)
-- [Evolution Patterns of Software-Architecture Smells: An Empirical Study of Intra- and Inter-Version Smells](https://www.sciencedirect.com/science/article/pii/S0164121224002152) (&#8594; [replication package](https://tinyurl.com/ArchSmellsEvoJSS))
+- [Evolution Patterns of Software-Architecture Smells: An Empirical Study of Intra- and Inter-Version Smells](https://www.sciencedirect.com/science/article/pii/S0164121224002152) (&#8594; [replication package](https://zenodo.org/records/12507338))
+- [Insights into Optimizing Research Software: A Case of an Architecture-Smell Detection Tool](https://ieeexplore.ieee.org/abstract/document/11190224) (&#8594; [replication package](https://zenodo.org/records/16763463))
 
 ## Output
 ### Structure
