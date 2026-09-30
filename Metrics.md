@@ -126,7 +126,7 @@ These files provide a list of all transitions and their properties within the re
 | 6            | shapeTarget             | String          | {tiny, chain, star, circle, clique, multiHub, semiClique, unknown} | Shape of the intra-version smell at the head of the transition                                                               |
 
 #### interVersion\AffectedCompEvolution\Incoming\classLevelCdAffectedCompEvolution.csv<br>...\hdAfferentEfferentCompsAffectedCompEvolution.csv<br>...\hdCentralCompAffectedCompEvolution.csv<br>...\packLevelCdAffectedCompEvolution.csv<br>...\udAfferentEfferentCompsAffectedCompEvolution.csv<br>...\udCentralCompAffectedCompEvolution.csv<br>interVersion\AffectedCompEvolution\Outgoing\classLevelCdAffectedCompEvolution.csv<br>...\hdAfferentEfferentCompsAffectedCompEvolution.csv<br>...\hdCentralCompAffectedCompEvolution.csv<br>...\packLevelCdAffectedCompEvolution.csv<br>...\udAfferentEfferentCompsAffectedCompEvolution.csv<br>...\udCentralCompAffectedCompEvolution.csv<br>
-These files provide details on how smell-affected components (classes or packages) distinguished by the smell type evolve over time. In this inter-version overview, we see aggregated stats on the entire system's history. We consider whether a component experienced a class/package merge/split event and how the set of components is affected by smells before and after. We differentiate between incoming, i.e., looking at how each component got to be from its predecessor(s) vs. outgoing, i.e., looking at how each component continues to its successor(s).
+These files provide details on how smell-affected components (classes or packages) distinguished by the smell type evolve over time. In this inter-version overview, we see aggregated stats on the entire system's history. We consider whether a component experienced a class/package merge/split/rename/move event and how the set of components is affected by the same smell type before or after. We differentiate between incoming, i.e., looking at a component's predecessor(s) vs. outgoing, i.e., looking at a component's successor(s). We further subdivide hub-like dependencies and unstable dependencies into their main component vs. other affected components.
 
 | Column index | Column name in the .csv | Data type       | Range                                                              | Column description                                                                                                           |
 |--------------|-------------------------|-----------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
@@ -135,34 +135,36 @@ These files provide details on how smell-affected components (classes or package
 | 2            | meanPerVersion         | Floating point   | [0,∞)       | The absolute count divided by the number of versions. |
 | 3            | meanPerVersionPerComp  | Floating point   | [0,∞)       | We divide each version's absolute count by its number of classes or packages depending on the smell type. Then we, average each version's result across the entire system.|
 
+This table lists all change types. In every case, the component is affected by the file's smell type in the version at hand.
+
 | Direction | Change type | Type description                                                   |
 |--------------|-------------------------|----------------------------------------------------------------------|
-| Incoming     | existingAndAffected                        | The smell is affected now, has one predecessor and was affected before. |
-| Incoming     | existingAndNotAffected                     |  |
-| Incoming     | introduced                                 |  |
-| Incoming     | changed11AndAffected                       |  |
-| Incoming     | changed11AndNotAffected                    |  |
-| Incoming     | changedN1AndAllAffectedWithResult          |  |
-| Incoming     | changedN1AndSomeAffectedWithResult         |  |
-| Incoming     | changedN1AndOneAffectedWithResult          |  |
-| Incoming     | changedN1AndNoneAffectedWithResult         |  |
-| Incoming     | changedN1AndAllAffectedWithoutResult       |  |
-| Incoming     | changedN1AndSomeAffectedWithoutResult      |  |
-| Incoming     | changedN1AndOneAffectedWithoutResult       |  |
-| Incoming     | changedN1AndNoneAffectedWithoutResult      |  |
-| Outgoing     | existingAndAffected                        |  |
-| Outgoing     | existingAndNotAffected                     |  |
-| Outgoing     | removed                                    |  |
-| Outgoing     | changed11AndAffected                       |  |
-| Outgoing     | changed11AndNotAffected                    |  |
-| Outgoing     | changed1NAndAllAffectedWithOriginal        |  |
-| Outgoing     | changed1NAndSomeAffectedWithOriginal       |  |
-| Outgoing     | changed1NAndOneAffectedWithOriginal        |  |
-| Outgoing     | changed1NAndNoneAffectedWithOriginal       |  |
-| Outgoing     | changed1NAndAllAffectedWithoutOriginal     |  |
-| Outgoing     | changed1NAndSomeAffectedWithoutOriginal    |  |
-| Outgoing     | changed1NAndOneAffectedWithoutOriginal     |  |
-| Outgoing     | changed1NAndNoneAffectedWithoutOriginal    |  |
+| Incoming     | existingAndAffected                        | The component has one predecessor that was affected. |
+| Incoming     | existingAndNotAffected                     | The component has one predecessor that was not affected. |
+| Incoming     | introduced                                 | The component is introduced in this version and therefore doesn't have a predecessor. |
+| Incoming     | changed11AndAffected                       | The component has one predecessor with a different FQCN that was affected.  |
+| Incoming     | changed11AndNotAffected                    | The component has one predecessor with a different FQCN that was not affected. |
+| Incoming     | changedN1AndAllAffectedWithResult          | The component has more than one predecessors that were all affected. One of the predecessors has the same FQCN as the component.  |
+| Incoming     | changedN1AndSomeAffectedWithResult         | The component has more than one predecessors. More than one of them were affected, but not all. One of the predecessors has the same FQCN as the component. |
+| Incoming     | changedN1AndOneAffectedWithResult          | The component has more than one predecessors. Exactly one of them was affected. One of the predecessors has the same FQCN as the component. |
+| Incoming     | changedN1AndNoneAffectedWithResult         | The component has more than one predecessors. None of them was affected. One of the predecessors has the same FQCN as the component.  |
+| Incoming     | changedN1AndAllAffectedWithoutResult       | The component has more than one predecessors that were all affected. None of the predecessors has the same FQCN as the component. |
+| Incoming     | changedN1AndSomeAffectedWithoutResult      | The component has more than one predecessors. More than one of them were affected, but not all. None of the predecessors has the same FQCN as the component. |
+| Incoming     | changedN1AndOneAffectedWithoutResult       | The component has more than one predecessors. Exactly one of them was affected. None of the predecessors has the same FQCN as the component.  |
+| Incoming     | changedN1AndNoneAffectedWithoutResult      | The component has more than one predecessors. None of them was affected. None of the predecessors has the same FQCN as the component. |
+| Outgoing     | existingAndAffected                        | The component has one successor that will be affected. |
+| Outgoing     | existingAndNotAffected                     | The component has one successor that will not be affected. |
+| Outgoing     | removed                                    | The component is removed after this version and therefore doesn't have a successor. |
+| Outgoing     | changed11AndAffected                       | The component has one successor with a different FQCN that will be affected. |
+| Outgoing     | changed11AndNotAffected                    | The component has one successor with a different FQCN that will not be affected. |
+| Outgoing     | changed1NAndAllAffectedWithOriginal        | The component has more than one successors that will all be affected. One of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndSomeAffectedWithOriginal       | The component has more than one successors. More than one of them will be affected, but not all. One of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndOneAffectedWithOriginal        | The component has more than one successors. Exactly one of them will be affected. One of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndNoneAffectedWithOriginal       | The component has more than one successors. None of them will be affected. One of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndAllAffectedWithoutOriginal     | The component has more than one successors that will all be affected. None of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndSomeAffectedWithoutOriginal    | The component has more than one successors. More than one of them will be affected, but not all. None of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndOneAffectedWithoutOriginal     | The component has more than one successors. Exactly one of them will be affected. None of the successors has the same FQCN as the component. |
+| Outgoing     | changed1NAndNoneAffectedWithoutOriginal    | The component has more than one successors. None of them will be affected. None of the successors has the same FQCN as the component. |
 
 
 #### intraVersion\VersionNames.csv
