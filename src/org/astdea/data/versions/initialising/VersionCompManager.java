@@ -32,7 +32,8 @@ public class VersionCompManager {
 
     public boolean isFqcnAffected(AffType affType, String fqcn) {
         Map<String, Component> map = getCompMap(affType);
-        return map.containsKey(fqcn);
+        Component comp = map.get(fqcn);
+        return affectedByMap.get(affType).contains(comp);
     }
 
     private Map<String, Component> getCompMap(AffType affType) {
