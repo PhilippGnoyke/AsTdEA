@@ -5,9 +5,8 @@ Architecture Smell and Technical Debt Evolution Analyzer
 AsTdEA runs a modified version of Arcan to detect architecture smells and calculate technical debt in multiple versions of a project. Smells are tracked across versions. Many properties of smells and versions are calculated to enable statistical analyses. Among other changes, we optimized Arcan to a close-to-linear runtime complexity in relation to the input size (number of classes, packages, dependency edges).
 
 ## Installation
-Download from [here](https://drive.google.com/uc?export=download&id=1AaFt1rw69C65n3UPqKcdswhXmGIS6bmg) and unzip.
+Download the zip from the [latest release](https://github.com/PhilippGnoyke/AsTdEA/releases) and unzip.
 
-Alternatively, download the [out/artifacts](https://github.com/PhilippGnoyke/AsTdEA/tree/master/out/artifacts/AsTdEA) folder from this repository and add metadata files according to the below documentation.
 ## Usage
 ### Overview
 1. For each version to analyse, provide a jar or a folder of jars in the project's subdirectory in the input directory. The name of each jar or folder must contain the respective version number after a dash. AsTdEA can automatically retrieve the correct order of versions. If the versioning of the project to analyse deviates from simple patterns, follow the instructions in step 3.
