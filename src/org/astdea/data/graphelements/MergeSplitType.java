@@ -1,7 +1,6 @@
 package org.astdea.data.graphelements;
 
-public enum MergeSplitType
-{
+public enum MergeSplitType {
     MERGE,
     SPLIT
 }

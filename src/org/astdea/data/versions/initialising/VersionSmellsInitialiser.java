@@ -56,5 +56,4 @@ public class VersionSmellsInitialiser {
         recordsProps.close();
         return intras;
     }
-
 }

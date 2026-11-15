@@ -41,16 +41,14 @@ public class Component implements Comparable<Component> {
         return predecessors != null && !predecessors.isEmpty();
     }
 
-    public boolean fcqnOrSuccessorsMatch(Component potentialSuccessor)
-    {
+    public boolean fcqnOrSuccessorsMatch(Component potentialSuccessor) {
         if (this.fqcn.equals(potentialSuccessor.fqcn)) {
             return true;
         }
         return successorsMatch(potentialSuccessor);
     }
 
-    public boolean successorsMatch(Component potentialSuccessor)
-    {
+    public boolean successorsMatch(Component potentialSuccessor) {
         return this.successors != null && this.successors.contains(potentialSuccessor.fqcn);
     }
 
@@ -59,19 +57,16 @@ public class Component implements Comparable<Component> {
         return this.fqcn.compareTo(other.fqcn);
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Component)) return false;
+        if (this == o) {return true;}
+        if (!(o instanceof Component)) {return false;}
         Component other = (Component) o;
         return Objects.equals(fqcn, other.fqcn);
     }
-
 
     @Override
     public int hashCode() {
         return fqcn != null ? fqcn.hashCode() : 0;
     }
-
 }

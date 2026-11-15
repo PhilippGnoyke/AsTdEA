@@ -5,20 +5,17 @@ import org.apache.commons.csv.CSVPrinter;
 
 import java.io.IOException;
 
-public class ExTimeLogsPrinter implements PrinterCore
-{
+public class ExTimeLogsPrinter implements PrinterCore {
+
     private ExTimeLogger exTimeLogger;
 
-    public ExTimeLogsPrinter(ExTimeLogger exTimeLogger)
-    {
+    public ExTimeLogsPrinter(ExTimeLogger exTimeLogger) {
         this.exTimeLogger = exTimeLogger;
     }
 
     @Override
-    public void print(String[] headers, CSVPrinter printer) throws IOException
-    {
-        for (ExTimeLogger.ExTimeLoggerEvent event : exTimeLogger.getEvents())
-        {
+    public void print(String[] headers, CSVPrinter printer) throws IOException {
+        for (ExTimeLogger.ExTimeLoggerEvent event : exTimeLogger.getEvents()) {
             printer.print(event.getEventId());
             printer.print(event.getParentId());
             printer.print(event.getDurationInMilliSecs());

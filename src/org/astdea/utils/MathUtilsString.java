@@ -1,6 +1,6 @@
 package org.astdea.utils;
 
-public class MathUtilsString extends MathUtils<String>{
+public class MathUtilsString extends MathUtils<String> {
 
     private MathUtilsString() {}
 
@@ -12,5 +12,4 @@ public class MathUtilsString extends MathUtils<String>{
         }
         return instance;
     }
-
 }

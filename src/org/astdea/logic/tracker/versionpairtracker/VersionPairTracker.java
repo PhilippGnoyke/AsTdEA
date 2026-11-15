@@ -12,8 +12,8 @@ import org.astdea.utils.MathUtilsComponent;
 import java.util.Set;
 
 public abstract class VersionPairTracker<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell,
-    MappingsType extends Mappings>
-{
+    MappingsType extends Mappings> {
+
     protected Set<IntraType> unmappedIntrasA;
     protected Set<IntraType> unmappedIntrasB;
     protected MappingsType mappings;
@@ -22,7 +22,6 @@ public abstract class VersionPairTracker<IntraType extends IntraVersionSmell, In
     protected TransitionCounter transitionCounter = new TransitionCounter();
     protected static ComponentCollectionMathUtils componentCollectionMathUtils = ComponentCollectionMathUtils.getInstance();
     protected static MathUtilsComponent mathUtils = MathUtilsComponent.getInstance();
-
 
     public abstract MappingsType track();
 

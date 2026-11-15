@@ -7,14 +7,13 @@ import org.astdea.data.versions.Version;
 import org.astdea.logic.mapping.UdMappings;
 import org.astdea.logic.tracker.versionpairtracker.UdVersionPairTracker;
 
-public class UdProjectTracker extends SmellProjectTracker<IntraVersionUd, InterVersionUd, UdMappings>
-{
-    public UdProjectTracker(TimeManager timeManager) {super(timeManager,new UdMappings(timeManager));}
+public class UdProjectTracker extends SmellProjectTracker<IntraVersionUd, InterVersionUd, UdMappings> {
+
+    public UdProjectTracker(TimeManager timeManager) {super(timeManager, new UdMappings(timeManager));}
 
     @Override
     protected UdVersionPairTracker instantiateVersionPairTracker
-        (Version versionA, Version versionB, UdMappings mappings)
-    {
+        (Version versionA, Version versionB, UdMappings mappings) {
         return new UdVersionPairTracker(versionA, versionB, mappings);
     }
 }

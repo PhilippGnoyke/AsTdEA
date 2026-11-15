@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class Mappings<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell, MappingType>
-{
+public abstract class Mappings<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell, MappingType> {
+
     protected final TimeManager timeManager;
     protected Map<IntraId, MappingType> mappingsOldAsKey; // All outgoing mappings from the intra
     protected Map<IntraId, MappingType> mappingsNewAsKey; // All incoming mappings to the intra
@@ -23,9 +23,8 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
      * Retrieve how many mappings are expected to arise from a given number of intra-version smells.
      * Init the map and set sizes to a corresponding value.
      */
-    public Mappings(TimeManager timeManager)
-    {
-        this.timeManager =  timeManager;
+    public Mappings(TimeManager timeManager) {
+        this.timeManager = timeManager;
         this.mappingsOldAsKey = new HashMap<>();
         this.mappingsNewAsKey = new HashMap<>();
         this.smellsWOPredecessor = new HashSet<>();
@@ -52,28 +51,23 @@ public abstract class Mappings<IntraType extends IntraVersionSmell, InterType ex
 
     public boolean doesSmellHavePredecessor(IntraType smell) {return contains(mappingsNewAsKey, smell);}
 
-    private boolean contains(Map<IntraId, MappingType> mappings, IntraType smell)
-    {
+    private boolean contains(Map<IntraId, MappingType> mappings, IntraType smell) {
         return mappings.containsKey(smell.getIntraId());
     }
 
-    public void put(IntraType smellOld, IntraType smellNew)
-    {
+    public void put(IntraType smellOld, IntraType smellNew) {
         putMapping(smellOld, smellNew);
-        if (!doesSmellHavePredecessor(smellOld))
-        {
+        if (!doesSmellHavePredecessor(smellOld)) {
             smellsWOPredecessor.add(smellOld);
         }
-        if (!doesSmellHaveSuccessor(smellNew))
-        {
+        if (!doesSmellHaveSuccessor(smellNew)) {
             smellsWOSuccessor.add(smellNew);
         }
         smellsWOPredecessor.remove(smellNew);
         smellsWOSuccessor.remove(smellOld);
     }
 
-    public void addToSmellsWOPredecessor(Set<IntraType> remaining) { smellsWOPredecessor.addAll(remaining); }
+    public void addToSmellsWOPredecessor(Set<IntraType> remaining) {smellsWOPredecessor.addAll(remaining);}
 
-    public void addToSmellsWOSuccessor(Set<IntraType> remaining) { smellsWOSuccessor.addAll(remaining); }
-
+    public void addToSmellsWOSuccessor(Set<IntraType> remaining) {smellsWOSuccessor.addAll(remaining);}
 }

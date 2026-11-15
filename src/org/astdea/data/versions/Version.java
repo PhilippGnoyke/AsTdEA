@@ -70,8 +70,7 @@ public class Version {
     public Version init(CompChanges compChanges) throws IOException {
         initSmells();
         initVersionProps();
-        if(compChanges!=null)
-        {
+        if (compChanges != null) {
             versionCompManager.addCompChanges(compChanges, versionName);
         }
         String[] fqcns = SharedClassesParser.parseSharedClasses(outDir);

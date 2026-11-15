@@ -11,22 +11,19 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class SmellProjectTracker<IntraType extends IntraVersionSmell, InterType extends InterVersionSmell,
-    MappingsMapType extends Mappings<IntraType, InterType, ?>>
-{
+    MappingsMapType extends Mappings<IntraType, InterType, ?>> {
+
     protected MappingsMapType mappings;
     protected final TimeManager timeManager;
 
-    protected SmellProjectTracker(TimeManager timeManager, MappingsMapType mappings)
-    {
+    protected SmellProjectTracker(TimeManager timeManager, MappingsMapType mappings) {
         this.timeManager = timeManager;
         this.mappings = mappings;
     }
 
-    public Set<InterType> track(List<Version> versions)
-    {
+    public Set<InterType> track(List<Version> versions) {
         final int LAST_VERSION_A_ID = versions.size() - 2;
-        for (int versionAId = 0; versionAId <= LAST_VERSION_A_ID; versionAId++)
-        {
+        for (int versionAId = 0; versionAId <= LAST_VERSION_A_ID; versionAId++) {
             Version versionA = versions.get(versionAId);
             Version versionB = versions.get(versionAId + 1);
             VersionPairTracker<IntraType, InterType, MappingsMapType> pairTracker =

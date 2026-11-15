@@ -5,15 +5,14 @@ import org.astdea.data.versions.Component;
 
 import java.util.List;
 
-public class LinEvoTypeTrackState<IntraType extends IntraVersionLinEvoType>
-{
+public class LinEvoTypeTrackState<IntraType extends IntraVersionLinEvoType> {
+
     private int ind;
     private List<IntraType> intrasList;
     private IntraType intra;
     private Component mainComp;
 
-    public LinEvoTypeTrackState(List<IntraType> intrasList)
-    {
+    public LinEvoTypeTrackState(List<IntraType> intrasList) {
         this.intrasList = intrasList;
         this.intra = intrasList.get(0);
         this.mainComp = intra.getMainComp();
@@ -27,11 +26,9 @@ public class LinEvoTypeTrackState<IntraType extends IntraVersionLinEvoType>
 
     public IntraType getIntra() {return intra;}
 
-    public boolean update()
-    {
+    public boolean update() {
         ind++;
-        if (ind >= intrasList.size())
-        {
+        if (ind >= intrasList.size()) {
             return true;
         }
         intra = intrasList.get(ind);

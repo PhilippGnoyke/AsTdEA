@@ -5,7 +5,7 @@ import org.astdea.logic.tracker.versionpairtracker.TransitionCounter;
 
 import java.io.IOException;
 
-public class CompChangeTransitionCounterPrinter   implements PrinterCore{
+public class CompChangeTransitionCounterPrinter implements PrinterCore {
 
     private final TransitionCounter counter;
     private final boolean projectLevel;
@@ -28,12 +28,10 @@ public class CompChangeTransitionCounterPrinter   implements PrinterCore{
             printer.print(field);
             int abs = counter.getAbsVal(field);
             printer.print(abs);
-            if (projectLevel)
-            {
-                printer.print((double)abs/versionCount);
+            if (projectLevel) {
+                printer.print((double) abs / versionCount);
             }
             printer.println();
         }
     }
-
 }

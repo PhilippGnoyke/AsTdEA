@@ -14,8 +14,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArcanRunner
-{
+public class ArcanRunner {
+
     private final static PrintStream NULL_OUTPUT_STREAM = new PrintStream(OutputStream.nullOutputStream());
 
     private final String projectName;
@@ -25,8 +25,7 @@ public class ArcanRunner
     private final boolean newStructure;
     private final String versionsInDir;
 
-    public ArcanRunner(String projectName, String generalOutDir, String projectInDir, String suppressNonAsTdEvolutionArg)
-    {
+    public ArcanRunner(String projectName, String generalOutDir, String projectInDir, String suppressNonAsTdEvolutionArg) {
         this.projectName = projectName;
         this.outDir = IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION);
         this.projectInDir = projectInDir;
@@ -35,20 +34,17 @@ public class ArcanRunner
         this.versionsInDir = newStructure ? CsvReadingUtils.getVersionsFolder(projectInDir) : projectInDir;
     }
 
-    public String[] analyseAllVersions(boolean dontRunArcan) throws IOException, InterruptedException
-    {
+    public String[] analyseAllVersions(boolean dontRunArcan) throws IOException, InterruptedException {
         IOUtils.makeDir(outDir);
         String[] versionNames = retrieveVersions();
         ArcanVersionRunner.resetTotalVersionsAnalysed();
-        if (versionNames != null && !dontRunArcan)
-        {
+        if (versionNames != null && !dontRunArcan) {
             int versionCount = versionNames.length;
             ArcanVersionRunner[] threads = initThreads(versionCount);
             Integer[] locs = LocReader.retrieveLocs(projectInDir, newStructure);
             // Disable any console output from Arcan and its usage of other libs (still shows errors)
             System.setOut(NULL_OUTPUT_STREAM);
-            for (int versionId = 0; versionId < versionCount; versionId++)
-            {
+            for (int versionId = 0; versionId < versionCount; versionId++) {
                 int index = versionId % threads.length;
                 threads[index].addVersion(versionId, versionNames[versionId], locs[versionId]);
             }
@@ -59,37 +55,30 @@ public class ArcanRunner
         return versionNames;
     }
 
-    private ArcanVersionRunner[] initThreads(int versionCount) throws IOException
-    {
+    private ArcanVersionRunner[] initThreads(int versionCount) throws IOException {
         int procCount = Runtime.getRuntime().availableProcessors();
         ArcanVersionRunner[] threads = new ArcanVersionRunner[procCount];
-        for (int i = 0; i < threads.length; i++)
-        {
+        for (int i = 0; i < threads.length; i++) {
             threads[i] = new ArcanVersionRunner(versionsInDir, outDir, suppressNonAsTdEvolutionArg,
-                projectName, versionCount,newStructure);
+                projectName, versionCount, newStructure);
         }
         return threads;
     }
 
-    private String[] retrieveVersionsWithoutMetadataFile(String inDir)
-    {
+    private String[] retrieveVersionsWithoutMetadataFile(String inDir) {
         File inFolder = new File(inDir);
         File[] files = inFolder.listFiles();
-        if (files == null)
-        {
+        if (files == null) {
             LogUtil.logSevere("No project files found in project folder " + inDir);
             return null;
         }
         List<String> versions = new ArrayList<>();
-        for (final File file : files)
-        {
+        for (final File file : files) {
             String fileName = file.getName();
-            if (FilenameUtils.getExtension(fileName).equals(IFN.JAR))
-            {
+            if (FilenameUtils.getExtension(fileName).equals(IFN.JAR)) {
                 versions.add(FilenameUtils.getBaseName(fileName));
             }
-            else if (file.isDirectory())
-            {
+            else if (file.isDirectory()) {
                 versions.add(fileName);
             }
         }
@@ -98,25 +87,19 @@ public class ArcanRunner
         return versions.toArray(new String[0]);
     }
 
-    private String[] retrieveVersions() throws IOException
-    {
-        if (newStructure)
-        {
+    private String[] retrieveVersions() throws IOException {
+        if (newStructure) {
             return VersionsReader.retrieveVersions(CsvReadingUtils.getStatsFolder(projectInDir));
         }
-        else if(VersionsReader.isOldStructureWithMetadata(projectInDir))
-        {
+        else if (VersionsReader.isOldStructureWithMetadata(projectInDir)) {
             return VersionsReader.retrieveVersions(projectInDir);
         }
-        else
-        {
+        else {
             return retrieveVersionsWithoutMetadataFile(projectInDir);
         }
     }
 
-    public static String getArcanOutFolder(String generalOutDir, int version)
-    {
+    public static String getArcanOutFolder(String generalOutDir, int version) {
         return IOUtils.makeFilePath(generalOutDir, OFN.INTRA_VERSION, String.valueOf(version));
     }
-
 }

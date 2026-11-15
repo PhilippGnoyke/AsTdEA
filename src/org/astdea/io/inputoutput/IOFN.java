@@ -3,8 +3,8 @@ package org.astdea.io.inputoutput;
 import it.unimib.disco.essere.main.AsTdEvolutionPrinter;
 
 // IOFN = InputOutputFileNames
-public final class IOFN
-{
+public final class IOFN {
+
     public static final String FILE_CLASS_CDS_COMPS = AsTdEvolutionPrinter.FILE_CLASS_CDS_COMPS;
     public static final String FILE_CLASS_CDS_PROPS = AsTdEvolutionPrinter.FILE_CLASS_CDS_PROPS;
     public static final String FILE_PACK_CDS_COMPS = AsTdEvolutionPrinter.FILE_PACK_CDS_COMPS;

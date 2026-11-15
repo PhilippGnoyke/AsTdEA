@@ -8,6 +8,7 @@ import static org.astdea.utils.MathUtils.calcChange;
 
 public class MergeSplit {
 
+    private MergeSplitType type;
     private int sourceVersion;
     private int targetVersion;
     IntraVersionCd targetOrSource;
@@ -23,7 +24,8 @@ public class MergeSplit {
     double overallMfesChange = 0;
     double overallMfesWoTinysChange = 0;
 
-    public MergeSplit(IntraVersionCd targetOrSource, Set<IntraVersionCd> sourcesOrTargets) {
+    public MergeSplit(MergeSplitType type, IntraVersionCd targetOrSource, Set<IntraVersionCd> sourcesOrTargets) {
+        this.type = type;
         this.targetOrSource = targetOrSource;
         this.sourcesOrTargets = sourcesOrTargets;
         calcProps();
@@ -46,6 +48,13 @@ public class MergeSplit {
         overallSubcyclesChange = calcChange(overallSubcyclesSet, targetOrSource.getNumSubcycles());
         overallMfesChange = calcChange(overallMfesSet, targetOrSource.getMfesSize());
         overallMfesWoTinysChange = calcChange(overallMfesWoTinysSet, targetOrSource.getMfesWoTinysSize());
+        if (type == MergeSplitType.SPLIT) {
+            overallOrderChange = -overallOrderChange;
+            overallSizeChange = -overallSizeChange;
+            overallSubcyclesChange = -overallSubcyclesChange;
+            overallMfesChange = -overallMfesChange;
+            overallMfesWoTinysChange = -overallMfesWoTinysChange;
+        }
     }
 
     public int incomingOrOutgoingEdgeCount() {return sourcesOrTargets.size();}

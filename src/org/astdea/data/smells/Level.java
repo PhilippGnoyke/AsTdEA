@@ -1,7 +1,6 @@
 package org.astdea.data.smells;
 
-public enum Level
-{
+public enum Level {
     CLASS,
     PACK
 }

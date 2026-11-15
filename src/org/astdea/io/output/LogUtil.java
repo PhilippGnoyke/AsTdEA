@@ -6,21 +6,18 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class LogUtil
-{
+public class LogUtil {
+
     private static Logger LOGGER;
     private static final String format = "[%1$tF %1$tT] [%2$-4s] %3$s %n";
 
-    static
-    {
+    static {
         LOGGER = Logger.getLogger(LogUtil.class.getName());
         LOGGER.setUseParentHandlers(false);
         ConsoleHandler handler = new ConsoleHandler();
-        handler.setFormatter(new SimpleFormatter()
-        {
+        handler.setFormatter(new SimpleFormatter() {
             @Override
-            public synchronized String format(LogRecord lr)
-            {
+            public synchronized String format(LogRecord lr) {
                 return String.format(format,
                     new Date(lr.getMillis()),
                     lr.getLevel().getLocalizedName(),
@@ -31,13 +28,11 @@ public class LogUtil
         LOGGER.addHandler(handler);
     }
 
-    public static void logInfo(String text)
-    {
+    public static void logInfo(String text) {
         LOGGER.info(text);
     }
 
-    public static void logSevere(String text)
-    {
+    public static void logSevere(String text) {
         LOGGER.severe(text);
     }
 }

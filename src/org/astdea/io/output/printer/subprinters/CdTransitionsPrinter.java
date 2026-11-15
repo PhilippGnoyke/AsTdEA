@@ -7,20 +7,17 @@ import org.astdea.data.smells.intraversionsmells.IntraVersionCd;
 
 import java.io.IOException;
 
-public class CdTransitionsPrinter implements PrinterCore
-{
+public class CdTransitionsPrinter implements PrinterCore {
+
     InterVersionCd inter;
 
-    public CdTransitionsPrinter(InterVersionCd inter)
-    {
+    public CdTransitionsPrinter(InterVersionCd inter) {
         this.inter = inter;
     }
 
     @Override
-    public void print(String[] headers, CSVPrinter printer) throws IOException
-    {
-        for (Transition transition : inter.getTransitions())
-        {
+    public void print(String[] headers, CSVPrinter printer) throws IOException {
+        for (Transition transition : inter.getTransitions()) {
             IntraVersionCd source = transition.getSourceIntra();
             IntraVersionCd target = transition.getTargetIntra();
 

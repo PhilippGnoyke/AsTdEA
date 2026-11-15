@@ -3,14 +3,12 @@ package org.astdea.io.input;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public final class DatesReader
-{
+public final class DatesReader {
+
     private DatesReader() {}
 
-    public static LocalDate[] retrieveDates(String inDir) throws IOException
-    {
-        HelperCsvRetriever<LocalDate> helper = new HelperCsvRetriever<>()
-        {
+    public static LocalDate[] retrieveDates(String inDir) throws IOException {
+        HelperCsvRetriever<LocalDate> helper = new HelperCsvRetriever<>() {
             @Override
             public LocalDate[] instantiateArray(int rows) {return new LocalDate[rows + 1];}
 
@@ -20,8 +18,7 @@ public final class DatesReader
         return CsvReadingUtils.retrieveHelperCsv(inDir, IFN.FILE_DATES_CSV, IPN.DATE, helper);
     }
 
-    private static LocalDate parseDateRow(String input)
-    {
+    private static LocalDate parseDateRow(String input) {
         return LocalDate.parse(input);
     }
 }

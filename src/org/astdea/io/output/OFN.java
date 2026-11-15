@@ -25,9 +25,6 @@ public final class OFN {
     public final static String FILE_UD_CENTRAL_COMP_CHANGE_TRANSITIONS = "udCentralCompCompChangeSmellTransitions" + CSV;
     public final static String FILE_UD_AFF_EFF_COMP_CHANGE_TRANSITIONS = "udAfferentEfferentCompsCompChangeSmellTransitions" + CSV;
 
-
-
-
     public static final String FOLDER_CLASS_CDS_MERGES = "ClassCdsMerges";
     public static final String FOLDER_CLASS_CDS_SPLITS = "ClassCdsSplits";
     public static final String FOLDER_CLASS_CDS_TRANSITIONS = "ClassCdTransitions";
@@ -52,8 +49,6 @@ public final class OFN {
             case UDAE -> OFN.FILE_UD_AFF_EFF_AFFECTED_COMP_EVO;
         };
     }
-
-
 
     public static String getTransitionOutFile(AffType affType) {
         return switch (affType) {

@@ -9,12 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public final class CsvReadingUtils
-{
+public final class CsvReadingUtils {
+
     private CsvReadingUtils() {}
 
-    public static CSVParser initCsvParser(String file, String[] headers) throws IOException
-    {
+    public static CSVParser initCsvParser(String file, String[] headers) throws IOException {
         return CSVFormat.DEFAULT
             .withIgnoreHeaderCase()
             .withHeader(headers)
@@ -22,12 +21,10 @@ public final class CsvReadingUtils
             .parse(new FileReader(file));
     }
 
-    public static List<Map<String, String>> readCsvRows(String file, String[] headers) throws IOException
-    {
+    public static List<Map<String, String>> readCsvRows(String file, String[] headers) throws IOException {
         CSVParser records = initCsvParser(file, headers);
         List<Map<String, String>> vals = new ArrayList<>();
-        for (CSVRecord record : records)
-        {
+        for (CSVRecord record : records) {
             Map<String, String> row = record.toMap();
             vals.add(row);
         }
@@ -35,12 +32,10 @@ public final class CsvReadingUtils
         return vals;
     }
 
-    public static List<String> readCsvColumn(String file, String header) throws IOException
-    {
+    public static List<String> readCsvColumn(String file, String header) throws IOException {
         CSVParser records = initCsvParser(file, new String[]{header});
         List<String> vals = new ArrayList<>();
-        for (CSVRecord record : records)
-        {
+        for (CSVRecord record : records) {
             Map<String, String> row = record.toMap();
             vals.add(row.get(header));
         }
@@ -48,20 +43,15 @@ public final class CsvReadingUtils
         return vals;
     }
 
-
-    public static Map<String, List<String>> readCsvColumns(String file, String[] headers) throws IOException
-    {
+    public static Map<String, List<String>> readCsvColumns(String file, String[] headers) throws IOException {
         CSVParser records = initCsvParser(file, headers);
         Map<String, List<String>> vals = new HashMap<>();
-        for (String header : headers)
-        {
+        for (String header : headers) {
             header = header.toLowerCase();
             vals.put(header, new ArrayList<>());
         }
-        for (CSVRecord record : records)
-        {
-            for (String header : headers)
-            {
+        for (CSVRecord record : records) {
+            for (String header : headers) {
                 header = header.toLowerCase();
                 vals.get(header).add(record.get(header));
             }
@@ -70,8 +60,7 @@ public final class CsvReadingUtils
         return vals;
     }
 
-    public static Map<String, String> readCsvColumnsOf1RowFile(String file, String[] headers) throws IOException
-    {
+    public static Map<String, String> readCsvColumnsOf1RowFile(String file, String[] headers) throws IOException {
         CSVParser records = initCsvParser(file, headers);
         Map<String, String> vals = records.iterator().next().toMap();
         records.close();
@@ -79,14 +68,12 @@ public final class CsvReadingUtils
     }
 
     public static <Type> Type[] retrieveHelperCsv(String inDir, String fileName, String header,
-                                                  HelperCsvRetriever<Type> helper) throws IOException
-    {
+                                                  HelperCsvRetriever<Type> helper) throws IOException {
         header = header.toLowerCase();
         ArrayList<Type> result = new ArrayList<>();
         String file = IOUtils.makeFilePath(inDir, fileName);
         CSVParser records = CsvReadingUtils.initCsvParser(file, new String[]{header});
-        for (CSVRecord record : records)
-        {
+        for (CSVRecord record : records) {
             String val = record.get(header);
             if (val.isEmpty()) {throwError(file);}
             result.add(helper.parseValue(val));
@@ -95,22 +82,17 @@ public final class CsvReadingUtils
         return result.toArray(helper.instantiateArray(result.size()));
     }
 
-    private static void throwError(String file)
-    {
+    private static void throwError(String file) {
         throw new InputMismatchException("The file " + file +
             " contains fewer values than provided versions.");
     }
 
-    public static String getStatsFolder(String inDir)
-    {
+    public static String getStatsFolder(String inDir) {
         return IOUtils.makeFilePath(inDir, IFN.STATS);
     }
 
-    public static String getVersionsFolder(String inDir)
-    {
+    public static String getVersionsFolder(String inDir) {
         return IOUtils.makeFilePath(inDir, IFN.VERSIONS);
     }
-
-
 }
 

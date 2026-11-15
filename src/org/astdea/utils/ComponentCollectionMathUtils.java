@@ -10,17 +10,16 @@ public final class ComponentCollectionMathUtils implements OverlapUtils<Componen
     private ComponentCollectionMathUtils() {}
 
     private static ComponentCollectionMathUtils instance;
-    public static ComponentCollectionMathUtils getInstance()
-    {
-        if (instance==null)
-        {
+
+    public static ComponentCollectionMathUtils getInstance() {
+        if (instance == null) {
             instance = new ComponentCollectionMathUtils();
         }
         return instance;
     }
 
     @Override
-    public  boolean intersectionAtLeast2(Set<Component> setOld, Set<Component> setNew) {
+    public boolean intersectionAtLeast2(Set<Component> setOld, Set<Component> setNew) {
         int intersection = 0;
         int MIN = 2;
         for (Component compOld : setOld) {
@@ -46,8 +45,7 @@ public final class ComponentCollectionMathUtils implements OverlapUtils<Componen
     }
 
     @Override
-    public  double jaccard(Set<Component> setOld, Set<Component> setNew)
-    {
+    public double jaccard(Set<Component> setOld, Set<Component> setNew) {
         int intersection = sizeOfIntersection(setOld, setNew);
         int union = sizeOfUnion(setOld, setNew, intersection);
         return jaccard(intersection, union);
@@ -56,41 +54,32 @@ public final class ComponentCollectionMathUtils implements OverlapUtils<Componen
     // Use this method variant if the intersection is already known to increase efficiency
     @Override
 
-    public   double jaccard(Set<Component> setOld, Set<Component> setNew, int intersection)
-    {
+    public double jaccard(Set<Component> setOld, Set<Component> setNew, int intersection) {
         int union = sizeOfUnion(setOld, setNew, intersection);
         return jaccard(intersection, union);
     }
 
     // Use this method variant if the intersection and the union are already known to increase efficiency
     @Override
-    public  double jaccard(int intersection, int union)
-    {
+    public double jaccard(int intersection, int union) {
         return (double) intersection / union;
     }
 
     @Override
-    public   int sizeOfIntersection(Set<Component> setOld, Set<Component> setNew)
-    {
+    public int sizeOfIntersection(Set<Component> setOld, Set<Component> setNew) {
         Set<String> fqcnsNew = new HashSet<>();
-        for (Component compNew: setNew)
-        {
+        for (Component compNew : setNew) {
             fqcnsNew.add(compNew.getFqcn());
         }
 
         int intersection = 0;
-        for (Component compOld : setOld)
-        {
-            if (setNew.contains(compOld))
-            {
+        for (Component compOld : setOld) {
+            if (setNew.contains(compOld)) {
                 intersection++;
             }
-            else if(compOld.hasSuccessors())
-            {
-                for (String fqcn : compOld.getSuccessors())
-                {
-                    if (fqcnsNew.contains(fqcn))
-                    {
+            else if (compOld.hasSuccessors()) {
+                for (String fqcn : compOld.getSuccessors()) {
+                    if (fqcnsNew.contains(fqcn)) {
                         intersection++;
                         break;
                     }
@@ -101,18 +90,14 @@ public final class ComponentCollectionMathUtils implements OverlapUtils<Componen
     }
 
     @Override
-    public   int sizeOfUnion(Set<Component> setOld, Set<Component> setNew)
-    {
+    public int sizeOfUnion(Set<Component> setOld, Set<Component> setNew) {
         int intersection = sizeOfIntersection(setOld, setNew);
         return setOld.size() + setNew.size() - intersection;
     }
 
     // Use this method variant if the intersection is already known to increase efficiency
     @Override
-    public   int sizeOfUnion(Set<Component> setOld, Set<Component> setNew, int sizeOfIntersection)
-    {
+    public int sizeOfUnion(Set<Component> setOld, Set<Component> setNew, int sizeOfIntersection) {
         return setOld.size() + setNew.size() - sizeOfIntersection;
     }
-
-
 }

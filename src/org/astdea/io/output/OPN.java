@@ -1,7 +1,7 @@
 package org.astdea.io.output;
 
-public final class OPN
-{
+public final class OPN {
+
     private OPN() {}
 
     //IntraVersionSmell
@@ -14,8 +14,6 @@ public final class OPN
     public final static String NUM_ALL_PREDS = "numAllPredecessors";
     public final static String NUM_SUCCS = "numDirectSuccessors";
     public final static String NUM_ALL_SUCCS = "numAllSuccessors";
-
-
 
     // InterVersionSmell
     public final static String ID = "id";
@@ -33,7 +31,6 @@ public final class OPN
     public static final String LIN_EVO_TYPE_INTRA_IDS = "intraVersionSmells(versionId.smellId)";
     public final static String PREDS_VIA_REFACTORING = "predecessorsViaRefactoring";
     public final static String SUCCS_VIA_REFACTORING = "successorsViaRefactoring";
-
 
     // InterVersionCd
     public final static String FAMILY_ORDER = "familyOrder";
@@ -82,7 +79,6 @@ public final class OPN
     public static final String CD_TRANSITION_TYPE = "transitionType";
     public static final String CD_SHAPE_SOURCE = "shapeSource";
     public static final String CD_SHAPE_TARGET = "shapeTarget";
-
 
     // Version
     public final static String VERSION_TIME = "versionTime";
@@ -159,13 +155,9 @@ public final class OPN
     public final static String CHANGEDN1_ONE_AFFECTED_WITHOUT_RESULT = "changedN1AndOneAffectedWithoutResult";
     public final static String CHANGEDN1_NONE_AFFECTED_WITHOUT_RESULT = "changedN1AndNoneAffectedWithoutResult";
 
-
     public static final String TRANSITION_TYPE = "transitionType";
     public static final String FQCN_TRANSITION = "pureFqcn";
     public static final String COMP_CHANGE_TRANSITION = "compChangeTransition";
-
-
-
 
     // Project
     public static final String ANALYSED_VERSIONS = "analysedVersions";

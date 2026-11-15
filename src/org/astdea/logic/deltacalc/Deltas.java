@@ -1,12 +1,11 @@
 package org.astdea.logic.deltacalc;
 
-public class Deltas
-{
+public class Deltas {
+
     private int[] intros;
     private int[] removs;
 
-    public Deltas(int analysedVersions)
-    {
+    public Deltas(int analysedVersions) {
         this.intros = new int[analysedVersions];
         this.removs = new int[analysedVersions + 1];
     }

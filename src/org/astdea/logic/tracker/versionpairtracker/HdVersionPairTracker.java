@@ -13,33 +13,29 @@ import org.astdea.utils.OverlapUtils;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVersionHd, InterVersionHd, HdMappings>
-{
-    public HdVersionPairTracker(Version versionA, Version versionB, HdMappings mappings)
-    {
+public class HdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVersionHd, InterVersionHd, HdMappings> {
+
+    public HdVersionPairTracker(Version versionA, Version versionB, HdMappings mappings) {
         this.mappings = mappings;
         this.versionOld = versionA;
         this.level = Level.CLASS;
         unmappedIntrasA = new HashSet<>(versionA.getHds().values());
         unmappedIntrasB = new HashSet<>(versionB.getHds().values());
-        versionA.addTransitionCounter(AffType.HDC,transitionCounter);
-        versionA.addTransitionCounter(AffType.HDAE,transitionCounterAffEff);
+        versionA.addTransitionCounter(AffType.HDC, transitionCounter);
+        versionA.addTransitionCounter(AffType.HDAE, transitionCounterAffEff);
     }
 
     @Override
-    protected double calcJaccOfPair(IntraVersionHd intraA, IntraVersionHd intraB)
-    {
-        return calcJaccOfPairCore(intraA,intraB,componentCollectionMathUtils);
+    protected double calcJaccOfPair(IntraVersionHd intraA, IntraVersionHd intraB) {
+        return calcJaccOfPairCore(intraA, intraB, componentCollectionMathUtils);
     }
 
     @Override
-    protected double calcPureFqcnJaccOfPair(IntraVersionHd intraA, IntraVersionHd intraB)
-    {
-        return calcJaccOfPairCore(intraA,intraB,mathUtils);
+    protected double calcPureFqcnJaccOfPair(IntraVersionHd intraA, IntraVersionHd intraB) {
+        return calcJaccOfPairCore(intraA, intraB, mathUtils);
     }
 
-    protected double calcJaccOfPairCore(IntraVersionHd intraA, IntraVersionHd intraB, OverlapUtils<Component> overlapUtils)
-    {
+    protected double calcJaccOfPairCore(IntraVersionHd intraA, IntraVersionHd intraB, OverlapUtils<Component> overlapUtils) {
         Set<Component> affA = intraA.getAffCompsHashSet();
         Set<Component> affB = intraB.getAffCompsHashSet();
         Set<Component> effA = intraA.getEffCompsHashSet();
@@ -52,5 +48,4 @@ public class HdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVers
         double jaccEff = overlapUtils.jaccard(effA, effB, intersectionEff);
         return MathUtils.weightedHarmonicMeanOfTwo(jaccAff, jaccEff, unionAff, unionEff);
     }
-
 }

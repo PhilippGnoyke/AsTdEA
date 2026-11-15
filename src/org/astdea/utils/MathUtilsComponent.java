@@ -14,6 +14,5 @@ public class MathUtilsComponent extends MathUtils<Component> {
         }
         return instance;
     }
-
 }
 

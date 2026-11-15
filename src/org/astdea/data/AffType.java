@@ -26,10 +26,6 @@ public enum AffType {
     public static AffType getCdAffTypeFromLevel(Level level) {
         return level == Level.CLASS ? CCD : PCD;
     }
-
-
-
-
 }
 
 

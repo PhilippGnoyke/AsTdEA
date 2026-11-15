@@ -4,7 +4,7 @@ import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
 import java.util.Set;
 
-public class MathUtils <Type> implements OverlapUtils <Type> {
+public class MathUtils<Type> implements OverlapUtils<Type> {
 
     public final static int INFINITY = Integer.MAX_VALUE;
     public final static int PERCENTILE_MEDIAN = 50;
@@ -68,7 +68,7 @@ public class MathUtils <Type> implements OverlapUtils <Type> {
 
     // Use this method variant if the intersection is already known to increase efficiency
     @Override
-    public  int sizeOfUnion(Set<Type> set1, Set<Type> set2, int sizeOfIntersection) {
+    public int sizeOfUnion(Set<Type> set1, Set<Type> set2, int sizeOfIntersection) {
         return set1.size() + set2.size() - sizeOfIntersection;
     }
 
@@ -98,7 +98,7 @@ public class MathUtils <Type> implements OverlapUtils <Type> {
         return (weight1 + weight2) / (weight1 / value1 + weight2 / value2);
     }
 
-    public static double calcChange(int after, int before) {
+    public static double calcChange(int before, int after) {
         return (double) (after - before) / before;
     }
 }

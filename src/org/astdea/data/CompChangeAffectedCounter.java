@@ -79,7 +79,7 @@ public class CompChangeAffectedCounter {
     }
 
     private void countRenamed(VersionCompManager vcm2, Component comp) {
-        Set<String> fqcns = outgoing? comp.getSuccessors() : comp.getPredecessors();
+        Set<String> fqcns = outgoing ? comp.getSuccessors() : comp.getPredecessors();
         if (fqcns.size() == 1) {
             countRenamed11(vcm2, fqcns);
         }

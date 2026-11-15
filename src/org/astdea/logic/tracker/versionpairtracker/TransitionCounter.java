@@ -35,5 +35,4 @@ public class TransitionCounter {
         this.fcqnTransitions += counter.fcqnTransitions;
         this.compChangeTransitions += counter.compChangeTransitions;
     }
-
 }

@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArcanVersionRunner extends Thread
-{
+public class ArcanVersionRunner extends Thread {
+
     private String versionsInDir;
     private String outDir;
     private String suppressNonAsTdEvolutionArg;
@@ -29,15 +29,13 @@ public class ArcanVersionRunner extends Thread
 
     private static int totalVersionsAnalysed;
 
-    public static void resetTotalVersionsAnalysed()
-    {
+    public static void resetTotalVersionsAnalysed() {
         totalVersionsAnalysed = 0;
     }
 
     public ArcanVersionRunner
         (String versionsInDir, String outDir, String suppressNonAsTdEvolutionArg,
-         String projectName, int versionCount, boolean newStructure) throws IOException
-    {
+         String projectName, int versionCount, boolean newStructure) throws IOException {
         this.versionsInDir = versionsInDir;
         this.outDir = outDir;
         this.suppressNonAsTdEvolutionArg = suppressNonAsTdEvolutionArg;
@@ -52,44 +50,36 @@ public class ArcanVersionRunner extends Thread
         localOutDirs = new ArrayList<>();
     }
 
-    public void addVersion(int versionId, String versionName, int loc) throws IOException
-    {
+    public void addVersion(int versionId, String versionName, int loc) throws IOException {
         boolean isFolder;
-        if (newStructure)
-        {
+        if (newStructure) {
             isFolder = true;
-            versionInDirs.add(IOUtils.makeFilePath(versionsInDir,versionName, IFN.BIN));
-            sharedClassesPaths.add(IOUtils.makeFilePath(versionsInDir,versionName, IFN.STATS, IFN.FILE_SHARED_CLASSES_CSV));
+            versionInDirs.add(IOUtils.makeFilePath(versionsInDir, versionName, IFN.BIN));
+            sharedClassesPaths.add(IOUtils.makeFilePath(versionsInDir, versionName, IFN.STATS, IFN.FILE_SHARED_CLASSES_CSV));
         }
-        else
-        {
+        else {
             isFolder = IOUtils.isFolder(versionsInDir, versionName);
-            versionInDirs.add( IOUtils.makeFilePath(versionsInDir,isFolder ? versionName : versionName + ".jar"));
+            versionInDirs.add(IOUtils.makeFilePath(versionsInDir, isFolder ? versionName : versionName + ".jar"));
         }
         versionIds.add(versionId);
         analyseArgs.add(isFolder ? "-fj" : "-jr");
         locs.add(loc);
-        buildFolder(versionId,versionName, newStructure);
+        buildFolder(versionId, versionName, newStructure);
     }
 
-    private void buildFolder(int versionId, String versionName, boolean newStructure) throws IOException
-    {
+    private void buildFolder(int versionId, String versionName, boolean newStructure) throws IOException {
         String localOutDir = IOUtils.makeFilePath(outDir, String.valueOf(versionId));
         IOUtils.makeDir(localOutDir);
         localOutDirs.add(localOutDir);
-        if (newStructure)
-        {
-            String locPerClassFilePath = IOUtils.makeFilePath(versionsInDir,versionName, IFN.STATS, IOFN.FILE_LOC_PER_CLASS_CSV);
+        if (newStructure) {
+            String locPerClassFilePath = IOUtils.makeFilePath(versionsInDir, versionName, IFN.STATS, IOFN.FILE_LOC_PER_CLASS_CSV);
             copyLocPerClass(locPerClassFilePath, localOutDir);
         }
     }
 
-
     @Override
-    public void run()
-    {
-        for (int i = 0; i < versionIds.size(); i++)
-        {
+    public void run() {
+        for (int i = 0; i < versionIds.size(); i++) {
             String[] arcanArgs =
                 {
                     "-p", versionInDirs.get(i), analyseArgs.get(i),
@@ -97,8 +87,7 @@ public class ArcanVersionRunner extends Thread
                     "-loc", String.valueOf(locs.get(i)), "-asTdEvolution",
                     suppressNonAsTdEvolutionArg, "-mute"
                 };
-            if (sharedClassesFileExists(i))
-            {
+            if (sharedClassesFileExists(i)) {
                 String[] additionalArguments =
                     {
                         "-cf", sharedClassesPaths.get(i)
@@ -111,20 +100,16 @@ public class ArcanVersionRunner extends Thread
         }
     }
 
-    private boolean sharedClassesFileExists(int versionId)
-    {
-        if(sharedClassesPaths.size()==0)
-        {
+    private boolean sharedClassesFileExists(int versionId) {
+        if (sharedClassesPaths.size() == 0) {
             return false;
         }
-        else
-        {
+        else {
             return IOUtils.doesFileExist(sharedClassesPaths.get(versionId));
         }
     }
 
-    private void copyLocPerClass(String inFilePath, String localOutDir) throws IOException
-    {
+    private void copyLocPerClass(String inFilePath, String localOutDir) throws IOException {
         String outFilePath = IOUtils.makeFilePath(localOutDir, IOFN.FILE_LOC_PER_CLASS_CSV);
         File original = new File(inFilePath);
         File copied = new File(outFilePath);

@@ -7,8 +7,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Objects;
 
-public abstract class InterVersionSmell<CollectionType extends Collection>
-{
+public abstract class InterVersionSmell<CollectionType extends Collection> {
+
     protected int smellId;
     protected int versionOfIntroduction;
     protected LocalDate timeOfIntroduction;
@@ -23,13 +23,11 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
     protected int successorsViaRefactoring;
     protected int predecessorsViaRefactoring;
 
-
     protected CollectionType intraVersionSmells;
 
     protected final TimeManager timeManager;
 
-    public InterVersionSmell(TimeManager timeManager, int versionOfIntroduction, CollectionType intraVersionSmells)
-    {
+    public InterVersionSmell(TimeManager timeManager, int versionOfIntroduction, CollectionType intraVersionSmells) {
         this.timeManager = timeManager;
         this.versionOfIntroduction = versionOfIntroduction;
         this.intraVersionSmells = intraVersionSmells;
@@ -43,8 +41,7 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
 
     public int getVersionOfRemoval() {return versionOfRemoval;}
 
-    private void calcAndInitSmellProps()
-    {
+    private void calcAndInitSmellProps() {
         timeOfIntroduction = timeManager.getVersionTime(versionOfIntroduction);
         versionOfRemoval = versionOfIntroduction + intraVersionSmells.size();
         timeOfRemoval = timeManager.getVersionTime(versionOfRemoval);
@@ -57,10 +54,9 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
     }
 
     @Override
-    public boolean equals(Object other)
-    {
-        if (this == other) { return true; }
-        if (other == null || getClass() != other.getClass()) { return false; }
+    public boolean equals(Object other) {
+        if (this == other) {return true;}
+        if (other == null || getClass() != other.getClass()) {return false;}
         InterVersionSmell<?> that = (InterVersionSmell<?>) other;
         return smellId == that.smellId;
     }
@@ -68,25 +64,23 @@ public abstract class InterVersionSmell<CollectionType extends Collection>
     @Override
     public int hashCode() {return Objects.hash(smellId);}
 
-    public Object get(String fieldName)
-    {
-        return switch (fieldName)
-            {
-                case OPN.ID -> smellId;
-                case OPN.VERSION_OF_INTRODUCTION -> versionOfIntroduction;
-                case OPN.TIME_OF_INTRODUCTION -> timeOfIntroduction;
-                case OPN.VERSION_OF_REMOVAL -> versionOfRemoval;
-                case OPN.TIME_OF_REMOVAL -> timeOfRemoval;
-                case OPN.LIFE_SPAN_IN_VERSIONS -> lifeSpanInVersions;
-                case OPN.LIFE_SPAN_IN_DAYS -> lifeSpanInDays;
-                case OPN.VERSION_ORIENTED_RELATIVE_LIFESPAN -> versionOrientedRelativeLifespan;
-                case OPN.TIME_ORIENTED_RELATIVE_LIFESPAN -> timeOrientedRelativeLifespan;
-                case OPN.PRESENT_IN_FIRST_VERSION -> presentInFirstVersion;
-                case OPN.PRESENT_IN_LAST_VERSION -> presentInLastVersion;
-                case OPN.PREDS_VIA_REFACTORING -> predecessorsViaRefactoring;
-                case OPN.SUCCS_VIA_REFACTORING -> successorsViaRefactoring;
+    public Object get(String fieldName) {
+        return switch (fieldName) {
+            case OPN.ID -> smellId;
+            case OPN.VERSION_OF_INTRODUCTION -> versionOfIntroduction;
+            case OPN.TIME_OF_INTRODUCTION -> timeOfIntroduction;
+            case OPN.VERSION_OF_REMOVAL -> versionOfRemoval;
+            case OPN.TIME_OF_REMOVAL -> timeOfRemoval;
+            case OPN.LIFE_SPAN_IN_VERSIONS -> lifeSpanInVersions;
+            case OPN.LIFE_SPAN_IN_DAYS -> lifeSpanInDays;
+            case OPN.VERSION_ORIENTED_RELATIVE_LIFESPAN -> versionOrientedRelativeLifespan;
+            case OPN.TIME_ORIENTED_RELATIVE_LIFESPAN -> timeOrientedRelativeLifespan;
+            case OPN.PRESENT_IN_FIRST_VERSION -> presentInFirstVersion;
+            case OPN.PRESENT_IN_LAST_VERSION -> presentInLastVersion;
+            case OPN.PREDS_VIA_REFACTORING -> predecessorsViaRefactoring;
+            case OPN.SUCCS_VIA_REFACTORING -> successorsViaRefactoring;
 
-                default -> null;
-            };
+            default -> null;
+        };
     }
 }

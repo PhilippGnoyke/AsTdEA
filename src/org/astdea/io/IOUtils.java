@@ -9,49 +9,41 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public final class IOUtils
-{
+public final class IOUtils {
+
     public static final String DELIMITER = AsTdEvolutionPrinter.DELIMITER;
 
     private IOUtils() {}
 
-    public static void makeDir(String fullName)
-    {
+    public static void makeDir(String fullName) {
         new File(fullName).mkdirs();
     }
 
-    public static Set<String> parseStringToSet(String input, String delimiter)
-    {
+    public static Set<String> parseStringToSet(String input, String delimiter) {
         return new HashSet<>(Arrays.asList(input.split(delimiter)));
     }
 
-    public static String makeFilePath(String... elements)
-    {
+    public static String makeFilePath(String... elements) {
         return String.join(File.separator, elements);
     }
 
-    public static File makeFile(String folderName, String fileName)
-    {
+    public static File makeFile(String folderName, String fileName) {
         return Paths.get(folderName, fileName).toAbsolutePath().toFile();
     }
 
-    public static File makeFile(String path)
-    {
+    public static File makeFile(String path) {
         return Paths.get(path).toAbsolutePath().toFile();
     }
 
-    public static int numOfFilesInFolder(File folder)
-    {
+    public static int numOfFilesInFolder(File folder) {
         return Objects.requireNonNull(folder.listFiles()).length;
     }
 
-    public static boolean isFolder(String folderName, String fileName)
-    {
+    public static boolean isFolder(String folderName, String fileName) {
         return makeFile(folderName, fileName).isDirectory();
     }
 
-    public static boolean doesFileExist(String path)
-    {
+    public static boolean doesFileExist(String path) {
         return makeFile(path).exists();
     }
 }

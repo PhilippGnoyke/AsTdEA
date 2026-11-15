@@ -8,21 +8,18 @@ import org.astdea.io.output.printer.compappender.CompAppender;
 import java.io.IOException;
 import java.util.Set;
 
-public class CompsPrinter<InterType extends InterVersionSmell> extends SmellSubPrinter<InterType> implements PrinterCore
-{
+public class CompsPrinter<InterType extends InterVersionSmell> extends SmellSubPrinter<InterType> implements PrinterCore {
+
     private CompAppender<InterType> compAppender;
 
-    public CompsPrinter(Set<InterType> inters, CompAppender<InterType> compAppender)
-    {
+    public CompsPrinter(Set<InterType> inters, CompAppender<InterType> compAppender) {
         super(inters);
         this.compAppender = compAppender;
     }
 
     @Override
-    public void print(String[] headers, CSVPrinter printer) throws IOException
-    {
-        for (InterType smell : inters)
-        {
+    public void print(String[] headers, CSVPrinter printer) throws IOException {
+        for (InterType smell : inters) {
             printer.print(smell.get(OPN.ID));
             StringBuilder compNames = new StringBuilder();
             compAppender.appendComps(smell, compNames);

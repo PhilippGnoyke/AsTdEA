@@ -6,12 +6,11 @@ import org.astdea.data.smells.intraversionsmells.IntraVersionUd;
 
 import java.util.List;
 
-public class UdMappings extends LinEvoTypeMappings<IntraVersionUd, InterVersionUd>
-{
-    public UdMappings(TimeManager timeManager) { super(timeManager); }
+public class UdMappings extends LinEvoTypeMappings<IntraVersionUd, InterVersionUd> {
 
-    protected InterVersionUd instantiateInter(int versionOfIntroduction, List<IntraVersionUd> intraVersionSmells)
-    {
-        return new InterVersionUd(timeManager,versionOfIntroduction, intraVersionSmells);
+    public UdMappings(TimeManager timeManager) {super(timeManager);}
+
+    protected InterVersionUd instantiateInter(int versionOfIntroduction, List<IntraVersionUd> intraVersionSmells) {
+        return new InterVersionUd(timeManager, versionOfIntroduction, intraVersionSmells);
     }
 }

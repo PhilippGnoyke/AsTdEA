@@ -9,28 +9,25 @@ import org.astdea.logic.mapping.UdMappings;
 
 import java.util.HashSet;
 
-public class UdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVersionUd, InterVersionUd, UdMappings>
-{
-    public UdVersionPairTracker(Version versionA, Version versionB, UdMappings mappings)
-    {
+public class UdVersionPairTracker extends LinEvoTypeVersionPairTracker<IntraVersionUd, InterVersionUd, UdMappings> {
+
+    public UdVersionPairTracker(Version versionA, Version versionB, UdMappings mappings) {
         this.mappings = mappings;
         this.versionOld = versionA;
         this.level = Level.PACK;
         unmappedIntrasA = new HashSet<>(versionA.getUds().values());
         unmappedIntrasB = new HashSet<>(versionB.getUds().values());
-        versionA.addTransitionCounter(AffType.UDC,transitionCounter);
-        versionA.addTransitionCounter(AffType.UDAE,transitionCounterAffEff);
+        versionA.addTransitionCounter(AffType.UDC, transitionCounter);
+        versionA.addTransitionCounter(AffType.UDAE, transitionCounterAffEff);
     }
 
     @Override
-    protected double calcJaccOfPair(IntraVersionUd intraA, IntraVersionUd intraB)
-    {
+    protected double calcJaccOfPair(IntraVersionUd intraA, IntraVersionUd intraB) {
         return componentCollectionMathUtils.jaccard(intraA.getLessStablePacksHashSet(), intraB.getLessStablePacksHashSet());
     }
 
     @Override
-    protected double calcPureFqcnJaccOfPair(IntraVersionUd intraA, IntraVersionUd intraB)
-    {
+    protected double calcPureFqcnJaccOfPair(IntraVersionUd intraA, IntraVersionUd intraB) {
         return mathUtils.jaccard(intraA.getLessStablePacksHashSet(), intraB.getLessStablePacksHashSet());
     }
 }

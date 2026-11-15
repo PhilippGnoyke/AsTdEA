@@ -77,8 +77,8 @@ public class Project {
         this.incomingCompChangeAffectedCounters = new HashMap<>();
         this.transitionCounters = new HashMap<>();
         for (AffType affType : AffType.values()) {
-            outgoingCompChangeAffectedCounters.put(affType, new CompChangeAffectedCounter(affType,true));
-            incomingCompChangeAffectedCounters.put(affType, new CompChangeAffectedCounter(affType,false));
+            outgoingCompChangeAffectedCounters.put(affType, new CompChangeAffectedCounter(affType, true));
+            incomingCompChangeAffectedCounters.put(affType, new CompChangeAffectedCounter(affType, false));
             transitionCounters.put(affType, new TransitionCounter());
         }
     }
@@ -172,7 +172,6 @@ public class Project {
             VersionCompManager vcmNew = versionNew.getVersionCompManager();
             Map<AffType, CompChangeAffectedCounter> versionOutgoingCompChangeAffectedCounters = versionOld.getOutgoingCompChangeAffectedCounters();
             Map<AffType, CompChangeAffectedCounter> versionIncomingCompChangeAffectedCounters = versionOld.getIncomingCompChangeAffectedCounters();
-
 
             Map<AffType, TransitionCounter> transitionCounters = versionOld.getTransitionCounters();
 

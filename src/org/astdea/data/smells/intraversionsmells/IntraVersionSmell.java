@@ -2,8 +2,8 @@ package org.astdea.data.smells.intraversionsmells;
 
 import java.util.Objects;
 
-public abstract class IntraVersionSmell
-{
+public abstract class IntraVersionSmell {
+
     private int smellId;
     private int versionId;
     private IntraId intraId;
@@ -15,9 +15,7 @@ public abstract class IntraVersionSmell
     private boolean successorViaRefactoringChange = false;
     private boolean predecessorViaRefactoringChange = false;
 
-
-    public IntraVersionSmell(int smellId, int versionId, double pageRank, int order, int size)
-    {
+    public IntraVersionSmell(int smellId, int versionId, double pageRank, int order, int size) {
         this.smellId = smellId;
         this.versionId = versionId;
         this.pageRank = pageRank;
@@ -26,25 +24,25 @@ public abstract class IntraVersionSmell
         this.intraId = new IntraId(versionId, smellId);
     }
 
-    public int getSmellId() { return smellId; }
+    public int getSmellId() {return smellId;}
 
-    public int getVersionId() { return versionId; }
+    public int getVersionId() {return versionId;}
 
-    public double getPageRank() { return pageRank; }
+    public double getPageRank() {return pageRank;}
 
-    public int getOrder() { return order; }
+    public int getOrder() {return order;}
 
-    public int getSize() { return size; }
+    public int getSize() {return size;}
 
-    public IntraId getIntraId() { return intraId; }
+    public IntraId getIntraId() {return intraId;}
 
-    public int getAge() { return age; }
+    public int getAge() {return age;}
 
-    public void setAge(int age) { this.age = age; }
+    public void setAge(int age) {this.age = age;}
 
-    public int getRemainingAge() { return remainingAge; }
+    public int getRemainingAge() {return remainingAge;}
 
-    public void setRemainingAge(int remainingAge) { this.remainingAge = remainingAge; }
+    public void setRemainingAge(int remainingAge) {this.remainingAge = remainingAge;}
 
     public void setPredecessorViaRefactoringChange() {
         this.predecessorViaRefactoringChange = true;
@@ -63,15 +61,13 @@ public abstract class IntraVersionSmell
     }
 
     @Override
-    public boolean equals(Object other)
-    {
-        if (this == other) { return true; }
-        if (other == null || getClass() != other.getClass()) { return false; }
+    public boolean equals(Object other) {
+        if (this == other) {return true;}
+        if (other == null || getClass() != other.getClass()) {return false;}
         IntraVersionSmell that = (IntraVersionSmell) other;
         return intraId.equals(that.intraId);
     }
 
     @Override
     public int hashCode() {return Objects.hash(intraId);}
-
 }

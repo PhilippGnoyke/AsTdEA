@@ -11,30 +11,26 @@ import org.psjava.ds.graph.MutableBipartiteGraph;
 import java.util.List;
 import java.util.Set;
 
-public class CdDeltaCalculator
-{
+public class CdDeltaCalculator {
+
     private CdMappings mappings;
     private Set<InterVersionCd> inters;
     private Deltas deltas;
     ComponentCollectionMathUtils componentCollectionMathUtils = ComponentCollectionMathUtils.getInstance();
 
-    public CdDeltaCalculator(CdMappings mappings, Set<InterVersionCd> inters, int analysedVersions)
-    {
+    public CdDeltaCalculator(CdMappings mappings, Set<InterVersionCd> inters, int analysedVersions) {
         this.mappings = mappings;
         this.inters = inters;
         deltas = new Deltas(analysedVersions);
     }
 
-    public Deltas calc()
-    {
+    public Deltas calc() {
         initIntrosForIntrasWOPred();
-        for (InterVersionCd inter : inters)
-        {
+        for (InterVersionCd inter : inters) {
             List<Set<IntraVersionCd>> intrasOfInter = inter.getIntraVersionSmells();
             initWeightsInVersion(intrasOfInter, 0);
-            for (int versionId = 0; versionId < intrasOfInter.size() - 1; versionId++)
-            {
-                initWeightsInVersion(intrasOfInter, versionId+1);
+            for (int versionId = 0; versionId < intrasOfInter.size() - 1; versionId++) {
+                initWeightsInVersion(intrasOfInter, versionId + 1);
                 MutableBipartiteGraph<IntraVersionCd> graph = buildInterBiparGraph(intrasOfInter, versionId);
                 updateIntrosForIntrasAfterSplit(versionId, graph);
                 transferWeights(graph);
@@ -44,50 +40,38 @@ public class CdDeltaCalculator
         return deltas;
     }
 
-    private void initIntrosForIntrasWOPred()
-    {
-        for (IntraVersionCd intra : mappings.getSmellsWOPredecessor())
-        {
+    private void initIntrosForIntrasWOPred() {
+        for (IntraVersionCd intra : mappings.getSmellsWOPredecessor()) {
             deltas.incrIntros(intra.getVersionId());
         }
     }
 
-    private void initWeightsInVersion(List<Set<IntraVersionCd>> intrasOfInter, int versionId)
-    {
-        for (IntraVersionCd intra : intrasOfInter.get(versionId))
-        {
+    private void initWeightsInVersion(List<Set<IntraVersionCd>> intrasOfInter, int versionId) {
+        for (IntraVersionCd intra : intrasOfInter.get(versionId)) {
             intra.initRemovalWeight();
         }
     }
 
-    private void updateIntrosForIntrasAfterSplit(int versionId, MutableBipartiteGraph<IntraVersionCd> graph)
-    {
+    private void updateIntrosForIntrasAfterSplit(int versionId, MutableBipartiteGraph<IntraVersionCd> graph) {
         int deltaConnectedSmells = graph.getRightVertices().size() - graph.getLeftVertices().size();
-        if (deltaConnectedSmells > 0)
-        {
+        if (deltaConnectedSmells > 0) {
             deltas.addIntros(versionId + 1, deltaConnectedSmells);
         }
     }
 
     private MutableBipartiteGraph<IntraVersionCd> buildInterBiparGraph
-        (List<Set<IntraVersionCd>> intrasInVersion, int versionId)
-    {
+        (List<Set<IntraVersionCd>> intrasInVersion, int versionId) {
         MutableBipartiteGraph<IntraVersionCd> graph = MutableBipartiteGraph.create();
-        for (IntraVersionCd intraA : intrasInVersion.get(versionId))
-        {
-            if (mappings.doesSmellHaveSuccessor(intraA))
-            {
+        for (IntraVersionCd intraA : intrasInVersion.get(versionId)) {
+            if (mappings.doesSmellHaveSuccessor(intraA)) {
                 graph.insertLeftVertex(intraA);
             }
         }
-        for (IntraVersionCd intraB : intrasInVersion.get(versionId + 1))
-        {
-            if (mappings.doesSmellHavePredecessor(intraB))
-            {
+        for (IntraVersionCd intraB : intrasInVersion.get(versionId + 1)) {
+            if (mappings.doesSmellHavePredecessor(intraB)) {
                 graph.insertRightVertex(intraB);
                 Set<IntraVersionCd> edges = mappings.getByNewIntra(intraB);
-                for (IntraVersionCd intraA : edges)
-                {
+                for (IntraVersionCd intraA : edges) {
                     graph.addEdge(intraA, intraB);
                 }
             }
@@ -95,52 +79,41 @@ public class CdDeltaCalculator
         return graph;
     }
 
-    private void calcRemovs()
-    {
-        for (IntraVersionCd intra : mappings.getSmellsWOSuccessor())
-        {
+    private void calcRemovs() {
+        for (IntraVersionCd intra : mappings.getSmellsWOSuccessor()) {
             deltas.addRemovs(intra.getVersionId() + 1, intra.getRemovalWeight());
         }
     }
 
-    private void transferWeights(MutableBipartiteGraph<IntraVersionCd> graph)
-    {
+    private void transferWeights(MutableBipartiteGraph<IntraVersionCd> graph) {
         MaximumBipartiteMatchingResult<IntraVersionCd> maxCardSubset = HopcroftKarpAlgorithm.getInstance().calc(graph);
-        for (IntraVersionCd intraA : graph.getLeftVertices())
-        {
+        for (IntraVersionCd intraA : graph.getLeftVertices()) {
             int restWeightA = intraA.getRemovalWeight();
-            if (maxCardSubset.hasMatch(intraA))
-            {
+            if (maxCardSubset.hasMatch(intraA)) {
                 restWeightA--;
             }
-            if (restWeightA > 0)
-            {
+            if (restWeightA > 0) {
                 transferRemainWeight(intraA, restWeightA);
             }
         }
     }
 
-    private void transferRemainWeight(IntraVersionCd intraA, int restWeightA)
-    {
+    private void transferRemainWeight(IntraVersionCd intraA, int restWeightA) {
         Set<IntraVersionCd> edges = mappings.getByOldIntra(intraA);
         IntraVersionCd mostSimilar = null;
         double jaccMax = 0;
-        for (IntraVersionCd intraB : edges)
-        {
+        for (IntraVersionCd intraB : edges) {
 
             double jacc = componentCollectionMathUtils.jaccard(intraA.getComps(), intraB.getComps());
-            if (jacc > jaccMax)
-            {
+            if (jacc > jaccMax) {
                 jaccMax = jacc;
                 mostSimilar = intraB;
             }
-            else if (jacc == jaccMax)
-            {
+            else if (jacc == jaccMax) {
                 assert mostSimilar != null;
                 double prDiffCurrent = Math.abs(intraA.getPageRank() - mostSimilar.getPageRank());
                 double prDiffOther = Math.abs(intraA.getPageRank() - intraB.getPageRank());
-                if (prDiffOther < prDiffCurrent)
-                {
+                if (prDiffOther < prDiffCurrent) {
                     mostSimilar = intraB;
                 }
             }

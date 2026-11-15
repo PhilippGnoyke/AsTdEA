@@ -8,20 +8,18 @@ import org.astdea.data.versions.Version;
 import org.astdea.logic.mapping.CdMappings;
 import org.astdea.logic.tracker.versionpairtracker.CdVersionPairTracker;
 
-public class CdProjectTracker extends SmellProjectTracker<IntraVersionCd, InterVersionCd, CdMappings>
-{
+public class CdProjectTracker extends SmellProjectTracker<IntraVersionCd, InterVersionCd, CdMappings> {
+
     private Level level;
 
-    public CdProjectTracker(TimeManager timeManager, Level level, int totalNumOfIntras)
-    {
-        super(timeManager,new CdMappings(timeManager,totalNumOfIntras));
+    public CdProjectTracker(TimeManager timeManager, Level level, int totalNumOfIntras) {
+        super(timeManager, new CdMappings(timeManager, totalNumOfIntras));
         this.level = level;
     }
 
     @Override
     protected CdVersionPairTracker instantiateVersionPairTracker
-        (Version versionA, Version versionB, CdMappings mappings)
-    {
+        (Version versionA, Version versionB, CdMappings mappings) {
         return new CdVersionPairTracker(versionA, versionB, mappings, level);
     }
 }

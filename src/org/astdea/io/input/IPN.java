@@ -5,8 +5,8 @@ import it.unimib.disco.essere.main.graphmanager.GraphBuilder;
 import it.unimib.disco.essere.main.metricsengine.ProjectMetricsCalculator;
 
 // IPN = InPropertyNames
-public final class IPN
-{
+public final class IPN {
+
     private IPN() {}
 
     public static final String DATE = "date";
@@ -33,5 +33,4 @@ public final class IPN
     public static final String AFF_COMPS = AsTdEvolutionPrinter.AFFERENT_CLASSES;
     public static final String EFF_COMPS = AsTdEvolutionPrinter.EFFERENT_CLASSES;
     public static final String LESS_STABLE_PACKS = AsTdEvolutionPrinter.LESS_STABLE_PACKS;
-
 }

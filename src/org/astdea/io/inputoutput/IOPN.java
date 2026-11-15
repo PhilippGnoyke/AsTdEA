@@ -6,7 +6,5 @@ public final class IOPN {
 
     private IOPN() {}
 
-
     public static final String VERSION_NAME = "versionName";
-
 }

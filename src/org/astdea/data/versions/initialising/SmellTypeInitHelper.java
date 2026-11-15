@@ -3,12 +3,11 @@ package org.astdea.data.versions.initialising;
 import org.apache.commons.csv.CSVRecord;
 import org.astdea.data.smells.intraversionsmells.IntraVersionSmell;
 
-abstract class SmellTypeInitHelper<IntraType extends IntraVersionSmell>
-{
+abstract class SmellTypeInitHelper<IntraType extends IntraVersionSmell> {
+
     protected VersionCompManager versionCompManager;
 
-    public SmellTypeInitHelper(VersionCompManager versionCompManager)
-    {
+    public SmellTypeInitHelper(VersionCompManager versionCompManager) {
         this.versionCompManager = versionCompManager;
     }
 
